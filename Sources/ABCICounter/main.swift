@@ -4,11 +4,12 @@
 
 
 import ABCISwift
-import Core // only there for the logger
 import Foundation
 import DataConvertible
+import Logging
 
-Logger.appenders = [CustomAppender()]
+let logger = Logger(label: "ABCICounter")
+
 
 class CounterApp: ABCIApplication {
     
@@ -68,7 +69,7 @@ class CounterApp: ABCIApplication {
     
     func query(_ q: Query) -> ResponseQuery {
         // Returns the last Tx count
-        Logger.debug(q)
+        logger.debug("\(q)")
         let k = "count".data
         let v = txCount.bigEndian.data
         return ResponseQuery.ok(key: k, value: v)
@@ -94,6 +95,6 @@ class CounterApp: ABCIApplication {
 
 
 
-let server = ABCIServer(application: CounterApp())
+let server = ABCIServer(CounterApp())
 
 try server.start()
