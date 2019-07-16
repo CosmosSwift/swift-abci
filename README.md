@@ -2,20 +2,21 @@
 
 Build blockchain applications in Swift on top of the Tendermint consensus.
 
-It uses Zewo as its Server core. Zewo is a coroutine based Server framework written in Swift.
+It uses [SwiftNIO](https://github.com/apple/swift-nio) as its server core.
 
-Swift version: 4.0.x
-ABCI version: 0.10.x (tendermint 0.16.0)
+Swift version: 5.0.x
+SwiftNIO version: 2.0.x
+ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 
 Installation
 ------------
-Requires Swift 4.0.x, on MacOS or a variant of Linux with the Swift 4.0.x toolchain installed.
+Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
 `git clone https://github.com/ratranqu/swiftabci`
 `cd swiftabci`
 `swift build`
 In your `Package.swift` file, add the repository as a dependency as such:
-```
+``` swift
 import PackageDescription
 
 let package = Package(
@@ -24,11 +25,11 @@ let package = Package(
         .executable(name: "ABCISwiftApp", targets: ["ABCISwiftApp"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/ratranqu/swiftabci.git", from: "0.1.0"),
+        .package(url: "https://github.com/ratranqu/swiftabci.git", from: "0.5.0"),
         .package(url: "https://gitlab.com/katalysis/dataconvertible.git", from: "0.1.0"),
     ],
     targets: [
-        .target(name: "ABCISwiftApp", dependencies: ["ABCISwift", "DataConvertible"]),
+        .target(name: "ABCISwiftApp", dependencies: ["ABCISwift", "ABCINIOSwift", "DataConvertible"]),
     ]
 )
 ```
@@ -37,25 +38,25 @@ Getting Started
 ---------------
 0. `import ABCISwift`
 1. Define a class complying to the following protocol:
-```
+``` swift
 public protocol ABCIApplication {
 
-    func initChain(_ validators: [Validator])
-    func info(_ version: String) -> ResponseInfo
+    func initChain(_ time: Date, _ chainId: String, _ consensusParams: ConsensusParams, _ updates: [ValidatorUpdate], _ appStateBytes: Data) -> ResponseInitChain
+    func info(_ version: String, _ blockVersion: UInt64, _ p2pVersion: UInt64) -> ResponseInfo
     func echo(_ message: String) -> ResponseEcho
     func flush()
     func setOption(_ key: String, _ value: String) -> ResponseSetOption
-    func deliverTx(_ tx: Data) -> Result
-    func checkTx(_ tx: Data) -> Result
+    func deliverTx(_ tx: Data) -> ResponseDeliverTx
+    func checkTx(_ tx: Data) -> ResponseCheckTx
     func query(_ q: Query) -> ResponseQuery
-    func beginBlock(_ hash: Data, _ header: Header, _ absentValidators: Int32, _ byzantineValidators: Evidence)
-    func endBlock(_ height: UInt64) -> ResponseEndBlock
-    func commit() -> Result
+    func beginBlock(_ hash: Data, _ header: Header, _ lastCommitInfo: LastCommitInfo, _ byzantineValidators: [Evidence]) -> ResponseBeginBlock
+    func endBlock(_ height: Int64) -> ResponseEndBlock
+    func commit() -> ResponseCommit
 }
 ```
 2. Implement the relevant Tendermint ABCI callbacks - see https://github.com/tendermint/abci
 3. Inititialize an ABCIServer with it:
-`let server = ABCIServer(application: CounterApp())`
+`let server = NIOABCIServer(CounterApp())`
 4. Run it
 `try server.start()`
 
@@ -66,28 +67,15 @@ here: `https://github.com/ratranqu/swiftabci/blob/master/Sources/ABCICounter/mai
 
 Development
 ---------------
+Pre requisites: `protoc` with the swift generation plugin is installed on your system (`https://github.com/apple/swift-protobuf`).
+
+For protoc swift plugin information: `https://github.com/apple/swift-protobuf/blob/master/Documentation/PLUGIN.md`
 
 Update the `types.pb.swift` file:
-1. get the proto file from  https://github.com/tendermint/abci and put it in `./Sources/ABCISwift/`
-2. `cd ./Sources/ABCISwift/`
-3.A  (Recommended) Generate the swift code from the proto file using: `docker run --rm -v $(pwd):$(pwd) -w $(pwd) znly/protoc --swift_out=. -I. types.proto`.  (https://github.com/znly/docker-protobuf)
-    0. this step requires a working `docker` install (see https://docker.com)
-3.B Manually generate the proto file:
-    0. there are import in the proto file, so you need to compile them separately before hand (possibly download them locally), see https://github.com/alexeyxo/protobuf-swift/issues/9
-    1. get the swift proto generator from https://github.com/apple/swift-protobuf and compile `protoc-gen-swift`
-    2. generate the swift protobuf file: `protoc --plugin=$PATH_TO_protoc-gen-swift --swift_out=. types.proto`
-
+1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
+2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCISwift/ -I=./protobuf/ $(find protobuf/github.com/tendermint -iname "*.proto")`
+3. [Optional]: `swift package generate-xcodeproj`
 
 Compile:
 1. run `swift build`
-
-Donations
-------------
-
-If you find this useful and have some cryto currencies to spend, or if you are wondering which is the next ICO you are going to fund, you can always show your appreciation by sending some to:
-bitcoin address:
-ethereum address:
-
-It will help fund further development of the project.
-Thanks!
 

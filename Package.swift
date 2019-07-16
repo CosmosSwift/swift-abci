@@ -9,6 +9,7 @@ let package = Package(
         // Products define the executables and libraries produced by a package, and make them visible to other packages.
         .executable(name: "Counter", targets: ["ABCICounter"]),
         .library(name: "ABCISwift", targets: ["ABCISwift"]),
+        .library(name: "ABCINIOSwift", targets: ["ABCINIOSwift"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -21,8 +22,9 @@ let package = Package(
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.
         // Targets can depend on other targets in this package, and on products in packages which this package depends on.
-        .target(name: "ABCICounter", dependencies: ["ABCISwift", "DataConvertible"]),
-        .target(name: "ABCISwift", dependencies: ["SwiftProtobuf", "NIO", "Logging", "DataConvertible"]),
+        .target(name: "ABCICounter", dependencies: ["ABCISwift", "ABCINIOSwift", "DataConvertible"]),
+        .target(name: "ABCISwift", dependencies: ["SwiftProtobuf", "Logging"]),
+        .target(name: "ABCINIOSwift", dependencies: ["NIO", "Logging", "ABCISwift"]),
         .testTarget(name: "ABCISwiftTests", dependencies: ["ABCISwift"]),
     ]
 )

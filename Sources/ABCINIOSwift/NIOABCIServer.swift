@@ -1,24 +1,22 @@
 //
-//  Server.swift
+//  NIOABCIServer.swift
 //  ABCISwift
 //
 
-//import Foundation
-//import Core
-//import IO
-//import Venice
-import SwiftProtobuf
 import NIO
+import Logging
+import ABCISwift
 
-public final class ABCIServer {
+public final class NIOABCIServer: ABCIServer {
 
-    //private let application: ABCIApplication
     private let group: EventLoopGroup
-    private let bootstrap: ServerBootstrap
+    private let bootstrap: ServerBootstrap    
+    private let logger: Logger
     
     /// Creates a new ABCI server
-    public init( _ application: ABCIApplication) {
-        let abciHandler = ABCITCPHandler(application)
+    public init( application: ABCIApplication, logger: Logger) {
+        self.logger = logger
+        let abciHandler = NIOABCIChannelHandler(application, logger)
         
         group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
         bootstrap = ServerBootstrap(group: group)
@@ -35,31 +33,30 @@ public final class ABCIServer {
             .childChannelOption(ChannelOptions.socket(SocketOptionLevel(SOL_SOCKET), SO_REUSEADDR), value: 1)
             .childChannelOption(ChannelOptions.maxMessagesPerRead, value: 16)
             .childChannelOption(ChannelOptions.recvAllocator, value: AdaptiveRecvByteBufferAllocator())
-        
-        
     }
     
     deinit {
         do {
             try self.stop()
         } catch {
-            
+            logger.error("Shutdown failure.")
         }
     }
     
     /// Start server
-    public func start(_ host: String = "::1", _ port: Int = 46658) throws {
+    public func start(host: String, port: Int) throws {
         let channel = try bootstrap.bind(host: host, port: port).wait()
         
         guard let localAddress = channel.localAddress else {
+            logger.error("Address was unable to bind. Please check that the socket was not closed or that the address family was understood.")
             fatalError("Address was unable to bind. Please check that the socket was not closed or that the address family was understood.")
         }
-        print("Server started and listening on \(localAddress)")
+        logger.info("Server started and listening on \(localAddress)")
         
         // This will never unblock as we don't close the ServerChannel.
         try channel.closeFuture.wait()
         
-        print("ABCIServer closed")
+        logger.info("ABCIServer closed")
     }
     
     /// Stop server
