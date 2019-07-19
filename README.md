@@ -1,4 +1,10 @@
+<table><thead><tr align="center"><th width="9999">
+The <a href="https://github.com/ratranqu/swift-abci" rel="nofollow noreferrer noopener" target="_blank">GitHub repository</a> is a <b>read-only</b> mirror of the GitLab repository. For issues and merge requests, <a href="https://gitlab.com/ratranqu/swift-abci" rel="nofollow noreferrer noopener" target="_blank">please visit GitLab</a>.
+</th></tr></thead></table>
+
 # ABCISwift
+![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
+![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-lightgrey.svg)
 
 Build blockchain applications in Swift on top of the Tendermint consensus.
 
@@ -12,8 +18,8 @@ Installation
 ------------
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
-`git clone https://github.com/ratranqu/swiftabci`
-`cd swiftabci`
+`git clone https://gitlab.com/ratranqu/swift-abci.git`
+`cd swift-abci`
 `swift build`
 In your `Package.swift` file, add the repository as a dependency as such:
 ``` swift
@@ -25,7 +31,7 @@ let package = Package(
         .executable(name: "ABCISwiftApp", targets: ["ABCISwiftApp"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/ratranqu/swiftabci.git", from: "0.5.0"),
+        .package(url: "https://gitlab.com/ratranqu/swift-abci.git", from: "1.0.0"),
         .package(url: "https://gitlab.com/katalysis/dataconvertible.git", from: "0.1.0"),
     ],
     targets: [
