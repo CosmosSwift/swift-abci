@@ -122,3 +122,8 @@ Check out [CONTRIBUTING.md](https://gitlab.com/ratranqu/swift-abci/blob/master/C
 ## Contributors
 
 Check out [CONTRIBUTORS.txt](https://gitlab.com/ratranqu/swift-abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
+
+
+## Notice
+
+The structure for this repository has been greatly inspired by [RediStack](https://gitlab.com/Mordil/swift-redi-stack).
