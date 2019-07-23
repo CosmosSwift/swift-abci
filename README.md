@@ -19,9 +19,12 @@ ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
-`git clone https://gitlab.com/ratranqu/swift-abci.git`
-`cd swift-abci`
-`swift build`
+``` bash 
+git clone https://gitlab.com/ratranqu/swift-abci.git
+cd swift-abci
+swift build
+```
+
 In your `Package.swift` file, add the repository as a dependency as such:
 ``` swift
 import PackageDescription
