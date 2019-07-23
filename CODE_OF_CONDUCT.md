@@ -2,9 +2,9 @@
 To be a truly great community, ABCISwift needs to welcome developers from all walks of life,
 with different backgrounds, and with a wide range of experience. A diverse and friendly
 community will have more great ideas, more unique perspectives, and produce more great 
-code. We will work diligently to make the RediStack community welcoming to everyone.
+code. We will work diligently to make the ABCISwift community welcoming to everyone.
 
-To give clarity of what is expected of our members, RediStack has adopted the code of conduct 
+To give clarity of what is expected of our members, ABCISwift has adopted the code of conduct 
 defined by [contributor-covenant.org](https://www.contributor-covenant.org). This document is used across many open source 
 communities, and we think it articulates our values well. The full text is copied below:
 
