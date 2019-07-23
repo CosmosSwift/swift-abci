@@ -1,18 +1,17 @@
-/*
- Copyright 2019 Alex Tran Qui (alex.tranqui@asymtech.eu)
+//===----------------------------------------------------------------------===//
+//
+// This source file is part of the ABCISwift open source project
+//
+// Copyright (c) 2019 ABCISwift project authors
+// Licensed under Apache License v2.0
+//
+// See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of ABCISwift project authors
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+//===----------------------------------------------------------------------===//
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
 
 import ABCISwift
 import ABCINIOSwift
@@ -20,26 +19,23 @@ import Foundation
 import DataConvertible
 
 
+/// Simple counter app.  It only excepts values sent to it in order.  The
+///  state maintains the current count. For example if starting at state 0, sending:
+///  -> 0x01 = ok
+///  -> 0x03 = fail (expects 2)
+///  To run it:
+///  - make a clean new directory for tendermint
+///  - start this server: .build/debug/ABCICounter
+///  - start tendermint: tendermint --home "YOUR DIR HERE" node
+///  - The send transactions to the app:
+///  curl http://localhost:26657/broadcast_tx_commit?tx=0x01
+///  curl http://localhost:26657/broadcast_tx_commit?tx=0x02
+///  ...
+///  to see the latest count:
+///  curl http://localhost:26657/abci_query
+///  The way the app state is structured, you can also see the current state value
+///  in the tendermint console output.
 class CounterApp: ABCIApplication {
-
-/*
-    Simple counter app.  It only excepts values sent to it in order.  The
-    state maintains the current count. For example if starting at state 0, sending:
-    -> 0x01 = ok
-    -> 0x03 = fail (expects 2)
-    To run it:
-    - make a clean new directory for tendermint
-    - start this server: .build/debug/ABCICounter
-    - start tendermint: tendermint --home "YOUR DIR HERE" node
-    - The send transactions to the app:
-    curl http://localhost:26657/broadcast_tx_commit?tx=0x01
-    curl http://localhost:26657/broadcast_tx_commit?tx=0x02
-    ...
-    to see the latest count:
-    curl http://localhost:26657/abci_query
-    The way the app state is structured, you can also see the current state value
-    in the tendermint console output.
-*/
 
     var txCount: UInt64 = 0
     var lastBlockheight: UInt64 = 0
@@ -62,7 +58,7 @@ class CounterApp: ABCIApplication {
         let bp = BlockParams(maxBytes: 4096, maxGas: 1000)
         let ep = EvidenceParams(maxAge: 10000)
         let vp = ValidatorParams(pubKeyTypes: ["ed25519"])
-        let cu = ConsensusParams(block: bp, evidence: ep, validator: vp)
+        let cu = ConsensusParams(bp, ep, vp)
         return ResponseInitChain(cu, [])
     }
     
@@ -118,7 +114,7 @@ class CounterApp: ABCIApplication {
         let bp = BlockParams(maxBytes: 22020096, maxGas: -1)
         let ep = EvidenceParams(maxAge: 100000)
         let vp = ValidatorParams(pubKeyTypes: ["ed25519"])
-        let cu = ConsensusParams(block: bp, evidence: ep, validator: vp)
+        let cu = ConsensusParams(bp, ep, vp)
         let e: [Event] = []
         return ResponseEndBlock(updates: [], consensusUpdates: cu, events: e)
     }

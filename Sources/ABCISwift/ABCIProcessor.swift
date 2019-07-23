@@ -1,18 +1,17 @@
-/*
- Copyright 2019 Alex Tran Qui (alex.tranqui@asymtech.eu)
- 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
+//===----------------------------------------------------------------------===//
+//
+// This source file is part of the ABCISwift open source project
+//
+// Copyright (c) 2019 ABCISwift project authors
+// Licensed under Apache License v2.0
+//
+// See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of ABCISwift project authors
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+//===----------------------------------------------------------------------===//
+
 
 import Foundation
 import Logging
@@ -73,7 +72,7 @@ public struct ABCIProcessor {
                         case let .setOption(r):
                             response.setOption = Types_ResponseSetOption(application.setOption(r.key, r.value))
                         case let .query(r):
-                            response.query = Types_ResponseQuery(application.query(Query(data: r.data, path: r.path, height: r.height, prove: r.prove)))
+                            response.query = Types_ResponseQuery(application.query(Query(r.data, r.path, r.height, r.prove)))
                         case let .initChain(r):
                             response.initChain = Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map{ ValidatorUpdate(protobuf: $0) } , r.appStateBytes))
                         }

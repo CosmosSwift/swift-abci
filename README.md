@@ -4,7 +4,7 @@ The <a href="https://github.com/ratranqu/swift-abci" rel="nofollow noreferrer no
 
 # ABCISwift
 ![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
-![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-lightgrey.svg)
+![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
 Build blockchain applications in Swift on top of the Tendermint consensus.
 
@@ -14,8 +14,9 @@ Swift version: 5.0.x
 SwiftNIO version: 2.0.x
 ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 
-Installation
-------------
+
+## Installation
+
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
 `git clone https://gitlab.com/ratranqu/swift-abci.git`
@@ -40,8 +41,19 @@ let package = Package(
 )
 ```
 
-Getting Started
----------------
+## Prerequisites
+
+Initialise and run Tendermint (for instance in Docker): 
+```bash
+# initialise tendermint
+docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint init
+
+# run a single tendermint node
+docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint node --proxy_app="tcp://host.docker.internal:26658"
+```
+
+## Getting Started
+
 0. `import ABCISwift`
 1. Define a class complying to the following protocol:
 ``` swift
@@ -70,9 +82,10 @@ public protocol ABCIApplication {
 See the example app `ABCICounter` application under the directory of the same name in `./Sources`.
 here: `https://github.com/ratranqu/swiftabci/blob/master/Sources/ABCICounter/main.swift`
 
+6. Compile and run
 
-Development
----------------
+## Development
+
 Pre requisites: `protoc` with the swift generation plugin is installed on your system (`https://github.com/apple/swift-protobuf`).
 
 For protoc swift plugin information: `https://github.com/apple/swift-protobuf/blob/master/Documentation/PLUGIN.md`
@@ -85,3 +98,24 @@ Update the `types.pb.swift` file:
 Compile:
 1. run `swift build`
 
+## Documentation
+
+The docs for the latest tagged release are always available at [https://ratranqu.gitlab.io/swift-abci/](https://ratranqu.gitlab.io/swift-abci/).
+
+## Questions
+
+For bugs or feature requests, file a new [issue](https://gitlab.com/ratranqu/swift-abci/issues).
+
+For all other support requests, please email [opensource@katalysis.io](mailto:opensource@katalysis.io).
+
+## Changelog
+
+[SemVer](https://semver.org/) changes are documented for each release on the [releases page](https://gitlab.com/ratranqu/swift-abci/-/releases).
+
+## Contributing
+
+Check out [CONTRIBUTING.md](https://gitlab.com/ratranqu/swift-abci/blob/master/CONTRIBUTING.md) for more information on how to help with **ABCISwift**.
+
+## Contributors
+
+Check out [CONTRIBUTORS.txt](https://gitlab.com/ratranqu/swift-abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
