@@ -5,8 +5,6 @@ stages:
 
 pages:
   stage: Docs
-  only:
-    - tags
   image: norionomura/jazzy
   tags:
     - docker
