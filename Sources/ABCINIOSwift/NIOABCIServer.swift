@@ -12,7 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import NIO
 import Logging
 import ABCISwift
@@ -53,7 +52,9 @@ public final class NIOABCIServer: ABCIServer {
         }
     }
     
-    /// Start server
+    /// Starts the server.
+    /// - Parameter host: The host as a string. It can be an ip address.
+    /// - Parameter port: The port on which the server is listening.
     public func start(host: String, port: Int) throws {
         let channel = try bootstrap.bind(host: host, port: port).wait()
         

@@ -12,12 +12,9 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-
 import NIO
 import Logging
 import ABCISwift
-
 
 public final class NIOABCIChannelHandler: ChannelInboundHandler {
     public typealias InboundIn = ByteBuffer

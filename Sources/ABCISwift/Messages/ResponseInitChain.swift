@@ -12,7 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 public class ResponseInitChain {
     public let consensusParams: ConsensusParams
     public let validators: [ValidatorUpdate]

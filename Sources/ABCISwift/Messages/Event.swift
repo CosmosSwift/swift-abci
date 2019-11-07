@@ -12,9 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import Foundation
-
 
 public class Event {
     public let type: String

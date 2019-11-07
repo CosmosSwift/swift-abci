@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class LastCommitInfo {
     public let round: Int32
     public let votes: [VoteInfo]

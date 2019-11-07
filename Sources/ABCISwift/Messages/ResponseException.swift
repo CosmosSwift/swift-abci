@@ -12,9 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import Foundation
-
 
 public class ResponseException {
     public let error: String = ""

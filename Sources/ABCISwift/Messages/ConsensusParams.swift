@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class ConsensusParams {
     public let block: BlockParams
     public let evidence: EvidenceParams

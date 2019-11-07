@@ -12,7 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import Foundation
 
 public class ResponseDeliverTx: ResponseBase {

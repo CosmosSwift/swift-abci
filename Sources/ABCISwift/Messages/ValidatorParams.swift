@@ -12,9 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import Foundation
-import SwiftProtobuf
 
 public class ValidatorParams {
     public let pubKeyTypes: [String]

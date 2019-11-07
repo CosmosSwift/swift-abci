@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class VoteInfo {
     public let validator: Validator
     public let signedLastBlock: Bool

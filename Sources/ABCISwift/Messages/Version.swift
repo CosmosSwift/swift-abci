@@ -12,10 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-import SwiftProtobuf
-
 public class Version {
     public let block : UInt64
     public let app: UInt64

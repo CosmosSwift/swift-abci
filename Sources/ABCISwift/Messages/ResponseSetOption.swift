@@ -15,7 +15,6 @@
 
 import Foundation
 
-
 public class ResponseSetOption {
     //    public let code: UInt32
     public let log: String

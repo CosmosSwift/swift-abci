@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class ValidatorUpdate {
     public let pubKey: PubKey
     public let power: Int64

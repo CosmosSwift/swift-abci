@@ -12,9 +12,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 import Foundation
-import SwiftProtobuf
 
 public class Validator {
     public let address: Data

@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class EvidenceParams {
     public let maxAge: Int64
     

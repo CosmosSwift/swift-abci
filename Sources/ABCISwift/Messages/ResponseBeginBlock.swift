@@ -12,7 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
 public class ResponseBeginBlock {
     public let events: [Event]
     

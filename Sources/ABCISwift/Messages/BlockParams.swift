@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class BlockParams {
     public let maxBytes: Int64
     public let maxGas: Int64

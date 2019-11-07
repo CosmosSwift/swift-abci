@@ -17,7 +17,11 @@ import Foundation
 import Logging
 
 public struct ABCIProcessor {
-    
+    /// Proceses the incoming ABCI messages from Tendermint Core.
+    /// - Parameter bytes: the message.
+    /// - Parameter application: the ABCI Server processing the messages.
+    /// - Parameter logger: Logger.
+    /// - Returns: the serialized response from the the ABCI server .
     public static func process(_ bytes: [UInt8], _ application: ABCIApplication, _ logger: Logger) -> [UInt8] {
         var pos = 0
         var result: [UInt8] = []

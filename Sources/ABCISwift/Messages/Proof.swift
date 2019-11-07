@@ -12,9 +12,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-
-import Foundation
-
 public class Proof {
     public let ops: [ProofOp]
     public init(ops: [ProofOp]) {
