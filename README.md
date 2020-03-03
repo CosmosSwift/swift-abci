@@ -1,8 +1,8 @@
 <table><thead><tr align="center"><th width="9999">
-The <a href="https://github.com/ratranqu/swift-abci" rel="nofollow noreferrer noopener" target="_blank">GitHub repository</a> is a <b>read-only</b> mirror of the GitLab repository. For issues and merge requests, <a href="https://gitlab.com/ratranqu/swift-abci" rel="nofollow noreferrer noopener" target="_blank">please visit GitLab</a>.
+The <a href="https://github.com/katalysis.io/cosmoswift/abci" rel="nofollow noreferrer noopener" target="_blank">GitHub repository</a> is a <b>read-only</b> mirror of the GitLab repository. For issues and merge requests, <a href="https://gitlab.com/katalysis/open-source/cosmosswift/abci" rel="nofollow noreferrer noopener" target="_blank">please visit GitLab</a>.
 </th></tr></thead></table>
 
-# ABCISwift
+# CosmsosSwift/ABCI
 ![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
@@ -20,7 +20,7 @@ ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
 ``` bash 
-git clone https://gitlab.com/ratranqu/swift-abci.git
+git clone https://gitlab.com/katalysis/open-source/cosmosswift/abci.git
 cd swift-abci
 swift build
 ```
@@ -35,11 +35,11 @@ let package = Package(
         .executable(name: "ABCISwiftApp", targets: ["ABCISwiftApp"]),
     ],
     dependencies: [
-        .package(url: "https://gitlab.com/ratranqu/swift-abci.git", from: "1.0.0"),
+        .package(url: "https://gitlab.com/katalysis/open-source/cosmosswift/abci.git", from: "1.0.0"),
         .package(url: "https://gitlab.com/katalysis/dataconvertible.git", from: "0.1.0"),
     ],
     targets: [
-        .target(name: "ABCISwiftApp", dependencies: ["ABCISwift", "ABCINIOSwift", "DataConvertible"]),
+        .target(name: "ABCISwiftApp", dependencies: ["ABCI", "ABCINIO", "DataConvertible"]),
     ]
 )
 ```
@@ -57,7 +57,7 @@ docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermi
 
 ## Getting Started
 
-0. `import ABCISwift`
+0. `import ABCI`
 1. Define a class complying to the following protocol:
 ``` swift
 public protocol ABCIApplication {
@@ -83,7 +83,7 @@ public protocol ABCIApplication {
 
 
 See the example app `ABCICounter` application under the directory of the same name in `./Sources`.
-here: `https://github.com/ratranqu/swiftabci/blob/master/Sources/ABCICounter/main.swift`
+here: `https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/Sources/ABCICounter/main.swift`
 
 6. Compile and run
 
@@ -95,7 +95,7 @@ For protoc swift plugin information: `https://github.com/apple/swift-protobuf/bl
 
 Update the `types.pb.swift` file:
 1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
-2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCISwift/ -I=./protobuf/ $(find protobuf/github.com/tendermint -iname "*.proto")`
+2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/github.com/tendermint -iname "*.proto")`
 3. [Optional]: `swift package generate-xcodeproj`
 
 Compile:
@@ -103,25 +103,25 @@ Compile:
 
 ## Documentation
 
-The docs for the latest tagged release are always available at [https://ratranqu.gitlab.io/swift-abci/](https://ratranqu.gitlab.io/swift-abci/).
+The docs for the latest tagged release are always available at [https://gitlab.com/katalysis/open-source/cosmosswift/abci/](https://gitlab.com/katalysis/open-source/cosmosswift/abci/).
 
 ## Questions
 
-For bugs or feature requests, file a new [issue](https://gitlab.com/ratranqu/swift-abci/issues).
+For bugs or feature requests, file a new [issue](https://gitlab.com/katalysis/open-source/cosmosswift/abci/issues).
 
 For all other support requests, please email [opensource@katalysis.io](mailto:opensource@katalysis.io).
 
 ## Changelog
 
-[SemVer](https://semver.org/) changes are documented for each release on the [releases page](https://gitlab.com/ratranqu/swift-abci/-/releases).
+[SemVer](https://semver.org/) changes are documented for each release on the [releases page](https://gitlab.com/katalysis/open-source/cosmosswift/abci/-/releases).
 
 ## Contributing
 
-Check out [CONTRIBUTING.md](https://gitlab.com/ratranqu/swift-abci/blob/master/CONTRIBUTING.md) for more information on how to help with **ABCISwift**.
+Check out [CONTRIBUTING.md](https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/CONTRIBUTING.md) for more information on how to help with **ABCISwift**.
 
 ## Contributors
 
-Check out [CONTRIBUTORS.txt](https://gitlab.com/ratranqu/swift-abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
+Check out [CONTRIBUTORS.txt](https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
 
 
 ## Notice

@@ -1,0 +1,27 @@
+//===----------------------------------------------------------------------===//
+//
+// This source file is part of the ABCICosmsosSwift/ABCISwift open source project
+//
+// Copyright (c) 2019 CosmsosSwift/ABCI project authors
+// Licensed under Apache License v2.0
+//
+// See LICENSE.txt for license information
+// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//
+// SPDX-License-Identifier: Apache-2.0
+//
+//===----------------------------------------------------------------------===//
+
+public class EvidenceParams {
+    public let maxAge: Int64
+    
+    public init(maxAge: Int64) {
+        self.maxAge = maxAge
+    }
+}
+
+extension Types_EvidenceParams {
+    init(_ e: EvidenceParams) {
+        self.maxAge = e.maxAge
+    }
+}

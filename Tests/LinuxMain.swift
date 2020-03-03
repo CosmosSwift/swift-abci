@@ -1,6 +1,6 @@
 import XCTest
-@testable import ABCISwiftTests
+@testable import ABCITests
 
 XCTMain([
-    testCase(ABCISwiftTests.allTests),
+    testCase(ABCITests.allTests),
 ])
