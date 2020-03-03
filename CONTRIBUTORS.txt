@@ -4,6 +4,7 @@ For employees of an organization/company where the copyright of work done
 by employees of that company is held by the company itself, only the company
 needs to be listed here.
 ## COPYRIGHT HOLDERS
+- Katalysis BV (NL, kvk: 66264707)
 ### Contributors
 - Alex Tran Qui <alex@katalysis.io>
 **Updating this list**
