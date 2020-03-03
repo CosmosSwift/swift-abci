@@ -21,7 +21,7 @@ Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolch
 
 ``` bash 
 git clone https://gitlab.com/katalysis/open-source/cosmosswift/abci.git
-cd swift-abci
+cd abci
 swift build
 ```
 
