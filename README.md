@@ -2,7 +2,7 @@
 The <a href="https://github.com/katalysis.io/cosmoswift/abci" rel="nofollow noreferrer noopener" target="_blank">GitHub repository</a> is a <b>read-only</b> mirror of the GitLab repository. For issues and merge requests, <a href="https://gitlab.com/katalysis/open-source/cosmosswift/abci" rel="nofollow noreferrer noopener" target="_blank">please visit GitLab</a>.
 </th></tr></thead></table>
 
-# CosmsosSwift/ABCI
+# CosmosSwift/ABCI
 ![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
@@ -103,7 +103,7 @@ Compile:
 
 ## Documentation
 
-The docs for the latest tagged release are always available at [https://gitlab.com/katalysis/open-source/cosmosswift/abci/](https://gitlab.com/katalysis/open-source/cosmosswift/abci/).
+The docs for the latest tagged release are always available at [https://katalysis.gitlab.io/open-source/cosmosswift/abci/]https://katalysis.gitlab.io/open-source/cosmosswift/abci/).
 
 ## Questions
 
