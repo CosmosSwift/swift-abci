@@ -1,8 +1,4 @@
-<table><thead><tr align="center"><th width="9999">
-The <a href="https://github.com/katalysis.io/cosmoswift/abci" rel="nofollow noreferrer noopener" target="_blank">GitHub repository</a> is a <b>read-only</b> mirror of the GitLab repository. For issues and merge requests, <a href="https://gitlab.com/katalysis/open-source/cosmosswift/abci" rel="nofollow noreferrer noopener" target="_blank">please visit GitLab</a>.
-</th></tr></thead></table>
-
-# CosmosSwift/ABCI
+# CosmosSwift/swift-abci
 ![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
@@ -20,7 +16,7 @@ ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
 ``` bash
-git clone https://gitlab.com/katalysis/open-source/cosmosswift/abci.git
+git clone https://github.com/cosmosswift/swift-abci.git
 cd abci
 swift build
 ```
@@ -35,7 +31,7 @@ let package = Package(
         .executable(name: "ABCISwiftApp", targets: ["ABCISwiftApp"]),
     ],
     dependencies: [
-        .package(url: "https://gitlab.com/katalysis/open-source/cosmosswift/abci.git", from: "1.0.0"),
+        .package(url: "https://github.com/cosmosswift/swift-abci.git", from: "1.0.0"),
         .package(url: "https://gitlab.com/katalysis/dataconvertible.git", from: "0.1.0"),
     ],
     targets: [
@@ -83,7 +79,7 @@ public protocol ABCIApplication {
 
 
 See the example app `ABCICounter` application under the directory of the same name in `./Sources`.
-here: `https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/Sources/ABCICounter/main.swift`
+here: `https://github.com/cosmosswift/swift-abci/blob/master/Sources/ABCICounter/main.swift`
 
 6. Compile and run
 
@@ -103,27 +99,22 @@ Compile:
 
 ## Documentation
 
-The docs for the latest tagged release are always available at [https://katalysis.gitlab.io/open-source/cosmosswift/abci/]https://katalysis.gitlab.io/open-source/cosmosswift/abci/).
+The docs for the latest tagged release are always available at [https://github.com/cosmosswift/swift-abci/]https://github.com/cosmosswift/swift-abci/).
 
 ## Questions
 
-For bugs or feature requests, file a new [issue](https://gitlab.com/katalysis/open-source/cosmosswift/abci/issues).
+For bugs or feature requests, file a new [issue](https://github.com/cosmosswift/swift-abci/issues).
 
 For all other support requests, please email [opensource@katalysis.io](mailto:opensource@katalysis.io).
 
 ## Changelog
 
-[SemVer](https://semver.org/) changes are documented for each release on the [releases page](https://gitlab.com/katalysis/open-source/cosmosswift/abci/-/releases).
+[SemVer](https://semver.org/) changes are documented for each release on the [releases page](https://github.com/cosmosswift/swift-abci/-/releases).
 
 ## Contributing
 
-Check out [CONTRIBUTING.md](https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/CONTRIBUTING.md) for more information on how to help with **ABCISwift**.
+Check out [CONTRIBUTING.md](https://github.com/cosmosswift/swift-abci/blob/master/CONTRIBUTING.md) for more information on how to help with **swift-abci**.
 
 ## Contributors
 
-Check out [CONTRIBUTORS.txt](https://gitlab.com/katalysis/open-source/cosmosswift/abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
-
-
-## Notice
-
-The structure for this repository has been greatly inspired by [RediStack](https://gitlab.com/Mordil/swift-redi-stack).
+Check out [CONTRIBUTORS.txt](https://github.com/cosmosswift/swift-abci/blob/master/CONTRIBUTORS.txt) to see the full list. This list is updated for each release.
