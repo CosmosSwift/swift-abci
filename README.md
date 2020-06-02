@@ -19,7 +19,7 @@ ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
 
 Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
 
-``` bash 
+``` bash
 git clone https://gitlab.com/katalysis/open-source/cosmosswift/abci.git
 cd swift-abci
 swift build
@@ -46,7 +46,7 @@ let package = Package(
 
 ## Prerequisites
 
-Initialise and run Tendermint (for instance in Docker): 
+Initialise and run Tendermint (for instance in Docker):
 ```bash
 # initialise tendermint
 docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint init

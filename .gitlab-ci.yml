@@ -80,4 +80,3 @@ test latest:ubuntu-xenial:
 test 5.1:ubuntu-bionic:
   extends: .test
   image: swift:5.1-bionic
-

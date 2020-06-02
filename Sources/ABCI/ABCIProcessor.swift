@@ -1,17 +1,18 @@
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===
 //
-// This source file is part of the CosmsosSwift/ABCI open source project
+//  This source file is part of the CosmosSwift open source project.
 //
-// Copyright (c) 2019 CosmsosSwift/ABCI project authors
-// Licensed under Apache License v2.0
+//  ABCIProcessor.swift last updated 02/06/2020
 //
-// See LICENSE.txt for license information
-// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
+//  Licensed under Apache License v2.0
 //
-// SPDX-License-Identifier: Apache-2.0
+//  See LICENSE.txt for license information
+//  See CONTRIBUTORS.txt for the list of CosmosSwift project authors
 //
-//===----------------------------------------------------------------------===//
-
+//  SPDX-License-Identifier: Apache-2.0
+//
+// ===----------------------------------------------------------------------===
 
 import Foundation
 import Logging
@@ -26,7 +27,7 @@ public struct ABCIProcessor {
         var pos = 0
         var result: [UInt8] = []
         var sizeRemainingToProcess: Int?
-        while (pos < bytes.count) {
+        while pos < bytes.count {
             // iterate over full buffer
             var size = 0
             if let s = sizeRemainingToProcess {
@@ -41,16 +42,16 @@ public struct ABCIProcessor {
                     zigzagSize += Int(current) & 127 * mul
                     pos += 1
                     mul *= 128
-                } while (current >> 7 != 0)
-                
+                } while current >> 7 != 0
+
                 size = zigzagSize >> 1 // sizes are always >0
                 sizeRemainingToProcess = size
             }
             // if enough bytes remaining, process
-            if (pos + size <= bytes.count) {
+            if pos + size <= bytes.count {
                 // Add message to requests
                 do {
-                    let request = try Types_Request(serializedData: Data([UInt8](bytes[pos..<pos+size])))
+                    let request = try Types_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
                     var response: Types_Response! = Types_Response()
                     logger.debug("\(request)")
                     switch request.value {
@@ -64,7 +65,7 @@ public struct ABCIProcessor {
                         case let .info(r):
                             response.info = Types_ResponseInfo(application.info(r.version, r.blockVersion, r.p2PVersion))
                         case let .beginBlock(r):
-                            response.beginBlock = Types_ResponseBeginBlock(application.beginBlock(r.hash,  Header(protobuf: r.header), LastCommitInfo(protobuf: r.lastCommitInfo), r.byzantineValidators.map{ Evidence(protobuf: $0) }))
+                            response.beginBlock = Types_ResponseBeginBlock(application.beginBlock(r.hash, Header(protobuf: r.header), LastCommitInfo(protobuf: r.lastCommitInfo), r.byzantineValidators.map { Evidence(protobuf: $0) }))
                         case let .endBlock(r):
                             response.endBlock = Types_ResponseEndBlock(application.endBlock(r.height))
                         case let .deliverTx(r):
@@ -78,29 +79,28 @@ public struct ABCIProcessor {
                         case let .query(r):
                             response.query = Types_ResponseQuery(application.query(Query(r.data, r.path, r.height, r.prove)))
                         case let .initChain(r):
-                            response.initChain = Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map{ ValidatorUpdate(protobuf: $0) } , r.appStateBytes))
+                            response.initChain = Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map { ValidatorUpdate(protobuf: $0) }, r.appStateBytes))
                         }
                     case .none:
                         response.exception = Types_ResponseException()
-                        break
                     }
-                    logger.info("\(String(describing:response))")
+                    logger.info("\(String(describing: response))")
                     let message = try response.serializedData()
                     var array = [UInt8]()
                     // varint size encoding representation (https://developers.google.com/protocol-buffers/docs/encoding#varints)
                     var toEncode = message.count << 1 // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
-                    while (toEncode != 0) {
+                    while toEncode != 0 {
                         var res = toEncode & 127 // 7 least significant bits
                         toEncode = toEncode >> 7 // shift by 7 bits
-                        if (toEncode != 0) {
+                        if toEncode != 0 {
                             res += 128
                         }
                         array.insert(UInt8(res), at: 0)
                     }
                     result.append(contentsOf: array)
                     result.append(contentsOf: message)
-                    
-                } catch let error {
+
+                } catch {
                     logger.error("\(error)")
                 }
                 sizeRemainingToProcess = nil
@@ -110,4 +110,3 @@ public struct ABCIProcessor {
         return result
     }
 }
-

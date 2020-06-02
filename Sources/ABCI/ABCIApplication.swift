@@ -1,22 +1,23 @@
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===
 //
-// This source file is part of the CosmsosSwift/ABCI open source project
+//  This source file is part of the CosmosSwift open source project.
 //
-// Copyright (c) 2019 CosmsosSwift/ABCI project authors
-// Licensed under Apache License v2.0
+//  ABCIApplication.swift last updated 02/06/2020
 //
-// See LICENSE.txt for license information
-// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
+//  Licensed under Apache License v2.0
 //
-// SPDX-License-Identifier: Apache-2.0
+//  See LICENSE.txt for license information
+//  See CONTRIBUTORS.txt for the list of CosmosSwift project authors
 //
-//===----------------------------------------------------------------------===//
+//  SPDX-License-Identifier: Apache-2.0
+//
+// ===----------------------------------------------------------------------===
 
 import Foundation
 
 /// ABCI apps should comply to the following protocol
 public protocol ABCIApplication {
-    
     /// Called only once usually at genesis or when blockheight == 0
     /// see info()
 
@@ -42,18 +43,18 @@ public protocol ABCIApplication {
     /// - Parameter message: The message to echo.
     /// - Returns: The message sent with the command.
     func echo(_ message: String) -> ResponseEcho
-    
+
     /// Flushes the server.
     /// Usually sent after every message.
     func flush()
-    
+
     /// Can be used to set key value pairs in storage. Not always used.
     ///
     /// - Parameter key:
     /// - Parameter value:
     /// - Returns:
     func setOption(_ key: String, _ value: String) -> ResponseSetOption
-    
+
     /// Process the tx and apply state changes.
     /// This is called via the consensus connection.
     /// A non-zero response code implies an error and will reject the tx
@@ -69,14 +70,14 @@ public protocol ABCIApplication {
     /// - Parameter tx:
     /// - Returns:
     func checkTx(_ tx: Data) -> ResponseCheckTx
-    
+
     /// This is commonly used to query the state of the application.
     /// A non-zero 'code' in the response is used to indicate and error.
     ///
     /// - Parameter q:
     /// - Returns:
     func query(_ q: Query) -> ResponseQuery
-    
+
     /// Called during the consensus process.  The overall flow is:
     /// begin_block()
     /// for each tx:
@@ -90,7 +91,7 @@ public protocol ABCIApplication {
     /// - Parameter byzantineValidators:
     /// - Returns:
     func beginBlock(_ hash: Data, _ header: Header, _ lastCommitInfo: LastCommitInfo, _ byzantineValidators: [Evidence]) -> ResponseBeginBlock
-    
+
     /// Called at the end of processing. If this is a stateful application
     /// you can use the height from here to record the last_block_height
     /// Consensus parameters update
@@ -98,7 +99,7 @@ public protocol ABCIApplication {
     /// - Parameter height:
     /// - Returns:
     func endBlock(_ height: Int64) -> ResponseEndBlock
-    
+
     /// Called to get the result of processing transactions.  If this is a
     /// stateful application using a Merkle Tree, this method should return
     /// the root hash of the Merkle Tree in the Result data field

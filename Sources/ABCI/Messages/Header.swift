@@ -1,16 +1,18 @@
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===
 //
-// This source file is part of the CosmsosSwift/ABCI open source project
+//  This source file is part of the CosmosSwift open source project.
 //
-// Copyright (c) 2019 CosmsosSwift/ABCI project authors
-// Licensed under Apache License v2.0
+//  Header.swift last updated 02/06/2020
 //
-// See LICENSE.txt for license information
-// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
+//  Licensed under Apache License v2.0
 //
-// SPDX-License-Identifier: Apache-2.0
+//  See LICENSE.txt for license information
+//  See CONTRIBUTORS.txt for the list of CosmosSwift project authors
 //
-//===----------------------------------------------------------------------===//
+//  SPDX-License-Identifier: Apache-2.0
+//
+// ===----------------------------------------------------------------------===
 
 import Foundation
 
@@ -31,7 +33,7 @@ public class Header {
     public let lastResultsHash: Data
     public let evidenceHash: Data
     public let proposerAddress: Data
-    
+
     init(_ version: Version, _ chainID: String, _ height: Int64, _ time: Date, _ numTxs: Int64,
          _ totalTxs: Int64, _ lastBlockID: BlockID, _ lastCommitHash: Data, _ dataHash: Data,
          _ validatorsHash: Data, _ nextValidatorsHash: Data, _ consensusHash: Data, _ appHash: Data,
@@ -43,7 +45,7 @@ public class Header {
         self.numTxs = numTxs
         self.totalTxs = totalTxs
         self.lastBlockID = lastBlockID
-        
+
         self.lastCommitHash = lastCommitHash
         self.dataHash = dataHash
         self.validatorsHash = validatorsHash
@@ -59,20 +61,20 @@ public class Header {
 extension Header {
     convenience init(protobuf: Types_Header) {
         self.init(Version(protobuf.version.block, protobuf.version.app),
-            protobuf.chainID,
-            protobuf.height,
-            protobuf.time.date,
-            protobuf.numTxs,
-            protobuf.totalTxs,
-            BlockID(protobuf: protobuf.lastBlockID),
-            protobuf.lastCommitHash,
-            protobuf.dataHash,
-            protobuf.validatorsHash,
-            protobuf.nextValidatorsHash,
-            protobuf.consensusHash,
-            protobuf.appHash,
-            protobuf.lastResultsHash,
-            protobuf.evidenceHash,
-            protobuf.proposerAddress)
+                  protobuf.chainID,
+                  protobuf.height,
+                  protobuf.time.date,
+                  protobuf.numTxs,
+                  protobuf.totalTxs,
+                  BlockID(protobuf: protobuf.lastBlockID),
+                  protobuf.lastCommitHash,
+                  protobuf.dataHash,
+                  protobuf.validatorsHash,
+                  protobuf.nextValidatorsHash,
+                  protobuf.consensusHash,
+                  protobuf.appHash,
+                  protobuf.lastResultsHash,
+                  protobuf.evidenceHash,
+                  protobuf.proposerAddress)
     }
 }

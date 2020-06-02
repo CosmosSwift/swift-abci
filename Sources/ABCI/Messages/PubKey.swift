@@ -1,23 +1,25 @@
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===
 //
-// This source file is part of the CosmsosSwift/ABCI open source project
+//  This source file is part of the CosmosSwift open source project.
 //
-// Copyright (c) 2019 CosmsosSwift/ABCI project authors
-// Licensed under Apache License v2.0
+//  PubKey.swift last updated 02/06/2020
 //
-// See LICENSE.txt for license information
-// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
+//  Licensed under Apache License v2.0
 //
-// SPDX-License-Identifier: Apache-2.0
+//  See LICENSE.txt for license information
+//  See CONTRIBUTORS.txt for the list of CosmosSwift project authors
 //
-//===----------------------------------------------------------------------===//
+//  SPDX-License-Identifier: Apache-2.0
+//
+// ===----------------------------------------------------------------------===
 
 import Foundation
 
 public class PubKey {
     public let type: String
     public let data: Data
-    
+
     public init(_ type: String, _ data: Data) {
         self.type = type
         self.data = data
@@ -26,7 +28,7 @@ public class PubKey {
 
 extension Types_PubKey {
     init(_ p: PubKey) {
-        self.type = p.type
-        self.data = p.data
+        type = p.type
+        data = p.data
     }
 }

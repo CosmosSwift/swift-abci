@@ -1,0 +1,13 @@
+disabled_rules: # rule identifiers to exclude from running
+  - trailing_comma # not enforce this one, because swiftformat and swiftlint have different opinions about trailing commas
+  - todo # We are fine with todos in code
+  - multiple_closures_with_trailing_closure # not working well with SwiftUI syntax
+  - nesting # Could be removed at some point, but currently a lot of the code is using nested structs
+  - identifier_name # clashes with identifiable proctocol
+  - line_length # excluded because pretty much annoying; when autoformat is supported this could be removed
+excluded: # paths to ignore
+  - */Sources/*/*.pb.swift
+
+file_length:
+  warning: 800
+  error: 1000

@@ -1,21 +1,23 @@
-//===----------------------------------------------------------------------===//
+// ===----------------------------------------------------------------------===
 //
-// This source file is part of the CosmsosSwift/ABCI open source project
+//  This source file is part of the CosmosSwift open source project.
 //
-// Copyright (c) 2019 CosmsosSwift/ABCI project authors
-// Licensed under Apache License v2.0
+//  ResponseInitChain.swift last updated 02/06/2020
 //
-// See LICENSE.txt for license information
-// See CONTRIBUTORS.txt for the list of CosmsosSwift/ABCI project authors
+//  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
+//  Licensed under Apache License v2.0
 //
-// SPDX-License-Identifier: Apache-2.0
+//  See LICENSE.txt for license information
+//  See CONTRIBUTORS.txt for the list of CosmosSwift project authors
 //
-//===----------------------------------------------------------------------===//
+//  SPDX-License-Identifier: Apache-2.0
+//
+// ===----------------------------------------------------------------------===
 
 public class ResponseInitChain {
     public let consensusParams: ConsensusParams
     public let validators: [ValidatorUpdate]
-    
+
     public init(_ consensusParams: ConsensusParams, _ validators: [ValidatorUpdate]) {
         self.consensusParams = consensusParams
         self.validators = validators
@@ -24,7 +26,7 @@ public class ResponseInitChain {
 
 extension Types_ResponseInitChain {
     init(_ r: ResponseInitChain) {
-        self.consensusParams = Types_ConsensusParams(r.consensusParams)
-        self.validators = r.validators.map{ Types_ValidatorUpdate($0) }
+        consensusParams = Types_ConsensusParams(r.consensusParams)
+        validators = r.validators.map { Types_ValidatorUpdate($0) }
     }
 }
