@@ -19,3 +19,5 @@ jobs:
         uses: SwiftDocOrg/github-wiki-publish-action@v1
         with:
           path: "Documentation"
+        env:
+          GH_PERSONAL_ACCESS_TOKEN: ${{ secrets.GH_PUBLIC_REPO_ACCESS_AS_RATRANQU }}
