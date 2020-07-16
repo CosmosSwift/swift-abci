@@ -2,13 +2,15 @@
 ![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
+***This branch is work in progress***
+
 Build blockchain applications in Swift on top of the Tendermint consensus.
 
 It uses [SwiftNIO](https://github.com/apple/swift-nio) as its server core.
 
 Swift version: 5.0.x
 SwiftNIO version: 2.0.x
-ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
+ABCI version: 0.34.0 (tendermint 0.34)
 
 
 ## Installation
