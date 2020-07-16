@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseException.swift last updated 02/06/2020
+//  ResponseException.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -20,7 +20,7 @@ public class ResponseException {
     public let error: String = ""
 }
 
-extension Types_ResponseException {
+extension Tendermint_Abci_Types_ResponseException {
     init(_ r: ResponseException) {
         error = r.error
     }

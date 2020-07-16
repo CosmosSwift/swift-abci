@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseEcho.swift last updated 02/06/2020
+//  ResponseEcho.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -24,7 +24,7 @@ public class ResponseEcho {
     }
 }
 
-extension Types_ResponseEcho {
+extension Tendermint_Abci_Types_ResponseEcho {
     init(_ r: ResponseEcho) {
         message = r.message
     }

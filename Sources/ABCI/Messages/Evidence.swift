@@ -34,15 +34,15 @@ public class Evidence {
 }
 
 extension Evidence {
-    convenience init(protobuf: Types_Evidence) {
+    convenience init(protobuf: Tendermint_Abci_Types_Evidence) {
         self.init(protobuf.type, Validator(protobuf: protobuf.validator), protobuf.height, protobuf.time.date, protobuf.totalVotingPower)
     }
 }
 
-extension Types_Evidence {
+extension Tendermint_Abci_Types_Evidence {
     init(_ e: Evidence) {
         type = e.type
-        validator = Types_Validator(e.validator)
+        validator = Tendermint_Abci_Types_Validator(e.validator)
         height = e.height
         time = Google_Protobuf_Timestamp(date: e.time)
         totalVotingPower = e.totalVotingPower

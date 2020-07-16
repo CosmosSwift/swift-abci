@@ -8,7 +8,7 @@ It uses [SwiftNIO](https://github.com/apple/swift-nio) as its server core.
 
 Swift version: 5.0.x
 SwiftNIO version: 2.0.x
-ABCI version: 0.32.0 (tendermint 0.32.0-747f99fd)
+ABCI version: 0.33.6 (tendermint 0.33.6-606d0a8)
 
 
 ## Installation
@@ -45,10 +45,10 @@ let package = Package(
 Initialise and run Tendermint (for instance in Docker):
 ```bash
 # initialise tendermint
-docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.32.0 init
+docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.33.6 init
 
 # run a single tendermint node
-docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.32.0 node --proxy_app="tcp://host.docker.internal:26658"
+docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.33.6 node --proxy_app="tcp://host.docker.internal:26658"
 ```
 
 ## Getting Started
@@ -91,7 +91,7 @@ For protoc swift plugin information: `https://github.com/apple/swift-protobuf/bl
 
 Update the `types.pb.swift` file:
 1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
-2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/github.com/tendermint -iname "*.proto")`
+2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/tendermint/ -iname "*.proto")`
 3. [Optional]: `swift package generate-xcodeproj`
 
 Compile:

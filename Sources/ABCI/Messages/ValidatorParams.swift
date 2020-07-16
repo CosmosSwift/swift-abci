@@ -24,7 +24,7 @@ public class ValidatorParams {
     }
 }
 
-extension Types_ValidatorParams {
+extension Tendermint_Abci_Types_ValidatorParams {
     init(_ v: ValidatorParams) {
         pubKeyTypes = v.pubKeyTypes
     }

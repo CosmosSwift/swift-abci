@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseQuery.swift last updated 02/06/2020
+//  ResponseQuery.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -44,12 +44,12 @@ public class ResponseQuery: ResponseBase {
     }
 }
 
-extension Types_ResponseQuery {
+extension Tendermint_Abci_Types_ResponseQuery {
     init(_ r: ResponseQuery) {
         code = r.code
         key = r.key
         value = r.value
-        proof = Merkle_Proof(r.proof)
+        proof = Tendermint_Crypto_Merkle_Proof(r.proof)
         index = r.index
         height = r.height
         codespace = r.codespace

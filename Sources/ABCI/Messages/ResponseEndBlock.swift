@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseEndBlock.swift last updated 02/06/2020
+//  ResponseEndBlock.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -26,10 +26,10 @@ public class ResponseEndBlock {
     }
 }
 
-extension Types_ResponseEndBlock {
+extension Tendermint_Abci_Types_ResponseEndBlock {
     init(_ r: ResponseEndBlock) {
-        validatorUpdates = r.updates.map { Types_ValidatorUpdate($0) }
-        consensusParamUpdates = Types_ConsensusParams(r.consensusUpdates)
-        events = r.events.map { Types_Event($0) }
+        validatorUpdates = r.updates.map { Tendermint_Abci_Types_ValidatorUpdate($0) }
+        consensusParamUpdates = Tendermint_Abci_Types_ConsensusParams(r.consensusUpdates)
+        events = r.events.map { Tendermint_Abci_Types_Event($0) }
     }
 }

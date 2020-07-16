@@ -26,7 +26,7 @@ public class PubKey {
     }
 }
 
-extension Types_PubKey {
+extension Tendermint_Abci_Types_PubKey {
     init(_ p: PubKey) {
         type = p.type
         data = p.data

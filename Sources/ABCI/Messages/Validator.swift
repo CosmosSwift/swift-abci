@@ -27,12 +27,12 @@ public class Validator {
 }
 
 extension Validator {
-    convenience init(protobuf: Types_Validator) {
+    convenience init(protobuf: Tendermint_Abci_Types_Validator) {
         self.init(protobuf.address, protobuf.power)
     }
 }
 
-extension Types_Validator {
+extension Tendermint_Abci_Types_Validator {
     init(_ r: Validator) {
         power = r.power
         address = r.address
