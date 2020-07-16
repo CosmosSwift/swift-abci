@@ -47,9 +47,16 @@ Initialise and run Tendermint (for instance in Docker):
 # initialise tendermint
 docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.32.0 init
 
+# update the default config to allow tendermint to listen on 26657 from the localhost
+sed 's/127.0.0.1:26657/0.0.0.0:26657/' /tmp/config/config.toml > /tmp/delme
+rm /tmp/config/config.toml
+mv /tmp/delme /tmp/config/config.toml
+
 # run a single tendermint node
 docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.32.0 node --proxy_app="tcp://host.docker.internal:26658"
 ```
+
+
 
 ## Getting Started
 
