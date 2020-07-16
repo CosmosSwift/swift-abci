@@ -26,12 +26,12 @@ public class Event {
     }
 }
 
-extension Types_Event {
+extension Tendermint_Abci_Types_Event {
     init(_ e: Event) {
         type = e.type
-        attributes = e.attributes.map { (arg: (key: Data, value: Data)) -> Common_KVPair in
+        attributes = e.attributes.map { (arg: (key: Data, value: Data)) -> Tendermint_Libs_Kv_Pair in
             let (k, v) = arg
-            return Common_KVPair(key: k, value: v)
+            return Tendermint_Libs_Kv_Pair(key: k, value: v)
         }
     }
 }

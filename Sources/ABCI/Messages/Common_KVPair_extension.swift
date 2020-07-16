@@ -16,7 +16,7 @@
 
 import Foundation
 
-extension Common_KVPair {
+extension Tendermint_Libs_Kv_Pair {
     init(key: Data, value: Data) {
         self.key = key
         self.value = value

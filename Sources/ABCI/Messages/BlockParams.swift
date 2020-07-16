@@ -24,7 +24,7 @@ public class BlockParams {
     }
 }
 
-extension Types_BlockParams {
+extension Tendermint_Abci_Types_BlockParams {
     init(_ b: BlockParams) {
         maxBytes = b.maxBytes
         maxGas = b.maxGas

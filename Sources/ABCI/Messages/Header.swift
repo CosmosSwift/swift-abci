@@ -21,8 +21,6 @@ public class Header {
     public let chainID: String
     public let height: Int64
     public let time: Date
-    public let numTxs: Int64
-    public let totalTxs: Int64
     public let lastBlockID: BlockID
     public let lastCommitHash: Data
     public let dataHash: Data
@@ -34,16 +32,13 @@ public class Header {
     public let evidenceHash: Data
     public let proposerAddress: Data
 
-    init(_ version: Version, _ chainID: String, _ height: Int64, _ time: Date, _ numTxs: Int64,
-         _ totalTxs: Int64, _ lastBlockID: BlockID, _ lastCommitHash: Data, _ dataHash: Data,
+    init(_ version: Version, _ chainID: String, _ height: Int64, _ time: Date, _ lastBlockID: BlockID, _ lastCommitHash: Data, _ dataHash: Data,
          _ validatorsHash: Data, _ nextValidatorsHash: Data, _ consensusHash: Data, _ appHash: Data,
          _ lastResultsHash: Data, _ evidenceHash: Data, _ proposerAddress: Data) {
         self.version = version
         self.chainID = chainID
         self.height = height
         self.time = time
-        self.numTxs = numTxs
-        self.totalTxs = totalTxs
         self.lastBlockID = lastBlockID
 
         self.lastCommitHash = lastCommitHash
@@ -59,13 +54,11 @@ public class Header {
 }
 
 extension Header {
-    convenience init(protobuf: Types_Header) {
+    convenience init(protobuf: Tendermint_Abci_Types_Header) {
         self.init(Version(protobuf.version.block, protobuf.version.app),
                   protobuf.chainID,
                   protobuf.height,
                   protobuf.time.date,
-                  protobuf.numTxs,
-                  protobuf.totalTxs,
                   BlockID(protobuf: protobuf.lastBlockID),
                   protobuf.lastCommitHash,
                   protobuf.dataHash,

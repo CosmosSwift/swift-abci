@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseBeginBlock.swift last updated 02/06/2020
+//  ResponseBeginBlock.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -22,8 +22,8 @@ public class ResponseBeginBlock {
     }
 }
 
-extension Types_ResponseBeginBlock {
+extension Tendermint_Abci_Types_ResponseBeginBlock {
     init(_ r: ResponseBeginBlock) {
-        events = r.events.map { Types_Event($0) }
+        events = r.events.map { Tendermint_Abci_Types_Event($0) }
     }
 }

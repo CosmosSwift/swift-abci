@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCIProcessor.swift last updated 02/06/2020
+//  ABCIProcessor.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -51,38 +51,38 @@ public struct ABCIProcessor {
             if pos + size <= bytes.count {
                 // Add message to requests
                 do {
-                    let request = try Types_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
-                    var response: Types_Response! = Types_Response()
+                    let request = try Tendermint_Abci_Types_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
+                    var response: Tendermint_Abci_Types_Response! = Tendermint_Abci_Types_Response()
                     logger.debug("\(request)")
                     switch request.value {
                     case let .some(v):
                         switch v {
                         case let .echo(r):
-                            response.echo = Types_ResponseEcho(application.echo(r.message))
+                            response.echo = Tendermint_Abci_Types_ResponseEcho(application.echo(r.message))
                         case .flush:
                             application.flush()
-                            response.flush = Types_ResponseFlush()
+                            response.flush = Tendermint_Abci_Types_ResponseFlush()
                         case let .info(r):
-                            response.info = Types_ResponseInfo(application.info(r.version, r.blockVersion, r.p2PVersion))
+                            response.info = Tendermint_Abci_Types_ResponseInfo(application.info(r.version, r.blockVersion, r.p2PVersion))
                         case let .beginBlock(r):
-                            response.beginBlock = Types_ResponseBeginBlock(application.beginBlock(r.hash, Header(protobuf: r.header), LastCommitInfo(protobuf: r.lastCommitInfo), r.byzantineValidators.map { Evidence(protobuf: $0) }))
+                            response.beginBlock = Tendermint_Abci_Types_ResponseBeginBlock(application.beginBlock(r.hash, Header(protobuf: r.header), LastCommitInfo(protobuf: r.lastCommitInfo), r.byzantineValidators.map { Evidence(protobuf: $0) }))
                         case let .endBlock(r):
-                            response.endBlock = Types_ResponseEndBlock(application.endBlock(r.height))
+                            response.endBlock = Tendermint_Abci_Types_ResponseEndBlock(application.endBlock(r.height))
                         case let .deliverTx(r):
-                            response.deliverTx = Types_ResponseDeliverTx(application.deliverTx(r.tx))
+                            response.deliverTx = Tendermint_Abci_Types_ResponseDeliverTx(application.deliverTx(r.tx))
                         case let .checkTx(r):
-                            response.checkTx = Types_ResponseCheckTx(application.checkTx(r.tx))
+                            response.checkTx = Tendermint_Abci_Types_ResponseCheckTx(application.checkTx(r.tx))
                         case .commit:
-                            response.commit = Types_ResponseCommit(application.commit())
+                            response.commit = Tendermint_Abci_Types_ResponseCommit(application.commit())
                         case let .setOption(r):
-                            response.setOption = Types_ResponseSetOption(application.setOption(r.key, r.value))
+                            response.setOption = Tendermint_Abci_Types_ResponseSetOption(application.setOption(r.key, r.value))
                         case let .query(r):
-                            response.query = Types_ResponseQuery(application.query(Query(r.data, r.path, r.height, r.prove)))
+                            response.query = Tendermint_Abci_Types_ResponseQuery(application.query(Query(r.data, r.path, r.height, r.prove)))
                         case let .initChain(r):
-                            response.initChain = Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map { ValidatorUpdate(protobuf: $0) }, r.appStateBytes))
+                            response.initChain = Tendermint_Abci_Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map { ValidatorUpdate(protobuf: $0) }, r.appStateBytes))
                         }
                     case .none:
-                        response.exception = Types_ResponseException()
+                        response.exception = Tendermint_Abci_Types_ResponseException()
                     }
                     logger.info("\(String(describing: response))")
                     let message = try response.serializedData()

@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseSetOption.swift last updated 02/06/2020
+//  ResponseSetOption.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -28,7 +28,7 @@ public class ResponseSetOption {
     }
 }
 
-extension Types_ResponseSetOption {
+extension Tendermint_Abci_Types_ResponseSetOption {
     init(_ r: ResponseSetOption) {
         //        self.code = r.code
         log = r.log

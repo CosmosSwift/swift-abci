@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseInitChain.swift last updated 02/06/2020
+//  ResponseInitChain.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -24,9 +24,9 @@ public class ResponseInitChain {
     }
 }
 
-extension Types_ResponseInitChain {
+extension Tendermint_Abci_Types_ResponseInitChain {
     init(_ r: ResponseInitChain) {
-        consensusParams = Types_ConsensusParams(r.consensusParams)
-        validators = r.validators.map { Types_ValidatorUpdate($0) }
+        consensusParams = Tendermint_Abci_Types_ConsensusParams(r.consensusParams)
+        validators = r.validators.map { Tendermint_Abci_Types_ValidatorUpdate($0) }
     }
 }
