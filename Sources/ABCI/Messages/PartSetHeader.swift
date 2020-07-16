@@ -27,7 +27,7 @@ public class PartSetHeader {
 }
 
 extension PartSetHeader {
-    convenience init(protobuf: Types_PartSetHeader) {
+    convenience init(protobuf: Tendermint_Abci_Types_PartSetHeader) {
         self.init(protobuf.total, protobuf.hash)
     }
 }

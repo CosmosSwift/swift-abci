@@ -24,7 +24,7 @@ public class Version {
     }
 }
 
-extension Types_Version {
+extension Tendermint_Abci_Types_Version {
     init(_ v: Version) {
         block = v.block
         app = v.app

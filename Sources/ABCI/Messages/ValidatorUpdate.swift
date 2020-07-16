@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ValidatorUpdate.swift last updated 02/06/2020
+//  ValidatorUpdate.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -25,14 +25,14 @@ public class ValidatorUpdate {
 }
 
 extension ValidatorUpdate {
-    convenience init(protobuf: Types_ValidatorUpdate) {
+    convenience init(protobuf: Tendermint_Abci_Types_ValidatorUpdate) {
         self.init(PubKey(protobuf.pubKey.type, protobuf.pubKey.data), protobuf.power)
     }
 }
 
-extension Types_ValidatorUpdate {
+extension Tendermint_Abci_Types_ValidatorUpdate {
     init(_ r: ValidatorUpdate) {
         power = r.power
-        pubKey = Types_PubKey(r.pubKey)
+        pubKey = Tendermint_Abci_Types_PubKey(r.pubKey)
     }
 }

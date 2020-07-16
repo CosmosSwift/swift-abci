@@ -46,10 +46,10 @@ let package = Package(
 Initialise and run Tendermint (for instance in Docker):
 ```bash
 # initialise tendermint
-docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.32.0 init
+docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.33.6 init
 
 # run a single tendermint node
-docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.32.0 node --proxy_app="tcp://host.docker.internal:26658"
+docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.33.6 node --proxy_app="tcp://host.docker.internal:26658"
 ```
 
 ## Getting Started

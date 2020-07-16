@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  Proof.swift last updated 02/06/2020
+//  Proof.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,15 +14,26 @@
 //
 // ===----------------------------------------------------------------------===
 
+import Foundation
+
 public class Proof {
-    public let ops: [ProofOp]
-    public init(ops: [ProofOp]) {
-        self.ops = ops
+    public let total: Int64
+    public let index: Int64
+    public let leafHash: Data
+    public let aunts: [Data]
+    public init(total: Int64, index: Int64, leafHash: Data, aunts: [Data]) {
+        self.total = total
+        self.index = index
+        self.leafHash = leafHash
+        self.aunts = aunts
     }
 }
 
-extension Merkle_Proof {
+extension Tendermint_Crypto_Merkle_Proof {
     init(_ p: Proof) {
-        ops = p.ops.map { Merkle_ProofOp($0) }
+        total = p.total
+        index = p.index
+        leafHash = p.leafHash
+        aunts = p.aunts
     }
 }

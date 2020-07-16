@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseCommit.swift last updated 02/06/2020
+//  ResponseCommit.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -27,7 +27,7 @@ public class ResponseCommit: ResponseBase {
     }
 }
 
-extension Types_ResponseCommit {
+extension Tendermint_Abci_Types_ResponseCommit {
     init(_ r: ResponseBase) {
         data = r.data
     }

@@ -54,7 +54,7 @@ class CounterApp: ABCIApplication {
         // Sets initial state on first run
         txCount = 0
         let bp = BlockParams(maxBytes: 4096, maxGas: 1000)
-        let ep = EvidenceParams(maxAge: 10000)
+        let ep = EvidenceParams(maxAgeNumBlocks: 10000, maxAgeDuration: nil)
         let vp = ValidatorParams(pubKeyTypes: ["ed25519"])
         let cu = ConsensusParams(bp, ep, vp)
         return ResponseInitChain(cu, [])
@@ -83,7 +83,7 @@ class CounterApp: ABCIApplication {
         // Returns the last Tx count
         let k = "count".data
         let v = txCount.bigEndian.data
-        let p = Proof(ops: [])
+        let p = Proof(total: 0, index: 0, leafHash: Data(), aunts: [])
         return ResponseQuery.ok(proof: p, key: k, value: v, height: q.height, log: "query")
     }
 
@@ -110,7 +110,7 @@ class CounterApp: ABCIApplication {
         // you can use the height from here to record the last_block_height
         // Consensus parameters update
         let bp = BlockParams(maxBytes: 22_020_096, maxGas: -1)
-        let ep = EvidenceParams(maxAge: 100_000)
+        let ep = EvidenceParams(maxAgeNumBlocks: 100_000, maxAgeDuration: TimeInterval(5))
         let vp = ValidatorParams(pubKeyTypes: ["ed25519"])
         let cu = ConsensusParams(bp, ep, vp)
         let e: [Event] = []

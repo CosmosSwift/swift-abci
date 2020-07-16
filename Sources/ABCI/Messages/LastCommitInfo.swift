@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  LastCommitInfo.swift last updated 02/06/2020
+//  LastCommitInfo.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -25,14 +25,14 @@ public class LastCommitInfo {
 }
 
 extension LastCommitInfo {
-    convenience init(protobuf: Types_LastCommitInfo) {
+    convenience init(protobuf: Tendermint_Abci_Types_LastCommitInfo) {
         self.init(protobuf.round, protobuf.votes.map { VoteInfo(protobuf: $0) })
     }
 }
 
-extension Types_LastCommitInfo {
+extension Tendermint_Abci_Types_LastCommitInfo {
     init(_ l: LastCommitInfo) {
         round = l.round
-        votes = l.votes.map { Types_VoteInfo($0) }
+        votes = l.votes.map { Tendermint_Abci_Types_VoteInfo($0) }
     }
 }

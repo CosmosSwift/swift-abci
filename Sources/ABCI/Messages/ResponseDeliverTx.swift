@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseDeliverTx.swift last updated 02/06/2020
+//  ResponseDeliverTx.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -40,7 +40,7 @@ public class ResponseDeliverTx: ResponseBase {
     }
 }
 
-extension Types_ResponseDeliverTx {
+extension Tendermint_Abci_Types_ResponseDeliverTx {
     init(_ r: ResponseDeliverTx) {
         // TODO: properly init
         code = r.code

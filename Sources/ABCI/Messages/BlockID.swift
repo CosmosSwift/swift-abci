@@ -27,7 +27,7 @@ public class BlockID {
 }
 
 extension BlockID {
-    convenience init(protobuf: Types_BlockID) {
+    convenience init(protobuf: Tendermint_Abci_Types_BlockID) {
         self.init(protobuf.hash, PartSetHeader(protobuf: protobuf.partsHeader))
     }
 }

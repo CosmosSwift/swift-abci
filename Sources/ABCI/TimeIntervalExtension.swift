@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ProofOp.swift last updated 02/06/2020
+//  TimeIntervalExtension.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -15,23 +15,18 @@
 // ===----------------------------------------------------------------------===
 
 import Foundation
+import SwiftProtobuf
 
-public class ProofOp {
-    public let type: String
-    public let key: Data
-    public let data: Data
-
-    public init(type: String, key: Data, data: Data) {
-        self.type = type
-        self.key = key
-        self.data = data
+extension TimeInterval {
+    public init(protobuf: SwiftProtobuf.Google_Protobuf_Duration) {
+        self = Double(protobuf.seconds) + Double(protobuf.nanos) / 1_000_000_000
     }
 }
 
-extension Merkle_ProofOp {
-    init(_ p: ProofOp) {
-        type = p.type
-        key = p.key
-        data = p.data
+extension SwiftProtobuf.Google_Protobuf_Duration {
+    public init(_ timeInterval: TimeInterval) {
+        let seconds = Int64(timeInterval)
+        let nanos = Int32((timeInterval - Double(seconds)) * 1_000_000_000)
+        self.init(seconds: seconds, nanos: nanos)
     }
 }

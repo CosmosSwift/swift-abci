@@ -14,16 +14,24 @@
 //
 // ===----------------------------------------------------------------------===
 
-public class EvidenceParams {
-    public let maxAge: Int64
+import Foundation
+import SwiftProtobuf
 
-    public init(maxAge: Int64) {
-        self.maxAge = maxAge
+public class EvidenceParams {
+    public let maxAgeNumBlocks: Int64
+    public let maxAgeDuration: TimeInterval?
+
+    public init(maxAgeNumBlocks: Int64, maxAgeDuration: TimeInterval?) {
+        self.maxAgeNumBlocks = maxAgeNumBlocks
+        self.maxAgeDuration = maxAgeDuration
     }
 }
 
-extension Types_EvidenceParams {
+extension Tendermint_Abci_Types_EvidenceParams {
     init(_ e: EvidenceParams) {
-        maxAge = e.maxAge
+        maxAgeNumBlocks = e.maxAgeNumBlocks
+        if let maxAgeDuration = e.maxAgeDuration {
+            self.maxAgeDuration = SwiftProtobuf.Google_Protobuf_Duration(maxAgeDuration)
+        }
     }
 }
