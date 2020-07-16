@@ -90,8 +90,8 @@ Pre requisites: `protoc` with the swift generation plugin is installed on your s
 For protoc swift plugin information: `https://github.com/apple/swift-protobuf/blob/master/Documentation/PLUGIN.md`
 
 Update the `types.pb.swift` file:
-1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
-2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/github.com/tendermint -iname "*.proto")`
+1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/proto/tendermint/abci` and put it in `./protobuf/...`
+2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/tendermint -iname "*.proto")`
 3. [Optional]: `swift package generate-xcodeproj`
 
 Compile:
