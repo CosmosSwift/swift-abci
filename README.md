@@ -1,51 +1,127 @@
 # CosmosSwift/swift-abci
-![Swift5.0+](https://img.shields.io/badge/Swift-5.0+-blue.svg)
+![Swift5.3+](https://img.shields.io/badge/Swift-5.3+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
-Build blockchain applications in Swift on top of the Tendermint consensus.
+Build blockchain applications in Swift on top of the Tendermint consensus. `swift-abci` uses [SwiftNIO](https://github.com/apple/swift-nio) as its server core.
 
-It uses [SwiftNIO](https://github.com/apple/swift-nio) as its server core.
-
-Swift version: 5.0.x
-SwiftNIO version: 2.0.x
-ABCI version: 0.33.6 (tendermint 0.33.6-606d0a8)
+- Swift version: 5.3.x
+- SwiftNIO version: 2.0.x
+- ABCI version: 0.33.8 (tendermint 0.33.8-1a8e42d)
 
 
 ## Installation
 
-Requires Swift 5.0.x, on MacOS or a variant of Linux with the Swift 5.0.x toolchain installed.
-
-``` bash
-git clone https://github.com/cosmosswift/swift-abci.git
-cd abci
-swift build
-```
+Requires macOS or a variant of Linux with the Swift 5.3.x toolchain installed.
 
 In your `Package.swift` file, add the repository as a dependency as such:
+
 ``` swift
 import PackageDescription
 
 let package = Package(
-    name: "ABCISwiftApp",
+    name: "swift-abci-app",
     products: [
-        .executable(name: "ABCISwiftApp", targets: ["ABCISwiftApp"]),
+        .executable(name: "swift-abci-app", targets: ["swift-abci-app"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/cosmosswift/swift-abci.git", from: "1.0.0"),
-        .package(url: "https://gitlab.com/katalysis/dataconvertible.git", from: "0.1.0"),
+        .package(url: "https://github.com/cosmosswift/swift-abci.git", .upToNextMajor(from: "1.0.0")),
     ],
     targets: [
-        .target(name: "ABCISwiftApp", dependencies: ["ABCI", "ABCINIO", "DataConvertible"]),
+        .target(
+	    name: "swift-abci-app", 
+	    dependencies: [
+	        .product(name: "ABCI", package: "ABCI"), 
+		.product(name: "ABCINIO", package: "ABCI"),
+	    ]
+	),
     ]
 )
 ```
 
-## Prerequisites
+## Getting Started
+
+1. Import ABCI and ABCINIO
+
+```swift
+import ABCI
+import ABCINIO
+```
+
+2. Define a class complying to the [`ABCIApplication`](/Sources/ABCI/ABCIApplication.swift) protocol:
+
+``` swift
+final class Application : ABCIApplication {
+    func initChain(_ time: Date, _ chainId: String, _ consensusParams: ConsensusParams, _ updates: [ValidatorUpdate], _ appStateBytes: Data) -> ResponseInitChain {
+        ... 
+    }
+    
+    func info(_ version: String, _ blockVersion: UInt64, _ p2pVersion: UInt64) -> ResponseInfo {
+        ... 
+    }
+    
+    public func echo(_ message: String) -> ResponseEcho {
+        ... 
+    }
+    
+    func setOption(_ key: String, _ value: String) -> ResponseSetOption {
+        ...
+    }
+    
+    func deliverTx(_ tx: Data) -> ResponseDeliverTx {
+        ...
+    }
+    
+    func checkTx(_ tx: Data) -> ResponseCheckTx {
+        ...
+    }
+
+    func query(_ q: Query) -> ResponseQuery {
+        ...
+    }
+    
+    func beginBlock(_: Data, _: Header, _: LastCommitInfo, _: [Evidence]) -> ResponseBeginBlock {
+        ...
+    }
+    
+    public func endBlock(_: Int64) -> ResponseEndBlock {
+        ...
+    }
+    
+    func commit() -> ResponseCommit {
+        ...
+    }
+}
+```
+
+3. Implement the relevant Tendermint ABCI callbacks
+
+See the example app [`ABCICounter`](/Sources/ABCICounter/main.swift). Check https://github.com/tendermint/abci for more details.
+
+4. Inititialize `NIOABCIServer`, with the application:
+
+```swift
+let server = NIOABCIServer(Application())
+```
+
+5. Start the server
+
+```swift
+try server.start()
+```
+
+6. Compile and run
+
+```bash
+swift run swift-abci-app
+```
+
+7. Run Tendermint
 
 Initialise and run Tendermint (for instance in Docker):
+
 ```bash
 # initialise tendermint
-docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.33.6 init
+docker run -it --rm -v "/tmp:/tendermint" tendermint/tendermint:v0.33.8 init
 
 # update the default config to allow tendermint to listen on 26657 from the localhost
 sed 's/127.0.0.1:26657/0.0.0.0:26657/' /tmp/config/config.toml > /tmp/delme
@@ -53,42 +129,8 @@ rm /tmp/config/config.toml
 mv /tmp/delme /tmp/config/config.toml
 
 # run a single tendermint node
-docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.33.6 node --proxy_app="tcp://host.docker.internal:26658"
+docker run -it --rm -v "/tmp:/tendermint" -p "26656-26657:26656-26657"  tendermint/tendermint:v0.33.8 node --proxy_app="tcp://host.docker.internal:26658"
 ```
-
-
-
-## Getting Started
-
-0. `import ABCI`
-1. Define a class complying to the following protocol:
-``` swift
-public protocol ABCIApplication {
-
-    func initChain(_ time: Date, _ chainId: String, _ consensusParams: ConsensusParams, _ updates: [ValidatorUpdate], _ appStateBytes: Data) -> ResponseInitChain
-    func info(_ version: String, _ blockVersion: UInt64, _ p2pVersion: UInt64) -> ResponseInfo
-    func echo(_ message: String) -> ResponseEcho
-    func flush()
-    func setOption(_ key: String, _ value: String) -> ResponseSetOption
-    func deliverTx(_ tx: Data) -> ResponseDeliverTx
-    func checkTx(_ tx: Data) -> ResponseCheckTx
-    func query(_ q: Query) -> ResponseQuery
-    func beginBlock(_ hash: Data, _ header: Header, _ lastCommitInfo: LastCommitInfo, _ byzantineValidators: [Evidence]) -> ResponseBeginBlock
-    func endBlock(_ height: Int64) -> ResponseEndBlock
-    func commit() -> ResponseCommit
-}
-```
-2. Implement the relevant Tendermint ABCI callbacks - see https://github.com/tendermint/abci
-3. Inititialize an ABCIServer with it:
-`let server = NIOABCIServer(CounterApp())`
-4. Run it
-`try server.start()`
-
-
-See the example app `ABCICounter` application under the directory of the same name in `./Sources`.
-here: `https://github.com/cosmosswift/swift-abci/blob/master/Sources/ABCICounter/main.swift`
-
-6. Compile and run
 
 ## Development
 
@@ -97,11 +139,13 @@ Pre requisites: `protoc` with the swift generation plugin is installed on your s
 For protoc swift plugin information: `https://github.com/apple/swift-protobuf/blob/master/Documentation/PLUGIN.md`
 
 Update the `types.pb.swift` file:
+
 1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
+
 2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/tendermint/ -iname "*.proto")`
-3. [Optional]: `swift package generate-xcodeproj`
 
 Compile:
+
 1. run `swift build`
 
 ## Documentation
