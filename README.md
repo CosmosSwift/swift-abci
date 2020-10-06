@@ -1,4 +1,4 @@
-# CosmosSwift/swift-abci
+# swift-abci
 ![Swift5.3+](https://img.shields.io/badge/Swift-5.3+-blue.svg)
 ![platforms](https://img.shields.io/badge/platforms-macOS%20%7C%20linux-orange.svg)
 
