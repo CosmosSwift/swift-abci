@@ -150,7 +150,7 @@ Compile:
 
 ## Documentation
 
-The docs for the latest tagged release are always available at [https://github.com/cosmosswift/swift-abci/]https://github.com/cosmosswift/swift-abci/).
+The docs for the latest tagged release are always available at [https://github.com/cosmosswift/swift-abci/](https://github.com/cosmosswift/swift-abci/).
 
 ## Questions
 
