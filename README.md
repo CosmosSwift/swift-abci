@@ -95,7 +95,7 @@ final class Application : ABCIApplication {
 
 3. Implement the relevant Tendermint ABCI callbacks
 
-See the example app [`ABCICounter`](/Sources/ABCICounter/main.swift). Check https://github.com/tendermint/abci for more details.
+See the example app [`ABCICounter`](/Sources/ABCICounter/main.swift). Check the [abci spec](https://github.com/tendermint/spec/blob/master/spec/abci/abci.md) for more details.
 
 4. Inititialize `NIOABCIServer`, with the application:
 
