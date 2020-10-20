@@ -25,7 +25,7 @@ public final class NIOABCIChannelHandler: ChannelInboundHandler {
     private let application: ABCIApplication
     private let logger: Logger
 
-    public init(_ application: ABCIApplication, _ logger: Logger) {
+    public init(application: ABCIApplication, logger: Logger) {
         self.application = application
         self.logger = logger
     }
@@ -33,12 +33,14 @@ public final class NIOABCIChannelHandler: ChannelInboundHandler {
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
         var byteBuffer = unwrapInboundIn(data)
 
-        if let bytes = byteBuffer.readBytes(length: byteBuffer.readableBytes) {
-            let res = ABCIProcessor.process(bytes, application, logger)
-            var buffer = context.channel.allocator.buffer(capacity: res.count)
-            buffer.writeBytes(res)
-            _ = context.channel.writeAndFlush(buffer)
+        guard let bytes = byteBuffer.readBytes(length: byteBuffer.readableBytes) else {
+            return
         }
+        
+        let response = ABCIProcessor.process(bytes: bytes, application: application, logger: logger)
+        var buffer = context.channel.allocator.buffer(capacity: response.count)
+        buffer.writeBytes(response)
+        _ = context.channel.writeAndFlush(buffer)
     }
 
     public func errorCaught(context: ChannelHandlerContext, error: Error) {

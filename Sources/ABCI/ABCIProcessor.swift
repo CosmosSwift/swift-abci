@@ -23,13 +23,19 @@ public struct ABCIProcessor {
     /// - Parameter application: the ABCI Server processing the messages.
     /// - Parameter logger: Logger.
     /// - Returns: the serialized response from the the ABCI server .
-    public static func process(_ bytes: [UInt8], _ application: ABCIApplication, _ logger: Logger) -> [UInt8] {
+    public static func process(
+        bytes: [UInt8],
+        application: ABCIApplication,
+        logger: Logger
+    ) -> [UInt8] {
         var pos = 0
         var result: [UInt8] = []
         var sizeRemainingToProcess: Int?
+        
         while pos < bytes.count {
             // iterate over full buffer
             var size = 0
+            
             if let s = sizeRemainingToProcess {
                 size = s
             } else {
@@ -37,6 +43,7 @@ public struct ABCIProcessor {
                 var mul = 1
                 var zigzagSize = 0
                 var current: UInt8
+                
                 repeat {
                     current = bytes[pos]
                     zigzagSize += Int(current) & 127 * mul
@@ -47,48 +54,70 @@ public struct ABCIProcessor {
                 size = zigzagSize >> 1 // sizes are always >0
                 sizeRemainingToProcess = size
             }
+            
             // if enough bytes remaining, process
             if pos + size <= bytes.count {
                 // Add message to requests
                 do {
                     let request = try Tendermint_Abci_Types_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
-                    var response: Tendermint_Abci_Types_Response! = Tendermint_Abci_Types_Response()
-                    logger.debug("\(request)")
+                    var tendermintResponse = Tendermint_Abci_Types_Response()
+                    
+                    logger.info("\(request)")
+                    
                     switch request.value {
-                    case let .some(v):
-                        switch v {
-                        case let .echo(r):
-                            response.echo = Tendermint_Abci_Types_ResponseEcho(application.echo(r.message))
+                    case let .some(value):
+                        switch value {
+                        case let .echo(tendermintRequest):
+                            let request = RequestEcho(tendermintRequest)
+                            let response = application.echo(request: request)
+                            tendermintResponse.echo = Tendermint_Abci_Types_ResponseEcho(response)
                         case .flush:
                             application.flush()
-                            response.flush = Tendermint_Abci_Types_ResponseFlush()
-                        case let .info(r):
-                            response.info = Tendermint_Abci_Types_ResponseInfo(application.info(r.version, r.blockVersion, r.p2PVersion))
-                        case let .beginBlock(r):
-                            response.beginBlock = Tendermint_Abci_Types_ResponseBeginBlock(application.beginBlock(r.hash, Header(protobuf: r.header), LastCommitInfo(protobuf: r.lastCommitInfo), r.byzantineValidators.map { Evidence(protobuf: $0) }))
-                        case let .endBlock(r):
-                            response.endBlock = Tendermint_Abci_Types_ResponseEndBlock(application.endBlock(r.height))
-                        case let .deliverTx(r):
-                            response.deliverTx = Tendermint_Abci_Types_ResponseDeliverTx(application.deliverTx(r.tx))
-                        case let .checkTx(r):
-                            response.checkTx = Tendermint_Abci_Types_ResponseCheckTx(application.checkTx(r.tx))
+                            tendermintResponse.flush = Tendermint_Abci_Types_ResponseFlush()
+                        case let .info(tendermintRequest):
+                            let request = RequestInfo(tendermintRequest)
+                            let response = application.info(request: request)
+                            tendermintResponse.info = Tendermint_Abci_Types_ResponseInfo(response)
+                        case let .initChain(tendermintRequest):
+                            let request = RequestInitChain(tendermintRequest)
+                            let response = application.initChain(request: request)
+                            tendermintResponse.initChain = Tendermint_Abci_Types_ResponseInitChain(response)
+                        case let .query(tendermintRequest):
+                            let request = RequestQuery(tendermintRequest)
+                            let response = application.query(request: request)
+                            tendermintResponse.query = Tendermint_Abci_Types_ResponseQuery(response)
+                        case let .beginBlock(tendermintRequest):
+                            let request = RequestBeginBlock(tendermintRequest)
+                            let response = application.beginBlock(request: request)
+                            tendermintResponse.beginBlock = Tendermint_Abci_Types_ResponseBeginBlock(response)
+                        case let .checkTx(tendermintRequest):
+                            let request = RequestCheckTx(tendermintRequest)
+                            let response = application.checkTx(request: request)
+                            tendermintResponse.checkTx = Tendermint_Abci_Types_ResponseCheckTx(response)
+                        case let .deliverTx(tendermintRequest):
+                            let request = RequestDeliverTx(tendermintRequest)
+                            let response = application.deliverTx(request: request)
+                            tendermintResponse.deliverTx = Tendermint_Abci_Types_ResponseDeliverTx(response)
+                        case let .endBlock(tendermintRequest):
+                            let request = RequestEndBlock(tendermintRequest)
+                            let response = application.endBlock(request: request)
+                            tendermintResponse.endBlock = Tendermint_Abci_Types_ResponseEndBlock(response)
                         case .commit:
-                            response.commit = Tendermint_Abci_Types_ResponseCommit(application.commit())
-                        case let .setOption(r):
-                            response.setOption = Tendermint_Abci_Types_ResponseSetOption(application.setOption(r.key, r.value))
-                        case let .query(r):
-                            response.query = Tendermint_Abci_Types_ResponseQuery(application.query(Query(r.data, r.path, r.height, r.prove)))
-                        case let .initChain(r):
-                            response.initChain = Tendermint_Abci_Types_ResponseInitChain(application.initChain(r.time.date, r.chainID, ConsensusParams(protobuf: r.consensusParams), r.validators.map { ValidatorUpdate(protobuf: $0) }, r.appStateBytes))
+                            tendermintResponse.commit = Tendermint_Abci_Types_ResponseCommit(application.commit())
+                        case .setOption:
+                            break
                         }
                     case .none:
-                        response.exception = Tendermint_Abci_Types_ResponseException()
+                        tendermintResponse.exception = Tendermint_Abci_Types_ResponseException()
                     }
-                    logger.info("\(String(describing: response))")
-                    let message = try response.serializedData()
+                    
+                    logger.info("\(tendermintResponse)")
+                    let message = try tendermintResponse.serializedData()
                     var array = [UInt8]()
+                    
                     // varint size encoding representation (https://developers.google.com/protocol-buffers/docs/encoding#varints)
                     var toEncode = message.count << 1 // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
+                    
                     while toEncode != 0 {
                         var res = toEncode & 127 // 7 least significant bits
                         toEncode = toEncode >> 7 // shift by 7 bits
@@ -97,16 +126,18 @@ public struct ABCIProcessor {
                         }
                         array.insert(UInt8(res), at: 0)
                     }
+                    
                     result.append(contentsOf: array)
                     result.append(contentsOf: message)
-
                 } catch {
                     logger.error("\(error)")
                 }
+                
                 sizeRemainingToProcess = nil
                 pos += size
             }
         }
+        
         return result
     }
 }

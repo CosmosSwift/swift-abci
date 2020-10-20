@@ -21,11 +21,10 @@ public protocol ABCIServer {
     init(application: ABCIApplication, logger: Logger)
     func start(host: String, port: Int) throws
     func stop() throws
-    func incomingMessageProcessor(_ bytes: [UInt8], _ application: ABCIApplication, _ logger: Logger) -> [UInt8]
 }
 
 extension ABCIServer {
-    public init(_ application: ABCIApplication) {
+    public init(application: ABCIApplication) {
         self.init(application: application, logger: Logger(label: "ABCIServer"))
     }
 
@@ -39,9 +38,5 @@ extension ABCIServer {
 
     public func start(port: Int) throws {
         try start(host: "127.0.0.1", port: port)
-    }
-
-    public func incomingMessageProcessor(_ bytes: [UInt8], _ application: ABCIApplication, _ logger: Logger) -> [UInt8] {
-        return ABCIProcessor.process(bytes, application, logger)
     }
 }

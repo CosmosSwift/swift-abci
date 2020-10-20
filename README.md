@@ -28,12 +28,12 @@ let package = Package(
     ],
     targets: [
         .target(
-	    name: "swift-abci-app", 
-	    dependencies: [
-	        .product(name: "ABCI", package: "ABCI"), 
-		.product(name: "ABCINIO", package: "ABCI"),
-	    ]
-	),
+            name: "swift-abci-app", 
+            dependencies: [
+                .product(name: "ABCI", package: "ABCI"), 
+                .product(name: "ABCINIO", package: "ABCI"),
+            ]
+        ),
     ]
 )
 ```
@@ -51,44 +51,36 @@ import ABCINIO
 
 ``` swift
 final class Application : ABCIApplication {
-    func initChain(_ time: Date, _ chainId: String, _ consensusParams: ConsensusParams, _ updates: [ValidatorUpdate], _ appStateBytes: Data) -> ResponseInitChain {
-        ... 
+    func info(request: RequestInfo) -> ResponseInfo {
+        .init()
     }
     
-    func info(_ version: String, _ blockVersion: UInt64, _ p2pVersion: UInt64) -> ResponseInfo {
-        ... 
+    func initChain(request: RequestInitChain) -> ResponseInitChain {
+        .init()
     }
     
-    public func echo(_ message: String) -> ResponseEcho {
-        ... 
+    func query(request: RequestQuery) -> ResponseQuery {
+        .init()
     }
     
-    func setOption(_ key: String, _ value: String) -> ResponseSetOption {
-        ...
+    func beginBlock(request: RequestBeginBlock) -> ResponseBeginBlock {
+        .init()
     }
     
-    func deliverTx(_ tx: Data) -> ResponseDeliverTx {
-        ...
+    func checkTx(request: RequestCheckTx) -> ResponseCheckTx {
+        .init()
     }
     
-    func checkTx(_ tx: Data) -> ResponseCheckTx {
-        ...
+    func deliverTx(request: RequestDeliverTx) -> ResponseDeliverTx {
+        .init()
+    }
+    
+    func endBlock(request: RequestEndBlock) -> ResponseEndBlock {
+        .init()
     }
 
-    func query(_ q: Query) -> ResponseQuery {
-        ...
-    }
-    
-    func beginBlock(_: Data, _: Header, _: LastCommitInfo, _: [Evidence]) -> ResponseBeginBlock {
-        ...
-    }
-    
-    public func endBlock(_: Int64) -> ResponseEndBlock {
-        ...
-    }
-    
     func commit() -> ResponseCommit {
-        ...
+        .init()
     }
 }
 ```
@@ -100,7 +92,7 @@ See the example app [`ABCICounter`](/Sources/ABCICounter/main.swift). Check the 
 4. Inititialize `NIOABCIServer`, with the application:
 
 ```swift
-let server = NIOABCIServer(Application())
+let server = NIOABCIServer(application: Application())
 ```
 
 5. Start the server

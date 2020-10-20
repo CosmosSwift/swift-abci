@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "ABCI",
     products: [
-        .executable(name: "Counter", targets: ["ABCICounter"]),
+        .executable(name: "key-value-store", targets: ["KeyValueStore"]),
         .library(name: "ABCI", targets: ["ABCI"]),
         .library(name: "ABCINIO", targets: ["ABCINIO"]),
     ],
@@ -16,7 +16,7 @@ let package = Package(
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
     ],
     targets: [
-        .target(name: "ABCICounter", dependencies: ["ABCI", "ABCINIO"]),
+        .target(name: "KeyValueStore", dependencies: ["ABCI", "ABCINIO"]),
         .target(
             name: "ABCI",
             dependencies: [
