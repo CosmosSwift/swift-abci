@@ -24,7 +24,7 @@ public enum EvidenceType {
 }
 
 extension EvidenceType {
-    init(evidenceType: Tendermint_Abci_EvidenceType) {
+    init(_ evidenceType: Tendermint_Abci_EvidenceType) {
         switch evidenceType {
         case .unknown:
             self = .unknown

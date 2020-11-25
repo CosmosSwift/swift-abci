@@ -14,25 +14,29 @@
 //
 // ===----------------------------------------------------------------------===
 
-public class VoteInfo {
+public struct VoteInfo {
     public let validator: Validator
     public let signedLastBlock: Bool
 
-    public init(_ validator: Validator, _ signedLastBlock: Bool) {
+    public init(
+        validator: Validator,
+        signedLastBlock: Bool
+    ) {
         self.validator = validator
         self.signedLastBlock = signedLastBlock
     }
 }
 
 extension VoteInfo {
-    convenience init(protobuf: Tendermint_Abci_VoteInfo) {
-        self.init(Validator(protobuf: protobuf.validator), protobuf.signedLastBlock)
+    init(voteInfo: Tendermint_Abci_VoteInfo) {
+        self.validator = Validator(voteInfo.validator)
+        self.signedLastBlock = voteInfo.signedLastBlock
     }
 }
 
 extension Tendermint_Abci_VoteInfo {
-    init(_ v: VoteInfo) {
-        validator = Tendermint_Abci_Validator(v.validator)
-        signedLastBlock = v.signedLastBlock
+    init(_ voteInfo: VoteInfo) {
+        self.validator = Tendermint_Abci_Validator(voteInfo.validator)
+        self.signedLastBlock = voteInfo.signedLastBlock
     }
 }

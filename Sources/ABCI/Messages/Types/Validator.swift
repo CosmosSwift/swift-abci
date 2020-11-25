@@ -16,7 +16,7 @@
 
 import Foundation
 
-public class Validator {
+public struct Validator {
     public let address: Data
     public let power: Int64
 
@@ -27,14 +27,15 @@ public class Validator {
 }
 
 extension Validator {
-    convenience init(protobuf: Tendermint_Abci_Validator) {
-        self.init(protobuf.address, protobuf.power)
+    init(_ validator: Tendermint_Abci_Validator) {
+        self.address = validator.address
+        self.power = validator.power
     }
 }
 
 extension Tendermint_Abci_Validator {
-    init(_ r: Validator) {
-        power = r.power
-        address = r.address
+    init(_ validator: Validator) {
+        self.power = validator.power
+        self.address = validator.address
     }
 }

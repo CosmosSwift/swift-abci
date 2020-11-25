@@ -24,7 +24,13 @@ public struct Evidence {
     public let time: Date
     public let totalVotingPower: Int64
 
-    public init(_ type: EvidenceType, _ validator: Validator, _ height: Int64, _ time: Date, _ totalVotingPower: Int64) {
+    public init(
+        type: EvidenceType,
+        validator: Validator,
+         height: Int64,
+        time: Date,
+        totalVotingPower: Int64
+    ) {
         self.type = type
         self.validator = validator
         self.height = height
@@ -35,8 +41,8 @@ public struct Evidence {
 
 extension Evidence {
     init(evidence: Tendermint_Abci_Evidence) {
-        self.type = EvidenceType(evidenceType: evidence.type)
-        self.validator = Validator(protobuf: evidence.validator)
+        self.type = EvidenceType(evidence.type)
+        self.validator = Validator(evidence.validator)
         self.height = evidence.height
         self.time = evidence.time.date
         self.totalVotingPower = evidence.totalVotingPower
