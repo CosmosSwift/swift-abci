@@ -17,17 +17,17 @@
 import Foundation
 
 public struct PartSetHeader {
-    public let total: Int32
+    public let total: UInt32
     public let hash: Data
 
-    public init(_ total: Int32, _ hash: Data) {
+    public init(_ total: UInt32, _ hash: Data) {
         self.total = total
         self.hash = hash
     }
 }
 
 extension PartSetHeader {
-    init(_ partsHeader: Tendermint_Abci_Types_PartSetHeader) {
+    init(_ partsHeader: Tendermint_Types_PartSetHeader) {
         self.total = partsHeader.total
         self.hash = partsHeader.hash
     }

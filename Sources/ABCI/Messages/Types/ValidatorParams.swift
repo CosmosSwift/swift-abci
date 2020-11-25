@@ -25,12 +25,12 @@ public struct ValidatorParams {
 }
 
 extension ValidatorParams {
-    init(_ validatorParams: Tendermint_Abci_Types_ValidatorParams) {
+    init(_ validatorParams: Tendermint_Types_ValidatorParams) {
         self.pubKeyTypes = validatorParams.pubKeyTypes
     }
 }
 
-extension Tendermint_Abci_Types_ValidatorParams {
+extension Tendermint_Types_ValidatorParams {
     init(_ validatorParams: ValidatorParams) {
         self.pubKeyTypes = validatorParams.pubKeyTypes
     }

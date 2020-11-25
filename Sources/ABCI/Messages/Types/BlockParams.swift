@@ -40,13 +40,13 @@ public struct BlockParams {
 }
 
 extension BlockParams {
-    init(_ blockParams: Tendermint_Abci_Types_BlockParams) {
+    init(_ blockParams: Tendermint_Abci_BlockParams) {
         self.maxBytes = blockParams.maxBytes
         self.maxGas = blockParams.maxGas
     }
 }
 
-extension Tendermint_Abci_Types_BlockParams {
+extension Tendermint_Abci_BlockParams {
     init(_ blockParams: BlockParams) {
         self.maxBytes = blockParams.maxBytes
         self.maxGas = blockParams.maxGas

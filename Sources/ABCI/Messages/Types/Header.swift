@@ -66,7 +66,7 @@ public struct Header {
 }
 
 extension Header {
-    init(_ header: Tendermint_Abci_Types_Header) {
+    init(_ header: Tendermint_Types_Header) {
         self.version = Version(header.version)
         self.chainID = header.chainID
         self.height = header.height

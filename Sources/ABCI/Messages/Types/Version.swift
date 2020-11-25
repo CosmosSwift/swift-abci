@@ -25,13 +25,13 @@ public struct Version {
 }
 
 extension Version {
-    init(_ version: Tendermint_Abci_Types_Version) {
+    init(_ version: Tendermint_Version_Consensus) {
         self.block = version.block
         self.app = version.app
     }
 }
 
-extension Tendermint_Abci_Types_Version {
+extension Tendermint_Version_Consensus {
     init(_ version: Version) {
         self.block = version.block
         self.app = version.app

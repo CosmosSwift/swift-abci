@@ -66,7 +66,7 @@ public struct ResponseInfo {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseInfo {
+extension Tendermint_Abci_ResponseInfo {
     init(_ tendermintResponse: ResponseInfo) {
         self.data = tendermintResponse.data
         self.version = tendermintResponse.version

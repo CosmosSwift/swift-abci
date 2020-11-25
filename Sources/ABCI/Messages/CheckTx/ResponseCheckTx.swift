@@ -78,7 +78,7 @@ public struct ResponseCheckTx {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseCheckTx {
+extension Tendermint_Abci_ResponseCheckTx {
     init(_ response: ResponseCheckTx) {
         self.code = response.code
         self.data = response.data
@@ -86,7 +86,7 @@ extension Tendermint_Abci_Types_ResponseCheckTx {
         self.info = response.info
         self.gasWanted = response.gasWanted
         self.gasUsed = response.gasUsed
-        self.events = response.events.map(Tendermint_Abci_Types_Event.init)
+        self.events = response.events.map(Tendermint_Abci_Event.init)
         self.codespace = response.codespace
     }
 }

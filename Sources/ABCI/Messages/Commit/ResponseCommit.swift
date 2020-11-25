@@ -58,7 +58,7 @@ public struct ResponseCommit {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseCommit {
+extension Tendermint_Abci_ResponseCommit {
     init(_ response: ResponseCommit) {
         self.data = response.data
         self.retainHeight = response.retainHeight

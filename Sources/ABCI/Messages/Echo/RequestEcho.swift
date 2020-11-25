@@ -22,7 +22,7 @@ public struct RequestEcho {
 }
 
 extension RequestEcho {
-    init(_ tendermintRequest: Tendermint_Abci_Types_RequestEcho) {
+    init(_ tendermintRequest: Tendermint_Abci_RequestEcho) {
         self.message = tendermintRequest.message
     }
 }

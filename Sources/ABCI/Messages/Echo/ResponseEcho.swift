@@ -28,7 +28,7 @@ public struct ResponseEcho {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseEcho {
+extension Tendermint_Abci_ResponseEcho {
     init(_ response: ResponseEcho) {
         self.message = response.message
     }

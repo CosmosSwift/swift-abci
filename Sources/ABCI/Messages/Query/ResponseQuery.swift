@@ -33,7 +33,7 @@ public struct ResponseQuery {
     /// The value of the matching data.
     public let value: Data
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
-    public let proof: Proof
+    public let proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
     public let height: Int64
@@ -50,7 +50,7 @@ public struct ResponseQuery {
     ///   - index: The index of the key in the tree. Defaults to `0`.
     ///   - key: The key of the matching data. Defaults to an empty `Data` value.
     ///   - value: The value of the matching data. Defaults to an empty `Data` value.
-    ///   - proof: Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`. This parameter is optional.
+    ///   - proofOps: Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`. This parameter is optional.
     ///   - height: The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     ///   the state as it was after committing the block at `height - 1`. Defaults to `0`.
     ///   - codespace: Namespace for the `code`. Defaults to an empty string.
@@ -61,7 +61,7 @@ public struct ResponseQuery {
         index: Int64 = 0,
         key: Data = Data(),
         value: Data = Data(),
-        proof: Proof = Proof(),
+        proofOps: ProofOps = ProofOps(),
         height: Int64 = 0,
         codespace: String = ""
     ) {
@@ -71,18 +71,18 @@ public struct ResponseQuery {
         self.index = index
         self.key = key
         self.value = value
-        self.proof = proof
+        self.proofOps = proofOps
         self.height = height
         self.codespace = codespace
     }
 }
 
-extension Tendermint_Abci_Types_ResponseQuery {
+extension Tendermint_Abci_ResponseQuery {
     init(_ response: ResponseQuery) {
         self.code = response.code
         self.key = response.key
         self.value = response.value
-        self.proof = Tendermint_Crypto_Merkle_Proof(response.proof)
+        self.proofOps = Tendermint_Crypto_ProofOps(response.proofOps)
         self.index = response.index
         self.height = response.height
         self.codespace = response.codespace

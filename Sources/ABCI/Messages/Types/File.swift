@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  Common_KVPair_extension.swift last updated 02/06/2020
+//  Proof.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -16,9 +16,22 @@
 
 import Foundation
 
-extension Tendermint_Libs_Kv_Pair {
-    init(key: Data, value: Data) {
+public struct ProofOp {
+    public let type: String
+    public let key: Data
+    public let data: Data
+
+    public init(type: String, key: Data, data: Data) {
+        self.type = type
         self.key = key
-        self.value = value
+        self.data = data
+    }
+}
+
+extension Tendermint_Crypto_ProofOp {
+    init(_ proofOp: ProofOp) {
+        self.type = proofOp.type
+        self.key = proofOp.key
+        self.data = proofOp.data
     }
 }

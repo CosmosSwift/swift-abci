@@ -46,10 +46,10 @@ public struct ResponseEndBlock {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseEndBlock {
+extension Tendermint_Abci_ResponseEndBlock {
     init(_ response: ResponseEndBlock) {
-        self.validatorUpdates = response.updates.map(Tendermint_Abci_Types_ValidatorUpdate.init)
-        self.consensusParamUpdates = Tendermint_Abci_Types_ConsensusParams(response.consensusUpdates)
-        self.events = response.events.map(Tendermint_Abci_Types_Event.init)
+        self.validatorUpdates = response.updates.map(Tendermint_Abci_ValidatorUpdate.init)
+        self.consensusParamUpdates = Tendermint_Abci_ConsensusParams(response.consensusUpdates)
+        self.events = response.events.map(Tendermint_Abci_Event.init)
     }
 }

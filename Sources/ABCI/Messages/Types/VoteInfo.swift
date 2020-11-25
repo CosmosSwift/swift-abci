@@ -25,14 +25,14 @@ public class VoteInfo {
 }
 
 extension VoteInfo {
-    convenience init(protobuf: Tendermint_Abci_Types_VoteInfo) {
+    convenience init(protobuf: Tendermint_Abci_VoteInfo) {
         self.init(Validator(protobuf: protobuf.validator), protobuf.signedLastBlock)
     }
 }
 
-extension Tendermint_Abci_Types_VoteInfo {
+extension Tendermint_Abci_VoteInfo {
     init(_ v: VoteInfo) {
-        validator = Tendermint_Abci_Types_Validator(v.validator)
+        validator = Tendermint_Abci_Validator(v.validator)
         signedLastBlock = v.signedLastBlock
     }
 }

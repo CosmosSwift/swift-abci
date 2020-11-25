@@ -134,7 +134,7 @@ Update the `types.pb.swift` file:
 
 1. update the proto file (and possibly its import dependencies) from  `https://github.com/tendermint/tendermint/abci` and put it in `./protobuf/...`
 
-2. From the project root: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./Sources/ABCI/ -I=./protobuf/ $(find protobuf/tendermint/ -iname "*.proto")`
+2. From the protobug directory: `protoc --swift_opt=FileNaming=PathToUnderscores --swift_out=./../Sources/ABCI/Protobuf -I=./ $(find . -iname "*.proto")`
 
 Compile:
 

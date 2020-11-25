@@ -59,56 +59,64 @@ public struct ABCIProcessor {
             if pos + size <= bytes.count {
                 // Add message to requests
                 do {
-                    let request = try Tendermint_Abci_Types_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
-                    var tendermintResponse = Tendermint_Abci_Types_Response()
+                    let request = try Tendermint_Abci_Request(serializedData: Data([UInt8](bytes[pos ..< pos + size])))
+                    var tendermintResponse = Tendermint_Abci_Response()
                     
                     logger.info("\(request)")
                     
                     switch request.value {
                     case let .some(value):
                         switch value {
-                        case let .echo(tendermintRequest):
+                        case .echo(let tendermintRequest):
                             let request = RequestEcho(tendermintRequest)
                             let response = application.echo(request: request)
-                            tendermintResponse.echo = Tendermint_Abci_Types_ResponseEcho(response)
+                            tendermintResponse.echo = Tendermint_Abci_ResponseEcho(response)
                         case .flush:
                             application.flush()
-                            tendermintResponse.flush = Tendermint_Abci_Types_ResponseFlush()
-                        case let .info(tendermintRequest):
+                            tendermintResponse.flush = Tendermint_Abci_ResponseFlush()
+                        case .info(let tendermintRequest):
                             let request = RequestInfo(tendermintRequest)
                             let response = application.info(request: request)
-                            tendermintResponse.info = Tendermint_Abci_Types_ResponseInfo(response)
-                        case let .initChain(tendermintRequest):
+                            tendermintResponse.info = Tendermint_Abci_ResponseInfo(response)
+                        case .initChain(let tendermintRequest):
                             let request = RequestInitChain(tendermintRequest)
                             let response = application.initChain(request: request)
-                            tendermintResponse.initChain = Tendermint_Abci_Types_ResponseInitChain(response)
-                        case let .query(tendermintRequest):
+                            tendermintResponse.initChain = Tendermint_Abci_ResponseInitChain(response)
+                        case .query(let tendermintRequest):
                             let request = RequestQuery(tendermintRequest)
                             let response = application.query(request: request)
-                            tendermintResponse.query = Tendermint_Abci_Types_ResponseQuery(response)
-                        case let .beginBlock(tendermintRequest):
+                            tendermintResponse.query = Tendermint_Abci_ResponseQuery(response)
+                        case .beginBlock(let tendermintRequest):
                             let request = RequestBeginBlock(tendermintRequest)
                             let response = application.beginBlock(request: request)
-                            tendermintResponse.beginBlock = Tendermint_Abci_Types_ResponseBeginBlock(response)
-                        case let .checkTx(tendermintRequest):
+                            tendermintResponse.beginBlock = Tendermint_Abci_ResponseBeginBlock(response)
+                        case .checkTx(let tendermintRequest):
                             let request = RequestCheckTx(tendermintRequest)
                             let response = application.checkTx(request: request)
-                            tendermintResponse.checkTx = Tendermint_Abci_Types_ResponseCheckTx(response)
-                        case let .deliverTx(tendermintRequest):
+                            tendermintResponse.checkTx = Tendermint_Abci_ResponseCheckTx(response)
+                        case .deliverTx(let tendermintRequest):
                             let request = RequestDeliverTx(tendermintRequest)
                             let response = application.deliverTx(request: request)
-                            tendermintResponse.deliverTx = Tendermint_Abci_Types_ResponseDeliverTx(response)
-                        case let .endBlock(tendermintRequest):
+                            tendermintResponse.deliverTx = Tendermint_Abci_ResponseDeliverTx(response)
+                        case .endBlock(let tendermintRequest):
                             let request = RequestEndBlock(tendermintRequest)
                             let response = application.endBlock(request: request)
-                            tendermintResponse.endBlock = Tendermint_Abci_Types_ResponseEndBlock(response)
+                            tendermintResponse.endBlock = Tendermint_Abci_ResponseEndBlock(response)
                         case .commit:
-                            tendermintResponse.commit = Tendermint_Abci_Types_ResponseCommit(application.commit())
+                            tendermintResponse.commit = Tendermint_Abci_ResponseCommit(application.commit())
+                        case .listSnapshots(let tendermintRequest):
+                            break
+                        case .offerSnapshot(let tendermintRequest):
+                            break
+                        case .loadSnapshotChunk(let tendermintRequest):
+                            break
+                        case .applySnapshotChunk(let tendermintRequest):
+                            break
                         case .setOption:
                             break
                         }
                     case .none:
-                        tendermintResponse.exception = Tendermint_Abci_Types_ResponseException()
+                        tendermintResponse.exception = Tendermint_Abci_ResponseException()
                     }
                     
                     logger.info("\(tendermintResponse)")
