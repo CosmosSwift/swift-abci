@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  RequestEcho.swift last updated 16/07/2020
+//  RequestOfferSnapshot.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -16,13 +16,17 @@
 
 import Foundation
 
-public struct RequestEcho {
-    /// A string to echo back in the response.
-    public let message: String
+public struct RequestOfferSnapshot {
+    /// The snapshot offered for restoration.
+    public let snapshot: Snapshot
+    
+    /// The light client-verified app hash for this height, from the blockchain.
+    public let appHash: Data
 }
 
-extension RequestEcho {
-    init(_ request: Tendermint_Abci_RequestEcho) {
-        self.message = request.message
+extension RequestOfferSnapshot {
+    init(_ request: Tendermint_Abci_RequestOfferSnapshot) {
+        self.snapshot = Snapshot(request.snapshot)
+        self.appHash = request.appHash
     }
 }

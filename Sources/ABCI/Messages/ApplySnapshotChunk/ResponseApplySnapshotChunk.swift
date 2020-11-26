@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  RequestEcho.swift last updated 16/07/2020
+//  ResponseApplySnapshotChunk.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -16,13 +16,6 @@
 
 import Foundation
 
-public struct RequestEcho {
-    /// A string to echo back in the response.
-    public let message: String
-}
-
-extension RequestEcho {
-    init(_ request: Tendermint_Abci_RequestEcho) {
-        self.message = request.message
-    }
+public struct ResponseApplySnapshotChunk {
+    public init() {}
 }
