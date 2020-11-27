@@ -29,17 +29,17 @@ import Foundation
 /// at the end of snapshot restoration.
 public struct ResponseOfferSnapshot {
     public enum Result {
-      /// Unknown result, abort all snapshot restoration
+      /// Unknown result, abort all snapshot restoration.
       case unknown
-      /// Snapshot accepted, apply chunks
+      /// Snapshot accepted, apply chunks.
       case accept
-      /// Abort all snapshot restoration
+      /// Abort all snapshot restoration.
       case abort
-      /// Reject this specific snapshot, try others
+      /// Reject this specific snapshot, try others.
       case reject
-      /// Reject all snapshots of this `format`, try others
+      /// Reject all snapshots of this `format`, try others.
       case rejectFormat
-      /// Reject all snapshots from the sender(s), try others
+      /// Reject all snapshots from the sender(s), try others.
       case rejectSender
     }
     

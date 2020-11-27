@@ -104,14 +104,21 @@ public struct ABCIProcessor {
                             tendermintResponse.endBlock = Tendermint_Abci_ResponseEndBlock(response)
                         case .commit:
                             tendermintResponse.commit = Tendermint_Abci_ResponseCommit(application.commit())
-                        case .listSnapshots(let tendermintRequest):
-                            break
+                        case .listSnapshots:
+                            let response = application.listSnapshots()
+                            tendermintResponse.listSnapshots = Tendermint_Abci_ResponseListSnapshots(response)
                         case .offerSnapshot(let tendermintRequest):
-                            break
+                            let request = RequestOfferSnapshot(tendermintRequest)
+                            let response = application.offerSnapshot(request: request)
+                            tendermintResponse.offerSnapshot = Tendermint_Abci_ResponseOfferSnapshot(response)
                         case .loadSnapshotChunk(let tendermintRequest):
-                            break
+                            let request = RequestLoadSnapshotChunk(tendermintRequest)
+                            let response = application.loadSnapshotChunk(request: request)
+                            tendermintResponse.loadSnapshotChunk = Tendermint_Abci_ResponseLoadSnapshotChunk(response)
                         case .applySnapshotChunk(let tendermintRequest):
-                            break
+                            let request = RequestApplySnapshotChunk(tendermintRequest)
+                            let response = application.applySnapshotChunk(request: request)
+                            tendermintResponse.applySnapshotChunk = Tendermint_Abci_ResponseApplySnapshotChunk(response)
                         case .setOption:
                             break
                         }

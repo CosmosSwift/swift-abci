@@ -16,6 +16,22 @@
 
 import Foundation
 
+/// Used during state sync to retrieve snapshot chunks from peers.
 public struct RequestLoadSnapshotChunk {
+    /// The height of the snapshot the chunks belongs to.
+    public let height: UInt64
+    
+    /// The application-specific format of the snapshot the chunk belongs to.
+    public let format: UInt32
+    
+    /// The chunk index, starting from 0 for the initial chunk.
+    public let chunk: UInt32
+}
 
+extension RequestLoadSnapshotChunk {
+    init(_ request: Tendermint_Abci_RequestLoadSnapshotChunk) {
+        self.height = request.height
+        self.format = request.format
+        self.chunk = request.chunk
+    }
 }

@@ -16,6 +16,7 @@
 
 import Foundation
 
+/// Echoes a string to test an abci client/server implementation.
 public struct RequestEcho {
     /// A string to echo back in the response.
     public let message: String

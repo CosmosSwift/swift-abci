@@ -16,6 +16,22 @@
 
 import Foundation
 
+/// Used during state sync to retrieve snapshot chunks from peers.
 public struct ResponseLoadSnapshotChunk {
-    public init() {}
+    /// The binary chunk contents, in an arbitray format.
+    /// Chunk messages cannot be larger than 16 MB including metadata, so 10 MB is a good starting point.
+    public let chunk: Data
+    
+    /// Used during state sync to retrieve snapshot chunks from peers.
+    ///
+    /// - Parameter chunk: The binary chunk contents, in an arbitray format. Chunk messages cannot be larger than 16 MB including metadata, so 10 MB is a good starting point.
+    public init(chunk: Data = Data()) {
+        self.chunk = chunk
+    }
+}
+
+extension Tendermint_Abci_ResponseLoadSnapshotChunk {
+    init(_ response: ResponseLoadSnapshotChunk) {
+        self.chunk = response.chunk
+    }
 }
