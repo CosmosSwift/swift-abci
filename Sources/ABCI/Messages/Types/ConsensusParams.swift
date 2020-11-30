@@ -33,17 +33,17 @@ public struct ConsensusParams {
 }
 
 extension ConsensusParams {
-   init(_ consensusParams: Tendermint_Abci_Types_ConsensusParams) {
+   init(_ consensusParams: Tendermint_Abci_ConsensusParams) {
         self.block = BlockParams(consensusParams.block)
         self.evidence = EvidenceParams(consensusParams.evidence)
         self.validator = ValidatorParams(consensusParams.validator)
     }
 }
 
-extension Tendermint_Abci_Types_ConsensusParams {
+extension Tendermint_Abci_ConsensusParams {
     init(_ consensusParams: ConsensusParams) {
-        self.block = Tendermint_Abci_Types_BlockParams(consensusParams.block)
-        self.evidence = Tendermint_Abci_Types_EvidenceParams(consensusParams.evidence)
-        self.validator = Tendermint_Abci_Types_ValidatorParams(consensusParams.validator)
+        self.block = Tendermint_Abci_BlockParams(consensusParams.block)
+        self.evidence = Tendermint_Types_EvidenceParams(consensusParams.evidence)
+        self.validator = Tendermint_Types_ValidatorParams(consensusParams.validator)
     }
 }

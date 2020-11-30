@@ -114,6 +114,22 @@ extension KeyValueStoreApp: ABCIApplication {
         self.store.commit(transaction: transaction)
         return .init(data: Data(count: 8))
     }
+    
+    public func listSnapshots() -> ResponseListSnapshots {
+        .init()
+    }
+    
+    public func offerSnapshot(request: RequestOfferSnapshot) -> ResponseOfferSnapshot {
+        .init()
+    }
+    
+    public func loadSnapshotChunk(request: RequestLoadSnapshotChunk) -> ResponseLoadSnapshotChunk {
+        .init()
+    }
+    
+    public func applySnapshotChunk(request: RequestApplySnapshotChunk) -> ResponseApplySnapshotChunk {
+        .init()
+    }
 }
 
 enum ValidationResult {

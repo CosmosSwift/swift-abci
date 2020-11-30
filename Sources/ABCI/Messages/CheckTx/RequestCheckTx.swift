@@ -26,7 +26,7 @@ public struct RequestCheckTx {
 }
 
 extension RequestCheckTx {
-    init(_ request: Tendermint_Abci_Types_RequestCheckTx) {
+    init(_ request: Tendermint_Abci_RequestCheckTx) {
         self.tx = request.tx
         self.type = CheckTxType(request.type)
     }

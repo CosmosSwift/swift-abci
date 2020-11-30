@@ -29,7 +29,7 @@ public struct RequestBeginBlock {
 }
 
 extension RequestBeginBlock {
-    init(_ request: Tendermint_Abci_Types_RequestBeginBlock) {
+    init(_ request: Tendermint_Abci_RequestBeginBlock) {
         self.hash = request.hash
         self.header = Header(request.header)
         self.lastCommitInfo = LastCommitInfo(request.lastCommitInfo)

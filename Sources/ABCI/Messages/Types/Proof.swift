@@ -35,7 +35,7 @@ public struct Proof {
     }
 }
 
-extension Tendermint_Crypto_Merkle_Proof {
+extension Tendermint_Crypto_Proof {
     init(_ proof: Proof) {
         self.total = proof.total
         self.index = proof.index

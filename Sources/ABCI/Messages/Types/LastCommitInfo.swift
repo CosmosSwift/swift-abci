@@ -25,15 +25,15 @@ public struct LastCommitInfo {
 }
 
 extension LastCommitInfo {
-    init(_ lastCommitInfo: Tendermint_Abci_Types_LastCommitInfo) {
+    init(_ lastCommitInfo: Tendermint_Abci_LastCommitInfo) {
         self.round = lastCommitInfo.round
         self.votes = lastCommitInfo.votes.map(VoteInfo.init)
     }
 }
 
-extension Tendermint_Abci_Types_LastCommitInfo {
+extension Tendermint_Abci_LastCommitInfo {
     init(_ lastCommitInfo: LastCommitInfo) {
         self.round = lastCommitInfo.round
-        self.votes = lastCommitInfo.votes.map(Tendermint_Abci_Types_VoteInfo.init)
+        self.votes = lastCommitInfo.votes.map(Tendermint_Abci_VoteInfo.init)
     }
 }

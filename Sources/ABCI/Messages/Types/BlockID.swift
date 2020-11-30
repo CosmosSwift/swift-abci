@@ -27,8 +27,8 @@ public struct BlockID {
 }
 
 extension BlockID {
-    init(_ blockId: Tendermint_Abci_Types_BlockID) {
+    init(_ blockId: Tendermint_Types_BlockID) {
         self.hash = blockId.hash
-        self.parts = PartSetHeader(blockId.partsHeader)
+        self.parts = PartSetHeader(blockId.partSetHeader)
     }
 }

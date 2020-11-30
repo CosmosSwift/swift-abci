@@ -22,7 +22,7 @@ public struct RequestEndBlock {
 }
 
 extension RequestEndBlock {
-    init(_ request: Tendermint_Abci_Types_RequestEndBlock) {
+    init(_ request: Tendermint_Abci_RequestEndBlock) {
         self.height = request.height
     }
 }

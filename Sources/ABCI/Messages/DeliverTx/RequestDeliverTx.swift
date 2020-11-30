@@ -22,7 +22,7 @@ public struct RequestDeliverTx {
 }
 
 extension RequestDeliverTx {
-    init(_ request: Tendermint_Abci_Types_RequestDeliverTx) {
+    init(_ request: Tendermint_Abci_RequestDeliverTx) {
         self.tx = request.tx
     }
 }

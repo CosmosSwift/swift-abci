@@ -125,6 +125,52 @@ public protocol ABCIApplication {
     /// - Parameter request: `Commit` ABCI message request.
     /// - Returns: `Commit` ABCI message response.
     func commit() -> ResponseCommit
+    
+    /// Used during state sync to discover available snapshots on peers.
+    ///
+    /// - Returns: `ListSnapshot` ABCI message response.
+    func listSnapshots() -> ResponseListSnapshots
+    
+    /// `OfferSnapshot` is called when bootstrapping a node using state sync.
+    /// The application may accept or reject snapshots as appropriate.
+    /// Upon accepting, Tendermint will retrieve and apply snapshot chunks via `ApplySnapshotChunk`.
+    /// The application may also choose to reject a snapshot in the chunk response,
+    /// in which case it should be prepared to accept further `OfferSnapshot` calls.
+    ///
+    /// Only `appHash` can be trusted, as it has been verified by the light client.
+    /// Any other data can be spoofed by adversaries, so applications should employ
+    /// additional verification schemes to avoid denial-of-service attacks.
+    /// The verified `appHash` is automatically checked against the restored application
+    /// at the end of snapshot restoration.
+    ///
+    /// - Parameter request: `OfferSnapshot` ABCI message request.
+    /// - Returns: `OfferSnapshot` ABCI message response.
+    func offerSnapshot(request: RequestOfferSnapshot) -> ResponseOfferSnapshot
+    
+    /// Used during state sync to retrieve snapshot chunks from peers.
+    ///
+    /// - Parameter request: `LoadSnapshotChunk` ABCI message request.
+    /// - Returns: `LoadSnapshotChunk` ABCI message response.
+    func loadSnapshotChunk(request: RequestLoadSnapshotChunk) -> ResponseLoadSnapshotChunk
+    
+    /// The application can choose to refetch chunks and/or ban P2P peers as appropriate.
+    /// Tendermint will not do this unless instructed by the application.
+    ///
+    /// The application may want to verify each chunk, e.g. by attaching chunk hashes in `Snapshot.
+    /// metadata` and/or incrementally verifying contents against `appHash`.
+    ///
+    /// When all chunks have been accepted, Tendermint will make an ABCI `Info` call to verify that
+    /// `lastBlockAppHash` and `lastBlockHeight` matches the expected values, and record the `appVersion`
+    /// in the node state. It then switches to fast sync or consensus and joins the network.
+    ///
+    /// If Tendermint is unable to retrieve the next chunk after some time
+    /// (e.g. because no suitable peers are available), it will reject the snapshot
+    /// and try a different one via `OfferSnapshot`. The application should be prepared
+    /// to reset and accept it or abort as appropriate.
+    ///
+    /// - Parameter request: `ApplySnapshotChunk` ABCI message request
+    /// - Returns: `ApplySnapshotChunk` ABCI message response
+    func applySnapshotChunk(request: RequestApplySnapshotChunk) -> ResponseApplySnapshotChunk
 }
 
 extension ABCIApplication {

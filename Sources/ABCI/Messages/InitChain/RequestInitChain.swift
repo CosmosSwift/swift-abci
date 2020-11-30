@@ -30,7 +30,7 @@ public struct RequestInitChain {
 }
 
 extension RequestInitChain {
-    init(_ request: Tendermint_Abci_Types_RequestInitChain) {
+    init(_ request: Tendermint_Abci_RequestInitChain) {
         self.time = request.time.date
         self.chainId = request.chainID
         self.consensusParams = ConsensusParams(request.consensusParams)

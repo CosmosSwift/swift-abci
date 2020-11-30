@@ -33,7 +33,7 @@ public struct RequestQuery {
 }
 
 extension RequestQuery {
-    init(_ request: Tendermint_Abci_Types_RequestQuery) {
+    init(_ request: Tendermint_Abci_RequestQuery) {
         self.data = request.data
         self.path = request.path
         self.height = request.height

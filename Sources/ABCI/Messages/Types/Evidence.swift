@@ -17,14 +17,20 @@
 import Foundation
 import SwiftProtobuf
 
-public class Evidence {
-    public let type: String
+public struct Evidence {
+    public let type: EvidenceType
     public let validator: Validator
     public let height: Int64
     public let time: Date
     public let totalVotingPower: Int64
 
-    public init(_ type: String, _ validator: Validator, _ height: Int64, _ time: Date, _ totalVotingPower: Int64) {
+    public init(
+        type: EvidenceType,
+        validator: Validator,
+         height: Int64,
+        time: Date,
+        totalVotingPower: Int64
+    ) {
         self.type = type
         self.validator = validator
         self.height = height
@@ -34,17 +40,21 @@ public class Evidence {
 }
 
 extension Evidence {
-    convenience init(protobuf: Tendermint_Abci_Types_Evidence) {
-        self.init(protobuf.type, Validator(protobuf: protobuf.validator), protobuf.height, protobuf.time.date, protobuf.totalVotingPower)
+    init(evidence: Tendermint_Abci_Evidence) {
+        self.type = EvidenceType(evidence.type)
+        self.validator = Validator(evidence.validator)
+        self.height = evidence.height
+        self.time = evidence.time.date
+        self.totalVotingPower = evidence.totalVotingPower
     }
 }
 
-extension Tendermint_Abci_Types_Evidence {
-    init(_ e: Evidence) {
-        type = e.type
-        validator = Tendermint_Abci_Types_Validator(e.validator)
-        height = e.height
-        time = Google_Protobuf_Timestamp(date: e.time)
-        totalVotingPower = e.totalVotingPower
+extension Tendermint_Abci_Evidence {
+    init(_ evidence: Evidence) {
+        self.type = Tendermint_Abci_EvidenceType(evidence.type)
+        self.validator = Tendermint_Abci_Validator(evidence.validator)
+        self.height = evidence.height
+        self.time = Google_Protobuf_Timestamp(date: evidence.time)
+        self.totalVotingPower = evidence.totalVotingPower
     }
 }

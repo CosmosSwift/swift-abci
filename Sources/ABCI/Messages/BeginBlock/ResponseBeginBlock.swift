@@ -38,8 +38,8 @@ public struct ResponseBeginBlock {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseBeginBlock {
+extension Tendermint_Abci_ResponseBeginBlock {
     init(_ response: ResponseBeginBlock) {
-        self.events = response.events.map(Tendermint_Abci_Types_Event.init)
+        self.events = response.events.map(Tendermint_Abci_Event.init)
     }
 }

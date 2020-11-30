@@ -18,20 +18,17 @@ import Foundation
 
 public struct Event {
     public let type: String
-    public let attributes: [Data: Data]
+    public let attributes: [EventAttribute]
 
-    public init(type: String, attributes: [Data: Data]) {
+    public init(type: String, attributes: [EventAttribute]) {
         self.type = type
         self.attributes = attributes
     }
 }
 
-extension Tendermint_Abci_Types_Event {
+extension Tendermint_Abci_Event {
     init(_ event: Event) {
         self.type = event.type
-        
-        self.attributes = event.attributes.map { pair in
-            Tendermint_Libs_Kv_Pair(key: pair.key, value: pair.value)
-        }
+        self.attributes = event.attributes.map(Tendermint_Abci_EventAttribute.init)
     }
 }

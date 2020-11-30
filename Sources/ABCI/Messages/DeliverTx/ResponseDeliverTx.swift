@@ -70,7 +70,7 @@ public struct ResponseDeliverTx {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseDeliverTx {
+extension Tendermint_Abci_ResponseDeliverTx {
     init(_ response: ResponseDeliverTx) {
         self.code = response.code
         self.data = response.data
@@ -78,7 +78,7 @@ extension Tendermint_Abci_Types_ResponseDeliverTx {
         self.info = response.info
         self.gasWanted = response.gasWanted
         self.gasUsed = response.gasUsed
-        self.events = response.events.map(Tendermint_Abci_Types_Event.init)
+        self.events = response.events.map(Tendermint_Abci_Event.init)
         self.codespace = response.codespace
     }
 }

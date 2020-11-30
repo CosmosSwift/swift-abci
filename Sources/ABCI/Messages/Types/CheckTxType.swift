@@ -23,7 +23,7 @@ public enum CheckTxType {
 }
 
 extension CheckTxType {
-    init(_ type: Tendermint_Abci_Types_CheckTxType) {
+    init(_ type: Tendermint_Abci_CheckTxType) {
         switch type {
         case .new:
             self = .new

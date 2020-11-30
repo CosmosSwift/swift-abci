@@ -31,12 +31,12 @@ public struct EvidenceParams {
 }
 
 extension EvidenceParams {
-    init(_ evidenceParams: Tendermint_Abci_Types_EvidenceParams) {
+    init(_ evidenceParams: Tendermint_Types_EvidenceParams) {
         self.maxAgeNumBlocks = evidenceParams.maxAgeNumBlocks
         self.maxAgeDuration = evidenceParams.maxAgeDuration.timeInterval
     }
 }
-extension Tendermint_Abci_Types_EvidenceParams {
+extension Tendermint_Types_EvidenceParams {
     init(_ evidenceParams: EvidenceParams) {
         self.maxAgeNumBlocks = evidenceParams.maxAgeNumBlocks
         self.maxAgeDuration = Google_Protobuf_Duration(evidenceParams.maxAgeDuration)

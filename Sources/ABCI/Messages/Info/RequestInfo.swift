@@ -26,7 +26,7 @@ public struct RequestInfo {
 }
 
 extension RequestInfo {
-    init(_ tendermintRequest: Tendermint_Abci_Types_RequestInfo) {
+    init(_ tendermintRequest: Tendermint_Abci_RequestInfo) {
         self.version = tendermintRequest.version
         self.blockVersion = tendermintRequest.blockVersion
         self.p2pVersion = tendermintRequest.p2PVersion

@@ -54,9 +54,9 @@ public struct ResponseInitChain {
     }
 }
 
-extension Tendermint_Abci_Types_ResponseInitChain {
+extension Tendermint_Abci_ResponseInitChain {
     init(_ response: ResponseInitChain) {
-        self.consensusParams = Tendermint_Abci_Types_ConsensusParams(response.consensusParams)
-        self.validators = response.validators.map(Tendermint_Abci_Types_ValidatorUpdate.init)
+        self.consensusParams = Tendermint_Abci_ConsensusParams(response.consensusParams)
+        self.validators = response.validators.map(Tendermint_Abci_ValidatorUpdate.init)
     }
 }

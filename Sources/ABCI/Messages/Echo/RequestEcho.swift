@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ResponseEcho.swift last updated 16/07/2020
+//  RequestEcho.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -16,13 +16,14 @@
 
 import Foundation
 
+/// Echoes a string to test an abci client/server implementation.
 public struct RequestEcho {
     /// A string to echo back in the response.
     public let message: String
 }
 
 extension RequestEcho {
-    init(_ tendermintRequest: Tendermint_Abci_Types_RequestEcho) {
-        self.message = tendermintRequest.message
+    init(_ request: Tendermint_Abci_RequestEcho) {
+        self.message = request.message
     }
 }

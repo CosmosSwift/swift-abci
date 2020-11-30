@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  PubKey.swift last updated 02/06/2020
+//  Event.swift last updated 02/06/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -16,26 +16,19 @@
 
 import Foundation
 
-public struct PubKey {
-    public let type: String
-    public let data: Data
+public struct EventAttribute {
+    public let key: Data
+    public let value: Data
 
-    public init(_ type: String, _ data: Data) {
-        self.type = type
-        self.data = data
+    public init(key: Data, value: Data) {
+        self.key = key
+        self.value = value
     }
 }
 
-extension PubKey {
-    init(_ pubKey: Tendermint_Abci_Types_PubKey) {
-        self.type = pubKey.type
-        self.data = pubKey.data
-    }
-}
-
-extension Tendermint_Abci_Types_PubKey {
-    init(_ pubKey: PubKey) {
-        self.type = pubKey.type
-        self.data = pubKey.data
+extension Tendermint_Abci_EventAttribute {
+    init(_ eventAttribute: EventAttribute) {
+        self.key = eventAttribute.key
+        self.value = eventAttribute.value
     }
 }
