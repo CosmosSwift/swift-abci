@@ -30,7 +30,7 @@ public struct ResponseInitChain {
     /// Initial consensus-critical parameters.
     public let consensusParams: ConsensusParams
     /// Initial validator set.
-    public let validators: [ValidatorUpdate]
+    public var validators: [ValidatorUpdate]
 
     /// Initializes the chain.
     ///

@@ -20,6 +20,31 @@ public enum PublicKey {
     case ed25519(Data)
     case secp256K1(Data)
     case none
+    
+    var data: Data? {
+        switch self {
+        case .ed25519(let data):
+            return data
+        case .secp256K1(let data):
+            return data
+        default:
+            return nil
+        }
+    }
+}
+
+extension PublicKey: Equatable {
+    public static func == (lhs: PublicKey, rhs: PublicKey) -> Bool {
+        switch (lhs, rhs) {
+        case (.ed25519(let lhsData), .ed25519(let rhsData)):
+            return lhsData == rhsData
+        case (.secp256K1(let lhsData), .secp256K1(let rhsData)):
+            return lhsData == rhsData
+        default:
+            // TODO: Check if this should really be true
+            return true
+        }
+    }
 }
 
 extension PublicKey {

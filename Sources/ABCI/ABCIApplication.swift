@@ -174,7 +174,7 @@ public protocol ABCIApplication {
 }
 
 extension ABCIApplication {
-    func echo(request: RequestEcho) -> ResponseEcho {
+    public func echo(request: RequestEcho) -> ResponseEcho {
         .init(message: request.message)
     }
     

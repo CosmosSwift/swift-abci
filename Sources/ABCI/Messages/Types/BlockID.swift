@@ -20,7 +20,7 @@ public struct BlockID {
     public let hash: Data
     public let parts: PartSetHeader
 
-    public init(hash: Data, parts: PartSetHeader) {
+    public init(hash: Data = Data(), parts: PartSetHeader = PartSetHeader()) {
         self.hash = hash
         self.parts = parts
     }

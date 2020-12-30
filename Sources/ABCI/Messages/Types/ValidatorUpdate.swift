@@ -14,19 +14,29 @@
 //
 // ===----------------------------------------------------------------------===
 
+import Foundation
+
 public struct ValidatorUpdate {
-    public let pubKey: PublicKey
+    public let publicKey: PublicKey
     public let power: Int64
 
-    public init(_ pubKey: PublicKey, _ power: Int64) {
-        self.pubKey = pubKey
+    public init(publicKey: PublicKey, power: Int64) {
+        self.publicKey = publicKey
         self.power = power
+    }
+}
+
+extension ValidatorUpdate: Equatable, Comparable {
+    public static func < (lhs: ValidatorUpdate, rhs: ValidatorUpdate) -> Bool {
+        let lhsHex = lhs.publicKey.data?.hexEncodedString() ?? ""
+        let rhsHex = rhs.publicKey.data?.hexEncodedString() ?? ""
+        return lhsHex.compare(rhsHex) == .orderedAscending
     }
 }
 
 extension ValidatorUpdate {
     init(_ validatorUpdate: Tendermint_Abci_ValidatorUpdate) {
-        self.pubKey = PublicKey(validatorUpdate.pubKey)
+        self.publicKey = PublicKey(validatorUpdate.pubKey)
         self.power = validatorUpdate.power
     }
 }
@@ -34,6 +44,18 @@ extension ValidatorUpdate {
 extension Tendermint_Abci_ValidatorUpdate {
     init(_ validatorUpdate: ValidatorUpdate) {
         self.power = validatorUpdate.power
-        self.pubKey = Tendermint_Crypto_PublicKey(validatorUpdate.pubKey)
+        self.pubKey = Tendermint_Crypto_PublicKey(validatorUpdate.publicKey)
+    }
+}
+
+extension Data {
+    struct HexEncodingOptions: OptionSet {
+        let rawValue: Int
+        static let upperCase = HexEncodingOptions(rawValue: 1 << 0)
+    }
+
+    func hexEncodedString(options: HexEncodingOptions = []) -> String {
+        let format = options.contains(.upperCase) ? "%02hhX" : "%02hhx"
+        return map { String(format: format, $0) }.joined()
     }
 }

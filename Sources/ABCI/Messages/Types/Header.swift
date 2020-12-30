@@ -19,7 +19,7 @@ import Foundation
 public struct Header {
     public let version: Version
     public let chainID: String
-    public let height: Int64
+    public var height: Int64
     public let time: Date
     public let lastBlockID: BlockID
     public let lastCommitHash: Data
@@ -32,21 +32,21 @@ public struct Header {
     public let evidenceHash: Data
     public let proposerAddress: Data
 
-    init(
-        version: Version,
+    public init(
+        version: Version = Version(),
         chainID: String,
-        height: Int64,
+        height: Int64 = 0,
         time: Date,
-        lastBlockID: BlockID,
-        lastCommitHash: Data,
-        dataHash: Data,
-        validatorsHash: Data,
-        nextValidatorsHash: Data,
-        consensusHash: Data,
-        appHash: Data,
-        lastResultsHash: Data,
-        evidenceHash: Data,
-        proposerAddress: Data
+        lastBlockID: BlockID = BlockID(),
+        lastCommitHash: Data = Data(),
+        dataHash: Data = Data(),
+        validatorsHash: Data = Data(),
+        nextValidatorsHash: Data = Data(),
+        consensusHash: Data = Data(),
+        appHash: Data = Data(),
+        lastResultsHash: Data = Data(),
+        evidenceHash: Data = Data(),
+        proposerAddress: Data = Data()
     ) {
         self.version = version
         self.chainID = chainID

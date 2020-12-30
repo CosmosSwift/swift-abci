@@ -14,7 +14,7 @@
 //
 // ===----------------------------------------------------------------------===
 
-public struct BlockParams {
+public struct BlockParams: Codable {
     /// Maximum size of a block, in bytes.
     ///
     /// Note: Must be greater than zero.

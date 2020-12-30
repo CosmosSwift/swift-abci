@@ -20,7 +20,7 @@ public struct PartSetHeader {
     public let total: UInt32
     public let hash: Data
 
-    public init(_ total: UInt32, _ hash: Data) {
+    public init(total: UInt32 = 0, hash: Data = Data()) {
         self.total = total
         self.hash = hash
     }
