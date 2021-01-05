@@ -11,7 +11,7 @@ let package = Package(
         .library(name: "ABCINIO", targets: ["ABCINIO"]),
     ],
     dependencies: [
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.5.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.14.0"),
         .package(name: "swift-nio", url: "https://github.com/apple/swift-nio", from: "2.3.0"),
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", from: "1.0.0"),
     ],

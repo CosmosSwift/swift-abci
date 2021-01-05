@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct EventAttribute {
+public struct EventAttribute: Codable {
     public let key: Data
     public let value: Data
 

@@ -21,24 +21,24 @@ import Foundation
 /// A Merkle proof may be returned with a self-describing `type` property to support many types of Merkle trees and encoding formats.
 public struct ResponseQuery {
     /// Response code. Code `0` expresses success, anything else expresses failure.
-    public let code: UInt32
+    public var code: UInt32
     /// The output of the application's logger. May be non-deterministic.
-    public let log: String
+    public var log: String
     /// Additional information. May be non-deterministic.
-    public let info: String
+    public var info: String
     /// The index of the key in the tree.
-    public let index: Int64
+    public var index: Int64
     /// The key of the matching data.
     public var key: Data
     /// The value of the matching data.
-    public let value: Data
+    public var value: Data
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
-    public let proofOps: ProofOps
+    public var proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
-    public let height: Int64
+    public var height: Int64
     /// Namespace for the `code`.
-    public let codespace: String
+    public var codespace: String
     
     /// Queries data from the application at current or past height.
     ///

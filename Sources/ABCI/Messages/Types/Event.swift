@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct Event {
+public struct Event: Codable {
     public let type: String
     public let attributes: [EventAttribute]
 
