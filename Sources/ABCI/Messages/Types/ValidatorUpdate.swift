@@ -17,8 +17,8 @@
 import Foundation
 
 public struct ValidatorUpdate {
-    public let publicKey: PublicKey
-    public let power: Int64
+    public var publicKey: PublicKey
+    public var power: Int64
 
     public init(publicKey: PublicKey, power: Int64) {
         self.publicKey = publicKey
