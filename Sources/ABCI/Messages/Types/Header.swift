@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct Header {
+public struct Header: Codable {
     public let version: Version
     public let chainID: String
     public var height: Int64
