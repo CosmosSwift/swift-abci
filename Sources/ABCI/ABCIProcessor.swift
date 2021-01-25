@@ -131,15 +131,15 @@ public struct ABCIProcessor {
                     var array = [UInt8]()
                     
                     // varint size encoding representation (https://developers.google.com/protocol-buffers/docs/encoding#varints)
-                    var toEncode = message.count << 1 // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
+                    var toEncode = message.count  // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
                     
-                    while toEncode != 0 {
-                        var res = toEncode & 127 // 7 least significant bits
-                        toEncode = toEncode >> 7 // shift by 7 bits
-                        if toEncode != 0 {
-                            res += 128
-                        }
-                        array.insert(UInt8(res), at: 0)
+                    while (toEncode != 0) {
+                        array.append(UInt8(toEncode % 128)) //
+                        toEncode = toEncode >> 7
+                    }
+                    if (array.count == 0) { array.append(0x0) }
+                    for i in 0..<array.count - 1 {
+                        array[i] = array[i] ^ (1 << 7)
                     }
                     
                     result.append(contentsOf: array)
