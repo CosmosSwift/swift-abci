@@ -131,7 +131,7 @@ public struct ABCIProcessor {
                     var array = [UInt8]()
                     
                     // varint size encoding representation (https://developers.google.com/protocol-buffers/docs/encoding#varints)
-                    var toEncode = message.count  // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
+                    var toEncode = message.count << 1  // >0 zig-zag representation (https://developers.google.com/protocol-buffers/docs/encoding?csw=1#signed-integers)
                     
                     while (toEncode != 0) {
                         array.append(UInt8(toEncode % 128)) //
