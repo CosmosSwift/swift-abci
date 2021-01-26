@@ -940,14 +940,14 @@ struct Tendermint_Abci_ResponseQuery {
 
   var value: Data = Data()
 
-  var proofOps: Tendermint_Crypto_ProofOps {
+  var proof: Tendermint_Crypto_ProofOps {
     get {return _proofOps ?? Tendermint_Crypto_ProofOps()}
     set {_proofOps = newValue}
   }
   /// Returns true if `proofOps` has been explicitly set.
-  var hasProofOps: Bool {return self._proofOps != nil}
+  var hasProof: Bool {return self._proofOps != nil}
   /// Clears the value of `proofOps`. Subsequent reads from it will return its default value.
-  mutating func clearProofOps() {self._proofOps = nil}
+  mutating func clearProof() {self._proofOps = nil}
 
   var height: Int64 = 0
 
