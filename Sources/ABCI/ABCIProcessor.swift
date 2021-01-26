@@ -124,7 +124,7 @@ public struct ABCIProcessor {
                         if toEncode != 0 {
                             res += 128
                         }
-                        array.insert(UInt8(res), at: 0)
+                        array.append(UInt8(res))
                     }
                     
                     result.append(contentsOf: array)
