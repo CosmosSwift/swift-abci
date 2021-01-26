@@ -42,7 +42,7 @@ extension PublicKey {
     init(_ publicKey: Tendermint_Abci_Types_PubKey) {
         
         switch publicKey.type {
-        case "tendermint/PubKeyEd25519":
+        case "ed25519":
             self = .ed25519(publicKey.data)
         default:
             self = .none
@@ -54,12 +54,13 @@ extension Tendermint_Abci_Types_PubKey {
     init(_ publicKey: PublicKey) {
         switch publicKey {
         case .ed25519(let data):
-            self.type = "tendermint/PubKeyEd25519"
+            self.type = "ed25519"
             self.data = data
         case .secp256K1(let data):
-            self.type = "tendermint/PubKeySecp256k1"
+            self.type = "secp256k1"
             self.data = data
         case .none:
+            self.type = "missing"
             self.data = Data()
         }
     }
