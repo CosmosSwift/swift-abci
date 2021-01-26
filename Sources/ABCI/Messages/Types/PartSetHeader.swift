@@ -20,7 +20,7 @@ public struct PartSetHeader: Codable {
     public let total: Int32
     public let hash: Data
 
-    public init(_ total: Int32, _ hash: Data) {
+    public init(_ total: Int32 = 0, _ hash: Data = Data()) {
         self.total = total
         self.hash = hash
     }

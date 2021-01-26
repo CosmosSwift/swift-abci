@@ -18,7 +18,7 @@ public struct Version: Codable {
     public let block: UInt64
     public let app: UInt64
 
-    public init(_ block: UInt64, _ app: UInt64) {
+    public init(_ block: UInt64 = 0, _ app: UInt64 = 0) {
         self.block = block
         self.app = app
     }
