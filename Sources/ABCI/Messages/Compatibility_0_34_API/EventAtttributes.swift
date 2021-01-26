@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  Event.swift last updated 02/06/2020
+//  EventAttribute.swift last updated 02/06/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -13,25 +13,21 @@
 //  SPDX-License-Identifier: Apache-2.0
 //
 // ===----------------------------------------------------------------------===
-
 import Foundation
 
-public struct Event: Codable {
-    public let type: String
-    public let attributes: [EventAttribute]
+public struct EventAttribute: Codable {
+    public let key: Data
+    public let value: Data
 
-    public init(type: String, attributes: [EventAttribute]) {
-        self.type = type
-        self.attributes = attributes
+    public init(key: Data, value: Data) {
+        self.key = key
+        self.value = value
     }
 }
 
-extension Tendermint_Abci_Types_Event {
-    init(_ event: Event) {
-        self.type = event.type
-        
-        self.attributes = event.attributes.map { pair in
-            Tendermint_Libs_Kv_Pair(key: pair.key, value: pair.value)
-        }
-    }
-}
+//extension Tendermint_Abci_EventAttribute {
+//    init(_ eventAttribute: EventAttribute) {
+//        self.key = eventAttribute.key
+//        self.value = eventAttribute.value
+//    }
+//}

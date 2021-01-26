@@ -20,7 +20,7 @@ public struct RequestInitChain {
     /// Genesis time.
     public let time: Date
     /// ID of the blockchain.
-    public let chainId: String
+    public let chainID: String
     /// Initial consensus-critical parameters.
     public let consensusParams: ConsensusParams
     /// Initial genesis validators, sorted by voting power.
@@ -32,7 +32,7 @@ public struct RequestInitChain {
 extension RequestInitChain {
     init(_ request: Tendermint_Abci_Types_RequestInitChain) {
         self.time = request.time.date
-        self.chainId = request.chainID
+        self.chainID = request.chainID
         self.consensusParams = ConsensusParams(request.consensusParams)
         self.validators = request.validators.map(ValidatorUpdate.init)
         self.appStateBytes = request.appStateBytes
