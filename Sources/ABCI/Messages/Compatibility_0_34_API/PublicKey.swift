@@ -41,8 +41,8 @@ extension PublicKey: Equatable {
 extension PublicKey {
     init(_ publicKey: Tendermint_Abci_Types_PubKey) {
         
-        switch publicKey.type.lowercased() {
-        case "ed25519":
+        switch publicKey.type {
+        case "tendermint/PubKeyEd25519":
             self = .ed25519(publicKey.data)
         default:
             self = .none
