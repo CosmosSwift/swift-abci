@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct PubKey {
+public struct PubKey1 {
     public let type: String
     public let data: Data
 
@@ -26,7 +26,7 @@ public struct PubKey {
     }
 }
 
-extension PubKey {
+extension PubKey1 {
     init(_ pubKey: Tendermint_Abci_Types_PubKey) {
         self.type = pubKey.type
         self.data = pubKey.data
@@ -34,7 +34,7 @@ extension PubKey {
 }
 
 extension Tendermint_Abci_Types_PubKey {
-    init(_ pubKey: PubKey) {
+    init(_ pubKey: PubKey1) {
         self.type = pubKey.type
         self.data = pubKey.data
     }

@@ -15,18 +15,18 @@
 // ===----------------------------------------------------------------------===
 
 public struct ValidatorUpdate {
-    public let pubKey: PubKey
+    public let publicKey: PublicKey
     public let power: Int64
 
-    public init(publicKey: PubKey, power: Int64) {
-        self.pubKey = publicKey
+    public init(publicKey: PublicKey, power: Int64) {
+        self.publicKey = publicKey
         self.power = power
     }
 }
 
 extension ValidatorUpdate {
     init(_ validatorUpdate: Tendermint_Abci_Types_ValidatorUpdate) {
-        self.pubKey = PubKey(validatorUpdate.pubKey)
+        self.publicKey = PublicKey(validatorUpdate.pubKey)
         self.power = validatorUpdate.power
     }
 }
@@ -34,6 +34,6 @@ extension ValidatorUpdate {
 extension Tendermint_Abci_Types_ValidatorUpdate {
     init(_ validatorUpdate: ValidatorUpdate) {
         self.power = validatorUpdate.power
-        self.pubKey = Tendermint_Abci_Types_PubKey(validatorUpdate.pubKey)
+        self.pubKey = Tendermint_Abci_Types_PubKey(validatorUpdate.publicKey)
     }
 }
