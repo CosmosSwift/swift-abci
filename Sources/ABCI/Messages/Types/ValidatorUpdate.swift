@@ -18,8 +18,8 @@ public struct ValidatorUpdate {
     public let pubKey: PubKey
     public let power: Int64
 
-    public init(_ pubKey: PubKey, _ power: Int64) {
-        self.pubKey = pubKey
+    public init(publicKey: PubKey, power: Int64) {
+        self.pubKey = publicKey
         self.power = power
     }
 }
