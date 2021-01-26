@@ -33,7 +33,7 @@ public struct ResponseQuery {
     /// The value of the matching data.
     public var value: Data
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
-    public var proofOps: ProofOps
+    public var proofOps: ProofOps?
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
     public var height: Int64
@@ -61,7 +61,7 @@ public struct ResponseQuery {
         index: Int64 = 0,
         key: Data = Data(),
         value: Data = Data(),
-        proofOps: ProofOps = ProofOps(),
+        proofOps: ProofOps? = nil,
         height: Int64 = 0,
         codespace: String = ""
     ) {
@@ -82,7 +82,11 @@ extension Tendermint_Abci_ResponseQuery {
         self.code = response.code
         self.key = response.key
         self.value = response.value
-        self.proofOps = Tendermint_Crypto_ProofOps(response.proofOps)
+        if let po = response.proofOps {
+            self.proofOps = Tendermint_Crypto_ProofOps(po)
+        } else {
+            self.proofOps = Tendermint_Crypto_ProofOps()
+        }
         self.index = response.index
         self.height = response.height
         self.codespace = response.codespace
