@@ -292,7 +292,7 @@ extension Tendermint_Crypto_ProofOp: SwiftProtobuf.Message, SwiftProtobuf._Messa
 }
 
 extension Tendermint_Crypto_ProofOps: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  static let protoMessageName: String = _protobuf_package + ".ProofOps"
+  static let protoMessageName: String = _protobuf_package + ".Proof"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "ops"),
   ]
