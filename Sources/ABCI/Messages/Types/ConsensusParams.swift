@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct ConsensusParams {
+public struct ConsensusParams: Codable {
     public let block: BlockParams
     public let evidence: EvidenceParams
     public let validator: ValidatorParams

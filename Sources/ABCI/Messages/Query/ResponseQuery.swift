@@ -36,7 +36,7 @@ public struct ResponseQuery {
     public let proof: Proof
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
-    public let height: Int64
+    public var height: Int64
     /// Namespace for the `code`.
     public let codespace: String
     

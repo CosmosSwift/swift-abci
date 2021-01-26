@@ -23,11 +23,11 @@ public struct RequestQuery {
     /// - Apps MUST interpret `/store` as a query by key on the underlying store.
     /// The key SHOULD be specified in the data field.
     /// - Apps SHOULD allow queries over specific types like `/accounts/...` or `/votes/...`.
-    public let path: String
+    public var path: String
     /// The block height for which you want the query, `0` should return data for the latest commited block.
     /// Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
-    public let height: Int64
+    public var height: Int64
     /// Return Merkle proof with response, if possible.
     public let prove: Bool
 }

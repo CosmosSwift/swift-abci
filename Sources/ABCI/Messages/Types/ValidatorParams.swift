@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct ValidatorParams {
+public struct ValidatorParams: Codable {
     public let pubKeyTypes: [String]
 
     public init(pubKeyTypes: [String] = ["ed25519"]) {
