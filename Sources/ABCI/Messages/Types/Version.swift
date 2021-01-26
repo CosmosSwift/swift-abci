@@ -14,7 +14,7 @@
 //
 // ===----------------------------------------------------------------------===
 
-public struct Version {
+public struct Version: Codable {
     public let block: UInt64
     public let app: UInt64
 

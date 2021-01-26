@@ -16,10 +16,10 @@
 
 import Foundation
 
-public struct Header {
+public struct Header: Codable {
     public let version: Version
     public let chainID: String
-    public let height: Int64
+    public var height: Int64
     public let time: Date
     public let lastBlockID: BlockID
     public let lastCommitHash: Data

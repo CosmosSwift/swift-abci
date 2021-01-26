@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct BlockID {
+public struct BlockID: Codable {
     public let hash: Data
     public let parts: PartSetHeader
 

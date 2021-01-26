@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct PartSetHeader {
+public struct PartSetHeader: Codable {
     public let total: Int32
     public let hash: Data
 
