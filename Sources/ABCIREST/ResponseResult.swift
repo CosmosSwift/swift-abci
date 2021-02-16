@@ -1,7 +1,7 @@
 import ABCIMessages
 
 // TODO: replace with Result<Payload.ResponsePayload, ErrorPayload>
-enum ResponseResult<Payload: RequestPayload>: Codable {
+public enum ResponseResult<Payload: RequestPayload>: Codable {
     case response(_ payload: ResponseWrapper)
     case error(_ error: ErrorWrapper)
 
@@ -12,7 +12,7 @@ enum ResponseResult<Payload: RequestPayload>: Codable {
 }
 
 extension ResponseResult {
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         switch Payload.method {
         case .abci_query:
@@ -29,7 +29,7 @@ extension ResponseResult {
         }
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case let .response(payload):
