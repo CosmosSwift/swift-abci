@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  Event.swift last updated 02/06/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,18 +14,14 @@
 //
 // ===----------------------------------------------------------------------===
 
-@testable import ABCIServer
-import XCTest
+import Foundation
 
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+public struct Event: Codable {
+    public let type: String
+    public let attributes: [EventAttribute]
+
+    public init(type: String, attributes: [EventAttribute]) {
+        self.type = type
+        self.attributes = attributes
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

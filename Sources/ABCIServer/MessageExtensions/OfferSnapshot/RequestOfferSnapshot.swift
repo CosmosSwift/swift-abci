@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  RequestOfferSnapshot.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -13,19 +13,11 @@
 //  SPDX-License-Identifier: Apache-2.0
 //
 // ===----------------------------------------------------------------------===
+import ABCIMessages
 
-@testable import ABCIServer
-import XCTest
-
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+extension RequestOfferSnapshot {
+    init(_ request: Tendermint_Abci_RequestOfferSnapshot) {
+        self.init(snapshot: Snapshot(request.snapshot),
+                  appHash: request.appHash)
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

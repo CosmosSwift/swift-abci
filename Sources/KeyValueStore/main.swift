@@ -14,7 +14,8 @@
 //
 // ===----------------------------------------------------------------------===
 
-import ABCI
+import ABCIServer
+import ABCIMessages
 import ABCINIO
 import Foundation
 
@@ -66,7 +67,7 @@ extension KeyValueStoreApp: ABCIApplication {
         .init()
     }
 
-    public func query(request: RequestQuery) -> ResponseQuery {
+    public func query(request: RequestQuery<Data>) -> ResponseQuery<Data> {
         guard let key = String(data: request.data, encoding: .utf8) else {
             return ResponseQuery(code: 1)
         }

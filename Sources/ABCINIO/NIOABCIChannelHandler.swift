@@ -14,7 +14,7 @@
 //
 // ===----------------------------------------------------------------------===
 
-import ABCI
+import ABCIServer
 import Logging
 import NIO
 
