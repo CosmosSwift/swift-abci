@@ -15,12 +15,11 @@
 // ===----------------------------------------------------------------------===
 
 import Foundation
-import DataConvertible
 
 /// Queries data from the application at current or past height.
 ///
 /// A Merkle proof may be returned with a self-describing `type` property to support many types of Merkle trees and encoding formats.
-public struct ResponseQuery<Payload: DataConvertible> {
+public struct ResponseQuery<Payload> {
     
     public let payload: Payload?
     
@@ -35,8 +34,6 @@ public struct ResponseQuery<Payload: DataConvertible> {
     public var index: Int64
     /// The key of the matching data.
     public var key: Data?
-    /// The value of the matching data.
-    public var value: Data? { payload?.data }
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
     public var proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
@@ -60,15 +57,15 @@ public struct ResponseQuery<Payload: DataConvertible> {
     ///   the state as it was after committing the block at `height - 1`. Defaults to `0`.
     ///   - codespace: Namespace for the `code`. Defaults to an empty string.
     public init(
-        code: UInt32 = 0,
-        log: String = "",
-        info: String = "",
-        index: Int64 = 0,
-        key: Data? = Data(),
-        value: Payload? = Payload(data: Data()),
-        proofOps: ProofOps = ProofOps(),
-        height: Int64 = 0,
-        codespace: String = ""
+        code: UInt32,
+        log: String,
+        info: String,
+        index: Int64,
+        key: Data?,
+        value: Payload?,
+        proofOps: ProofOps,
+        height: Int64,
+        codespace: String
     ) {
         self.code = code
         self.log = log
@@ -80,4 +77,11 @@ public struct ResponseQuery<Payload: DataConvertible> {
         self.height = height
         self.codespace = codespace
     }
+}
+
+
+extension ResponseQuery where Payload == Data {
+    /// The value of the matching data.
+    public var value: Data? { payload }
+
 }

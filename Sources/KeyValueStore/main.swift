@@ -69,18 +69,14 @@ extension KeyValueStoreApp: ABCIApplication {
 
     public func query(request: RequestQuery<Data>) -> ResponseQuery<Data> {
         guard let key = String(data: request.data, encoding: .utf8) else {
-            return ResponseQuery(code: 1)
+            return ResponseQuery<Data>(code: 1, log: "", info: "", index: 1, key: Data(), value: Data(), proofOps: ProofOps(), height: 0, codespace: "")
         }
         
         guard let value = self.persistedValue(key: key) else {
-            return ResponseQuery(log: "does not exist")
+            return ResponseQuery<Data>(code: 1, log: "does not exist", info: "", index: 1, key: Data(), value: Data(), proofOps: ProofOps(), height: 0, codespace: "")
         }
         
-        return .init(
-            log: "exists",
-            key: key.data(using: .utf8)!,
-            value: value.data(using: .utf8)!
-        )
+        return .init(code: 1, log: "exists", info: "", index: 1, key: key.data(using: .utf8)!, value: value.data(using: .utf8)!, proofOps: ProofOps(), height: 0, codespace: "")
     }
 
     public func beginBlock(request: RequestBeginBlock) -> ResponseBeginBlock {

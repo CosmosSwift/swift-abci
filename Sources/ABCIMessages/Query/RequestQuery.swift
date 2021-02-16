@@ -15,14 +15,11 @@
 // ===----------------------------------------------------------------------===
 
 import Foundation
-import DataConvertible
 
-public struct RequestQuery<Payload: DataConvertible> {
+public struct RequestQuery<Payload> {
     /// when not Data, the typed instance of the Payload`.
     public let payload: Payload
     
-    /// Raw query bytes. Can be used with or in lieu of `path`.
-    public var data: Data { payload.data }
     /// Path of the request, like an HTTP GET path. Can be used with or in lieu of `data`.
     /// - Apps MUST interpret `/store` as a query by key on the underlying store.
     /// The key SHOULD be specified in the data field.
@@ -42,3 +39,11 @@ public struct RequestQuery<Payload: DataConvertible> {
         self.prove = prove
     }
 }
+
+
+extension RequestQuery where Payload == Data {
+    /// Raw query bytes. Can be used with or in lieu of `path`.
+    public var data: Data { payload }
+}
+
+
