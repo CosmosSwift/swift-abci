@@ -1,5 +1,3 @@
-import DataConvertible
-
 public protocol RequestPayload: Codable {
     associatedtype ResponsePayload: Codable
     static var method: Method { get }
