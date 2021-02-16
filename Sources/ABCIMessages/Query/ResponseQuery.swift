@@ -44,9 +44,6 @@ public struct ResponseQuery<Payload> {
 }
 
 extension ResponseQuery {
-    /// The value of the matching data.
-    public var value: Data? { payload }
-
     /// Queries data from the application at current or past height.
     ///
     /// A Merkle proof may be returned with a self-describing `type` property to support many types of Merkle trees and encoding formats.
@@ -82,4 +79,11 @@ extension ResponseQuery {
         self.height = height
         self.codespace = codespace
     }
+}
+
+
+extension ResponseQuery where Payload == Data {
+    /// The value of the matching data.
+    public var value: Data? { payload }
+
 }
