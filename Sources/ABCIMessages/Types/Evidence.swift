@@ -15,7 +15,6 @@
 // ===----------------------------------------------------------------------===
 
 import Foundation
-import SwiftProtobuf
 
 public struct Evidence {
     public let type: EvidenceType
