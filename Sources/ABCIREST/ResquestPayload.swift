@@ -1,7 +1,7 @@
 import DataConvertible
 
-public protocol RequestPayload: Codable, DataConvertible {
-    associatedtype ResponsePayload: Codable, DataConvertible
+public protocol RequestPayload: Codable {
+    associatedtype ResponsePayload: Codable
     static var method: Method { get }
     var path: String { get }
 }

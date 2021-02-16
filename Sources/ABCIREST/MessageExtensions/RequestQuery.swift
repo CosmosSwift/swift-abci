@@ -21,7 +21,8 @@ extension RequestQuery: Codable, RequestWrapper where Payload: RequestPayload {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         let string = try container.decode(String.self, forKey: .data)
         #warning("This hex decoding should be factored out")
-        guard let data = string.toData(), let payload = Payload.init(data: data) else {
+        guard let data = string.toData(), let payload =
+                try? JSONDecoder().decode(Payload.self, from: data) else {
             throw RESTRequestError.badPayload
         }
         
@@ -37,7 +38,8 @@ extension RequestQuery: Codable, RequestWrapper where Payload: RequestPayload {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         #warning("This hex encoding should be factored out")
-        try container.encode(self.payload.data.hexEncodedString(), forKey: .data) // Assumes default encoding for Data type is hex string
+        let data = (try? JSONEncoder().encode(self.payload)) ?? Data()
+        try container.encode(data.hexEncodedString(), forKey: .data) // Assumes default encoding for Data type is hex string
         try container.encode("\(self.height)", forKey: .height)
         try container.encode(self.path, forKey: .path)
         try container.encode(self.prove, forKey: .prove)
