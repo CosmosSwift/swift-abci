@@ -1,9 +1,9 @@
 import ABCIMessages
 
-struct RESTRequest<Payload: RequestPayload>: Codable {
-    let id: Int // Can be -1 in the response
-    var method: Method { self.params.method }
-    let params: RequestWrapper
+public struct RESTRequest<Payload: RequestPayload>: Codable {
+    public let id: Int // Can be -1 in the response
+    public var method: Method { self.params.method }
+    public let params: RequestWrapper
     
     enum CodingKeys: CodingKey {
         case jsonrpc
@@ -17,7 +17,7 @@ struct RESTRequest<Payload: RequestPayload>: Codable {
         self.params = request
     }
     
-    init(from decoder: Decoder) throws {
+    public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         guard let jsonrpc = try? container.decode(String.self, forKey: .jsonrpc), jsonrpc == ABCI_REST.jsonRpcVersion else {
@@ -32,7 +32,7 @@ struct RESTRequest<Payload: RequestPayload>: Codable {
         
     }
     
-    func encode(to encoder: Encoder) throws {
+    public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(ABCI_REST.jsonRpcVersion, forKey: .jsonrpc)
         try container.encode(self.id, forKey: .id)
