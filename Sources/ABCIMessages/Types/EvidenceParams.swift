@@ -15,7 +15,6 @@
 // ===----------------------------------------------------------------------===
 
 import Foundation
-import SwiftProtobuf
 
 public struct EvidenceParams: Codable {
     public let maxAgeNumBlocks: Int64
