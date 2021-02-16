@@ -39,7 +39,7 @@ extension RequestQuery: Codable, RequestWrapper where Payload: RequestPayload {
         var container = encoder.container(keyedBy: CodingKeys.self)
         #warning("This hex encoding should be factored out")
         let data = (try? JSONEncoder().encode(self.payload)) ?? Data()
-        try container.encode(data.hexEncodedString(), forKey: .data) // Assumes default encoding for Data type is hex string
+        try container.encode(data.hexEncodedString([.upperCase]), forKey: .data) // Assumes default encoding for Data type is hex string
         try container.encode("\(self.height)", forKey: .height)
         try container.encode(self.path, forKey: .path)
         try container.encode(self.prove, forKey: .prove)
