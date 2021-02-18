@@ -96,7 +96,7 @@ public protocol ABCIApplication {
     /// Transactions where `ResponseCheckTx.code` is not zero will be rejected.
     /// - Parameter request: `DeliverTx` ABCI message request.
     /// - Returns: `DeliverTx` ABCI message response.
-    func deliverTx(request: RequestDeliverTx) -> ResponseDeliverTx
+    func deliverTx(request: RequestDeliverTx<Data>) -> ResponseDeliverTx<Data>
 
     /// Signals the end of a block.
     ///

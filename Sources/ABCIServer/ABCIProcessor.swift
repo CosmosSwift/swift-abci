@@ -96,7 +96,7 @@ public struct ABCIProcessor {
                             let response = application.checkTx(request: request)
                             tendermintResponse.checkTx = Tendermint_Abci_ResponseCheckTx(response)
                         case .deliverTx(let tendermintRequest):
-                            let request = RequestDeliverTx(tendermintRequest)
+                            let request = RequestDeliverTx<Data>(tendermintRequest)
                             let response = application.deliverTx(request: request)
                             tendermintResponse.deliverTx = Tendermint_Abci_ResponseDeliverTx(response)
                         case .endBlock(let tendermintRequest):

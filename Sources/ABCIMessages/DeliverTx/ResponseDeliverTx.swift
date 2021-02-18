@@ -19,11 +19,11 @@ import Foundation
 /// Executes transactions in full.
 ///
 /// Transactions where `ResponseCheckTx.code` is not zero will be rejected.
-public struct ResponseDeliverTx {
+public struct ResponseDeliverTx<Payload> {
+    public let payload: Payload?
+
     /// Response code. Code `0` expresses success, anything else expresses failure.
     public let code: UInt32
-    /// Result bytes, if any.
-    public let data: Data
     /// The output of the application's logger. May be non-deterministic.
     public let log: String
     /// Additional information. May be non-deterministic.
@@ -51,7 +51,7 @@ public struct ResponseDeliverTx {
     ///   - codespace: Namespace for the `code`. Defaults to an empty string.
     public init(
         code: UInt32 = 0,
-        data: Data = Data(),
+        data: Payload? = nil,
         log: String = "",
         info: String = "",
         gasWanted: Int64 = 0,
@@ -60,7 +60,7 @@ public struct ResponseDeliverTx {
         codespace: String = ""
     ) {
         self.code = code
-        self.data = data
+        self.payload = data
         self.log = log
         self.info = info
         self.gasWanted = gasWanted
@@ -68,4 +68,11 @@ public struct ResponseDeliverTx {
         self.events = events
         self.codespace = codespace
     }
+}
+
+
+extension ResponseDeliverTx where Payload == Data {
+    /// Result bytes if any.
+    public var data: Data? { payload }
+
 }

@@ -89,7 +89,7 @@ extension KeyValueStoreApp: ABCIApplication {
         return .init(code: result.code, gasWanted: 1)
     }
 
-    public func deliverTx(request: RequestDeliverTx) -> ResponseDeliverTx {
+    public func deliverTx(request: RequestDeliverTx<Data>) -> ResponseDeliverTx<Data> {
         let result = self.validate(tx: request.tx)
         
         if case .valid(let key, let value) = result {

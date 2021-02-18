@@ -13,13 +13,13 @@
 //  SPDX-License-Identifier: Apache-2.0
 //
 // ===----------------------------------------------------------------------===
-
+import Foundation
 import ABCIMessages
 
 extension Tendermint_Abci_ResponseDeliverTx {
-    init(_ response: ResponseDeliverTx) {
+    init(_ response: ResponseDeliverTx<Data>) {
         self.code = response.code
-        self.data = response.data
+        self.data = response.data ?? Data()
         self.log = response.log
         self.info = response.info
         self.gasWanted = response.gasWanted

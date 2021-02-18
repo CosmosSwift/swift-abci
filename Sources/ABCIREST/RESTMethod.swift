@@ -1,6 +1,6 @@
 public enum Method: String, Codable {
     case abci_query
-    
+    case tx
     
 }
 

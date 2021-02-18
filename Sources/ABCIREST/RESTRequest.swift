@@ -28,6 +28,8 @@ public struct RESTRequest<Payload: RequestPayload>: Codable {
         switch method {
         case .abci_query:
             self.params = try container.decode(RequestQuery<Payload>.self, forKey: .params)
+        case .tx:
+            self.params = try container.decode(RequestDeliverTx<Payload>.self, forKey: .params)
         }
         
     }
@@ -40,6 +42,7 @@ public struct RESTRequest<Payload: RequestPayload>: Codable {
         switch self.method {
         case .abci_query:
             try container.encode(self.params as! RequestQuery<Payload>, forKey: .params)
-        }
+        case .tx:
+            try container.encode(self.params as! RequestDeliverTx<Payload>, forKey: .params)        }
     }
 }

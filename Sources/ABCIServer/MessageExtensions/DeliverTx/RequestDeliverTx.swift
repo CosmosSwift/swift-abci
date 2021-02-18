@@ -13,10 +13,10 @@
 //  SPDX-License-Identifier: Apache-2.0
 //
 // ===----------------------------------------------------------------------===
-
+import Foundation
 import ABCIMessages
 
-extension RequestDeliverTx {
+extension RequestDeliverTx where Payload == Data {
     init(_ request: Tendermint_Abci_RequestDeliverTx) {
         self.init(tx: request.tx)
     }

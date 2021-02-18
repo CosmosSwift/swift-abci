@@ -20,6 +20,11 @@ extension ResponseResult {
                 self = .response(response)
                 return
             }
+        case .tx:
+            if let response = try? container.decodeIfPresent(ResponseDeliverTx<Payload.ResponsePayload>.self, forKey: .response) {
+                self = .response(response)
+                return
+            }
         }
         
         if let error = try? container.decodeIfPresent(ErrorWrapper.self, forKey: .error) {
@@ -36,6 +41,8 @@ extension ResponseResult {
             switch Payload.method {
             case .abci_query:
                 try container.encode(payload as! ResponseQuery<Payload.ResponsePayload>, forKey: .response)
+            case .tx:
+                try container.encode(payload as! ResponseDeliverTx<Payload.ResponsePayload>, forKey: .response)
             }
         case let .error(error):
             try container.encode(error, forKey: .error)

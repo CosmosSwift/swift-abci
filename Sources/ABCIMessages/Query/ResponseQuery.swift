@@ -23,7 +23,6 @@ public struct ResponseQuery<Payload> {
     
     public let payload: Payload?
     
-    
     /// Response code. Code `0` expresses success, anything else expresses failure.
     public var code: UInt32
     /// The output of the application's logger. May be non-deterministic.

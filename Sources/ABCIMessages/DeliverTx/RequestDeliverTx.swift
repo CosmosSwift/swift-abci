@@ -16,11 +16,19 @@
 
 import Foundation
 
-public struct RequestDeliverTx {
+public struct RequestDeliverTx<Payload> {
+    public let payload: Payload
+    
+    public init(payload: Payload) {
+        self.payload = payload
+    }
+}
+
+extension RequestDeliverTx where Payload == Data {
     /// The request transaction bytes.
-    public let tx: Data
+    public var tx: Data { payload }
     
     public init(tx: Data) {
-        self.tx = tx
+        self.init(payload: tx)
     }
 }
