@@ -80,10 +80,3 @@ extension ResponseQuery {
         self.codespace = codespace
     }
 }
-
-
-extension ResponseQuery where Payload == Data {
-    /// The value of the matching data.
-    public var value: Data? { payload }
-
-}

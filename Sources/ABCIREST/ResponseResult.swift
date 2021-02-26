@@ -1,7 +1,7 @@
 import ABCIMessages
 
 // TODO: replace with Result<Payload.ResponsePayload, ErrorPayload>
-public enum ResponseResult<Payload: RequestPayload>: Codable {
+public enum ResponseResult<Payload: RequestParameters>: Codable {
     case response(_ payload: ResponseWrapper)
     case error(_ error: ErrorWrapper)
 

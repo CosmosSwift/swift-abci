@@ -16,9 +16,9 @@
 
 import Foundation
 
-public struct RequestQuery<Payload> {
+public struct RequestQuery<Payload: Codable> {
     /// when not Data, the typed instance of the Payload`.
-    public let payload: Payload
+    public let data: Payload
     
     /// Path of the request, like an HTTP GET path. Can be used with or in lieu of `data`.
     /// - Apps MUST interpret `/store` as a query by key on the underlying store.
@@ -32,18 +32,10 @@ public struct RequestQuery<Payload> {
     /// Return Merkle proof with response, if possible.
     public let prove: Bool
 
-    public init(payload: Payload, path: String, height:Int64, prove: Bool) {
-        self.payload = payload
+    public init(data: Payload, path: String, height:Int64, prove: Bool) {
+        self.data = data
         self.path = path
         self.height = height
         self.prove = prove
     }
 }
-
-
-extension RequestQuery where Payload == Data {
-    /// Raw query bytes. Can be used with or in lieu of `path`.
-    public var data: Data { payload }
-}
-
-

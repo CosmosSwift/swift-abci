@@ -1,4 +1,4 @@
-public struct RESTResponse<Payload: RequestPayload>: Codable {
+public struct RESTResponse<Payload: RequestParameters>: Codable {
     public let id: Int // Can be -1 in the response
     public let result: ResponseResult<Payload>
     
