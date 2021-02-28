@@ -7,8 +7,10 @@ extension RESTRequest {
     }
 }
 
-extension RequestQuery: RequestParameters {
-    public typealias ResponsePayload = ResponseQuery
+extension ResponseQuery: Codable where Payload: Codable {}
+
+extension RequestQuery: RequestParameters where Payload: Codable {
+    public typealias ResponsePayload = ResponseQuery<Payload>
         
     enum CodingKeys: String, CodingKey {
         case data
@@ -65,7 +67,7 @@ extension RequestQuery: RequestParameters {
 //
 //
 //}
-extension ResponseQuery: Codable where Payload: Codable {
+extension ResponseQuery where Payload: Codable {
     enum CodingKeys: CodingKey {
         case code
         case log

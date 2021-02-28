@@ -2,7 +2,7 @@ import ABCIMessages
 
 // TODO: replace with Result<Payload.ResponsePayload, ErrorPayload>
 public enum ResponseResult<Payload: RequestParameters>: Codable {
-    case response(_ payload: ResponseWrapper)
+    case response(_ payload: Payload.ResponsePayload)
     case error(_ error: ErrorWrapper)
 
     enum CodingKeys: CodingKey {
@@ -14,12 +14,9 @@ public enum ResponseResult<Payload: RequestParameters>: Codable {
 extension ResponseResult {
     public init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        switch Payload.method {
-        case .abci_query:
-            if let response = try? container.decodeIfPresent(ResponseQuery<Payload.ResponsePayload>.self, forKey: .response) {
+            if let response = try? container.decodeIfPresent(Payload.ResponsePayload.self, forKey: .response) {
                 self = .response(response)
                 return
-            }
         }
         
         if let error = try? container.decodeIfPresent(ErrorWrapper.self, forKey: .error) {
@@ -33,10 +30,7 @@ extension ResponseResult {
         var container = encoder.container(keyedBy: CodingKeys.self)
         switch self {
         case let .response(payload):
-            switch Payload.method {
-            case .abci_query:
-                try container.encode(payload as! ResponseQuery<Payload.ResponsePayload>, forKey: .response)
-            }
+                try container.encode(payload, forKey: .response)
         case let .error(error):
             try container.encode(error, forKey: .error)
         }
