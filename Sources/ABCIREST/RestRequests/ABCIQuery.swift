@@ -7,8 +7,8 @@ extension RESTRequest {
     }
 }
 
-extension RequestQuery: RequestParameters {
-    public typealias ResponsePayload = ResponseQuery
+extension RequestQuery: RequestParameters where Payload: Codable {
+    public typealias ResponsePayload = ResponseQuery<Payload>
         
     enum CodingKeys: String, CodingKey {
         case data
@@ -47,6 +47,8 @@ extension RequestQuery: RequestParameters {
         try container.encode(self.prove, forKey: .prove)
     }
 }
+
+extension ResponseQuery: ResponseWrapper { }
 
 //public struct ResponseWrapper<Payload: RequestPayload>: Codable {
 //
