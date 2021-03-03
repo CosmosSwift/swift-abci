@@ -1,9 +1,5 @@
 import ABCIMessages
 
-public protocol RequestParameters: Codable {
-    associatedtype ResponsePayload: Codable
-}
-
 public enum RESTRequestError: Swift.Error {
     case badPayload
     case badStringForUInt
@@ -43,7 +39,7 @@ enum RESTRequestMethod: String, Codable {
     case validators
 }
 
-public struct RESTRequest<Parameters: RequestParameters> {
+public struct RESTRequest<Parameters: Codable> {
     let id: Int
     let method: RESTRequestMethod
     let params: Parameters

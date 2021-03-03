@@ -1,12 +1,19 @@
+import NIO
+
 extension RESTRequest {
     static func unsubscribe(id: Int, params: UnsubscribeParameters) -> RESTRequest<UnsubscribeParameters> {
         .init(id: id, method: .unsubscribe, params: params)
     }
 }
 
-public struct UnsubscribeParameters: RequestParameters {
-    public typealias ResponsePayload = UnsubscribeResponse
-    
+extension RESTClient {
+    func unsubscribe(id: Int, params: UnsubscribeParameters) throws -> EventLoopFuture<RESTResponse<UnsubscribeResponse>> {
+        let restRequest = RESTRequest<UnsubscribeParameters>.unsubscribe(id: id, params: params)
+        return try self.sendRequest(payload: restRequest)
+    }
+}
+
+public struct UnsubscribeParameters: Codable {
     let query: Never
 }
 

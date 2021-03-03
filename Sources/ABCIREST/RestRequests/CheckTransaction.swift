@@ -1,12 +1,19 @@
+import NIO
+
 extension RESTRequest {
     static func checkTransaction(id: Int, params: CheckTransactionParameters) -> RESTRequest<CheckTransactionParameters> {
         .init(id: id, method: .checkTransaction, params: params)
     }
 }
 
-public struct CheckTransactionParameters: RequestParameters {
-    public typealias ResponsePayload = CheckTransactionResponse
-    
+extension RESTClient {
+    func checkTransaction(id: Int, params: CheckTransactionParameters) throws -> EventLoopFuture<RESTResponse<CheckTransactionResponse>> {
+        let restRequest = RESTRequest<CheckTransactionParameters>.checkTransaction(id: id, params: params)
+        return try self.sendRequest(payload: restRequest)
+    }
+}
+
+public struct CheckTransactionParameters: Codable {
     let transaction: Never
 }
 

@@ -1,15 +1,28 @@
 import ABCIMessages
 import Foundation
 
+import NIO
+
 extension RESTRequest {
-    static func abciQuery<Payload>(id: Int, params: RequestQuery<Payload>) -> RESTRequest<RequestQuery<Payload>> {
+    static func abciQuery<ParamsPayload>(
+        id: Int,
+        params: RequestQuery<ParamsPayload>
+    ) -> RESTRequest<RequestQuery<ParamsPayload>> {
         .init(id: id, method: .abciQuery, params: params)
     }
 }
 
-extension RequestQuery: RequestParameters where Payload: Codable {
-    public typealias ResponsePayload = ResponseQuery<Payload>
-        
+extension RESTClient {
+    func abciQuery<ParamsPayload: Codable, ResponsePayload: Codable>(
+        id: Int,
+        params: RequestQuery<ParamsPayload>
+    ) throws -> EventLoopFuture<RESTResponse<ResponseQuery<ResponsePayload>>> {
+        let restRequest = RESTRequest<RequestQuery<ParamsPayload>>.abciQuery(id: id, params: params)
+        return try self.sendRequest(payload: restRequest)
+    }
+}
+
+extension RequestQuery: Codable where Payload: Codable {        
     enum CodingKeys: String, CodingKey {
         case data
         case height
@@ -48,25 +61,6 @@ extension RequestQuery: RequestParameters where Payload: Codable {
     }
 }
 
-extension ResponseQuery: ResponseWrapper { }
-
-//public struct ResponseWrapper<Payload: RequestPayload>: Codable {
-//
-//    public let payload: Payload.ResponsePayload?
-//
-//    var code: Int
-//    var log: String
-//    var info: String
-//    var index: UInt  // TODO: this needs ot be decoded from a String
-//    var key: String? // TODO: this is likely Data
-//    var value: String?  { try? Data(JSONEncoder().encode(self.payload)).base64EncodedString() }
-//    //var proofOps: ProofOps { get } // TODO: this aim to be "proofOps": { "ops" : [] }
-//    var height: UInt // TODO: this needs ot be encoded as a String
-//    var codespace: String
-//
-//
-//
-//}
 extension ResponseQuery: Codable where Payload: Codable {
     enum CodingKeys: CodingKey {
         case code
@@ -129,6 +123,5 @@ extension ResponseQuery: Codable where Payload: Codable {
 
         try container.encode("\(self.height)", forKey: .height)
         try container.encode(self.codespace, forKey: .codespace)
-
     }
 }
