@@ -43,6 +43,10 @@ public struct ResponseQuery<Payload> {
     public var codespace: String
 }
 
+extension ResponseQuery where Payload == Data {
+    public var value: Data? { self.payload}
+}
+
 extension ResponseQuery {
     /// Queries data from the application at current or past height.
     ///

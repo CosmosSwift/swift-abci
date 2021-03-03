@@ -22,7 +22,7 @@ extension RESTClient {
     }
 }
 
-extension RequestQuery: Codable where Payload: Codable {        
+extension RequestQuery: Codable where Payload: Codable {
     enum CodingKeys: String, CodingKey {
         case data
         case height
