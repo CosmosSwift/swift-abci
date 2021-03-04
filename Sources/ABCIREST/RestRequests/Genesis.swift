@@ -1,11 +1,16 @@
+import NIO
+
 extension RESTRequest {
-    static func genesis(id: Int, params: GenesisParameters) -> RESTRequest<GenesisParameters> {
-        .init(id: id, method: .genesis, params: params)
+    static func genesis(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .genesis, params: EmptyParameters())
     }
 }
 
-public struct GenesisParameters: RequestParameters {
-    public typealias ResponsePayload = GenesisResponse
+extension RESTClient {
+    public func genesis(id: Int) throws -> EventLoopFuture<RESTResponse<GenesisResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.genesis(id: id)
+        return try self.sendRequest(payload: restRequest)
+    }
 }
 
 public struct GenesisResponse: Codable {

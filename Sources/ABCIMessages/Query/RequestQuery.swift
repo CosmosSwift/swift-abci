@@ -16,7 +16,7 @@
 
 import Foundation
 
-public struct RequestQuery<Payload: Codable> {
+public struct RequestQuery<Payload> {
     /// when not Data, the typed instance of the Payload`.
     public let data: Payload
     

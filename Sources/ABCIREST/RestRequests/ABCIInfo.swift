@@ -1,13 +1,17 @@
+import NIO
+
 extension RESTRequest {
-    static func abciInfo(id: Int, params: ABCIInfoParameters) -> RESTRequest<ABCIInfoParameters> {
-        .init(id: id, method: .abciInfo, params: params)
+    static func abciInfo(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .abciInfo, params: EmptyParameters())
     }
 }
 
-public struct ABCIInfoParameters: RequestParameters {
-    public typealias ResponsePayload = ABCIInfoResponse
+extension RESTClient {
+    public func abciInfo(id: Int) throws -> EventLoopFuture<RESTResponse<ABCIInfoResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.abciInfo(id: id)
+        return try self.sendRequest(payload: restRequest)
+    }
 }
 
-public struct ABCIInfoResponse: Codable {
-    
-}
+public struct ABCIInfoParameters: Codable { }
+public struct ABCIInfoResponse: Codable { }

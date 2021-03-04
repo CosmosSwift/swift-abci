@@ -1,11 +1,16 @@
+import NIO
+
 extension RESTRequest {
-    static func status(id: Int, params: StatusParameters) -> RESTRequest<StatusParameters> {
-        .init(id: id, method: .status, params: params)
+    static func status(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .status, params: EmptyParameters())
     }
 }
 
-public struct StatusParameters: RequestParameters {
-    public typealias ResponsePayload = StatusResponse
+extension RESTClient {
+    public func status(id: Int) throws -> EventLoopFuture<RESTResponse<StatusResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.status(id: id)
+        return try self.sendRequest(payload: restRequest)
+    }
 }
 
 public struct StatusResponse: Codable {
