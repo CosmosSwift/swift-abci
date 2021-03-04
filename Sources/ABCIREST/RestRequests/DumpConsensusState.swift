@@ -1,19 +1,17 @@
 import NIO
 
 extension RESTRequest {
-    static func dumpConsensusState(id: Int, params: DumpConsensusStateParameters) -> RESTRequest<DumpConsensusStateParameters> {
-        .init(id: id, method: .dumpConsensusState, params: params)
+    static func dumpConsensusState(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .dumpConsensusState, params: EmptyParameters())
     }
 }
 
 extension RESTClient {
-    func dumpConsensusState(id: Int, params: DumpConsensusStateParameters) throws -> EventLoopFuture<RESTResponse<DumpConsensusStateResponse>> {
-        let restRequest = RESTRequest<DumpConsensusStateParameters>.dumpConsensusState(id: id, params: params)
+    func dumpConsensusState(id: Int) throws -> EventLoopFuture<RESTResponse<DumpConsensusStateResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.dumpConsensusState(id: id)
         return try self.sendRequest(payload: restRequest)
     }
 }
-
-public struct DumpConsensusStateParameters: Codable { }
 
 public struct DumpConsensusStateResponse: Codable {
     

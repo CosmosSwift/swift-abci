@@ -1,19 +1,17 @@
 import NIO
 
 extension RESTRequest {
-    static func netInfo(id: Int, params: NetInfoParameters) -> RESTRequest<NetInfoParameters> {
-        .init(id: id, method: .netInfo, params: params)
+    static func netInfo(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .netInfo, params: EmptyParameters())
     }
 }
 
 extension RESTClient {
-    func netInfo(id: Int, params: NetInfoParameters) throws -> EventLoopFuture<RESTResponse<NetInfoResponse>> {
-        let restRequest = RESTRequest<NetInfoParameters>.netInfo(id: id, params: params)
+    func netInfo(id: Int) throws -> EventLoopFuture<RESTResponse<NetInfoResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.netInfo(id: id)
         return try self.sendRequest(payload: restRequest)
     }
 }
-
-public struct NetInfoParameters: Codable { }
 
 public struct NetInfoResponse: Codable {
     

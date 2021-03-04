@@ -1,19 +1,17 @@
 import NIO
 
 extension RESTRequest {
-    static func numUnconfirmedTransactions(id: Int, params: NumUnconfirmedTransactionsParameters) -> RESTRequest<NumUnconfirmedTransactionsParameters> {
-        .init(id: id, method: .numUnconfirmedTransactions, params: params)
+    static func numUnconfirmedTransactions(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .numUnconfirmedTransactions, params: EmptyParameters())
     }
 }
 
 extension RESTClient {
-    func numUnconfirmedTransactions(id: Int, params: NumUnconfirmedTransactionsParameters) throws -> EventLoopFuture<RESTResponse<NumUnconfirmedTransactionsResponse>> {
-        let restRequest = RESTRequest<NumUnconfirmedTransactionsParameters>.numUnconfirmedTransactions(id: id, params: params)
+    func numUnconfirmedTransactions(id: Int) throws -> EventLoopFuture<RESTResponse<NumUnconfirmedTransactionsResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.numUnconfirmedTransactions(id: id)
         return try self.sendRequest(payload: restRequest)
     }
 }
-
-public struct NumUnconfirmedTransactionsParameters: Codable { }
 
 public struct NumUnconfirmedTransactionsResponse: Codable {
     

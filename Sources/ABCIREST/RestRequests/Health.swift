@@ -1,19 +1,17 @@
 import NIO
 
 extension RESTRequest {
-    static func health(id: Int, params: HealthParameters) -> RESTRequest<HealthParameters> {
-        .init(id: id, method: .health, params: params)
+    static func health(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .health, params: EmptyParameters())
     }
 }
 
 extension RESTClient {
-    func health(id: Int, params: HealthParameters) throws -> EventLoopFuture<RESTResponse<HealthResponse>> {
-        let restRequest = RESTRequest<HealthParameters>.health(id: id, params: params)
+    func health(id: Int) throws -> EventLoopFuture<RESTResponse<HealthResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.health(id: id)
         return try self.sendRequest(payload: restRequest)
     }
 }
-
-public struct HealthParameters: Codable { }
 
 public struct HealthResponse: Codable {
 

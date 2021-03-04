@@ -13,9 +13,7 @@ extension RESTClient {
     }
 }
 
-public struct ValidatorsParameters: Codable {
-    public typealias ResponsePayload = ValidatorsResponse
-    
+public struct ValidatorsParameters: Codable {    
     let page: Never
     let perPage: Never
 }

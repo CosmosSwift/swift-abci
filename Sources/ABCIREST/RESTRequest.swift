@@ -39,13 +39,13 @@ enum RESTRequestMethod: String, Codable {
     case validators
 }
 
-public struct RESTRequest<Parameters: Codable> {
+public struct RESTRequest<Parameters> {
     let id: Int
     let method: RESTRequestMethod
     let params: Parameters
 }
 
-extension RESTRequest: Codable {
+extension RESTRequest: Codable where Parameters: Codable {
     enum CodingKeys: String, CodingKey {
         case id
         case jsonRPC = "jsonrpc"

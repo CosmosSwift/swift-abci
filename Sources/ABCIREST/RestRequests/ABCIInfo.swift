@@ -1,14 +1,14 @@
 import NIO
 
 extension RESTRequest {
-    static func abciInfo(id: Int, params: ABCIInfoParameters) -> RESTRequest<ABCIInfoParameters> {
-        .init(id: id, method: .abciInfo, params: params)
+    static func abciInfo(id: Int) -> RESTRequest<EmptyParameters> {
+        .init(id: id, method: .abciInfo, params: EmptyParameters())
     }
 }
 
 extension RESTClient {
-    func abciInfo(id: Int, params: ABCIInfoParameters) throws -> EventLoopFuture<RESTResponse<ABCIInfoResponse>> {
-        let restRequest = RESTRequest<ABCIInfoParameters>.abciInfo(id: id, params: params)
+    func abciInfo(id: Int) throws -> EventLoopFuture<RESTResponse<ABCIInfoResponse>> {
+        let restRequest = RESTRequest<EmptyParameters>.abciInfo(id: id)
         return try self.sendRequest(payload: restRequest)
     }
 }
