@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func unsubscribeAll(id: Int) throws -> EventLoopFuture<RESTResponse<UnsubscribeAllResponse>> {
+    public func unsubscribeAll(id: Int) throws -> EventLoopFuture<RESTResponse<UnsubscribeAllResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.unsubscribeAll(id: id)
         return try self.sendRequest(payload: restRequest)
     }

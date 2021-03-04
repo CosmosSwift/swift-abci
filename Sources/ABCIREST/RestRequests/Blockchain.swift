@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func blockchain(id: Int, params: BlockchainParameters) throws -> EventLoopFuture<RESTResponse<BlockchainResponse>> {
+    public func blockchain(id: Int, params: BlockchainParameters) throws -> EventLoopFuture<RESTResponse<BlockchainResponse>> {
         let restRequest = RESTRequest<BlockchainParameters>.blockchain(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

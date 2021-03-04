@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func netInfo(id: Int) throws -> EventLoopFuture<RESTResponse<NetInfoResponse>> {
+    public func netInfo(id: Int) throws -> EventLoopFuture<RESTResponse<NetInfoResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.netInfo(id: id)
         return try self.sendRequest(payload: restRequest)
     }

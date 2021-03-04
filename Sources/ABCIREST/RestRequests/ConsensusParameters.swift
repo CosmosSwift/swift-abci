@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func consensusParameters(id: Int, params: ConsensusParametersParameters) throws -> EventLoopFuture<RESTResponse<ConsensusParametersResponse>> {
+    public func consensusParameters(id: Int, params: ConsensusParametersParameters) throws -> EventLoopFuture<RESTResponse<ConsensusParametersResponse>> {
         let restRequest = RESTRequest<BroadcastTransactionAsyncParameters>.consensusParameters(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

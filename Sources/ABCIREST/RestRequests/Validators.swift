@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func validators(id: Int, params: ValidatorsParameters) throws -> EventLoopFuture<RESTResponse<ValidatorsResponse>> {
+    public func validators(id: Int, params: ValidatorsParameters) throws -> EventLoopFuture<RESTResponse<ValidatorsResponse>> {
         let restRequest = RESTRequest<ValidatorsParameters>.validators(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

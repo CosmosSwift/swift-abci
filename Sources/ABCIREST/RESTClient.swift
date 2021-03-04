@@ -9,12 +9,17 @@ import Foundation
 import AsyncHTTPClient
 import NIO
 
-struct RESTClient {
+public struct RESTClient {
     let url: String
     let client: HTTPClient
     
     let jsonEncoder = JSONEncoder()
     let jsonDecoder = JSONDecoder()
+    
+    public init(url: String, httpClient: HTTPClient) {
+        self.url = url
+        self.client = httpClient
+    }
     
     func sendRequest<Payload: Codable, ResponsePayload: Codable>(payload: RESTRequest<Payload>) throws -> EventLoopFuture<RESTResponse<ResponsePayload>> {
         var request = try HTTPClient.Request(url: url, method: .POST)

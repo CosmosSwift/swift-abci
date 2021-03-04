@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func commit(id: Int, params: CommitParameters) throws -> EventLoopFuture<RESTResponse<CommitResponse>> {
+    public func commit(id: Int, params: CommitParameters) throws -> EventLoopFuture<RESTResponse<CommitResponse>> {
         let restRequest = RESTRequest<CommitParameters>.commit(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

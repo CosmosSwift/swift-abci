@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func transactionSearch(id: Int, params: TransactionSearchParameters) throws -> EventLoopFuture<RESTResponse<TransactionSearchResponse>> {
+    public func transactionSearch(id: Int, params: TransactionSearchParameters) throws -> EventLoopFuture<RESTResponse<TransactionSearchResponse>> {
         let restRequest = RESTRequest<TransactionSearchParameters>.transactionSearch(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

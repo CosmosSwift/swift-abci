@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func broadcastEvidence(id: Int, params: BroadcastEvidenceParameters) throws -> EventLoopFuture<RESTResponse<BroadcastEvidenceResponse>> {
+    public func broadcastEvidence(id: Int, params: BroadcastEvidenceParameters) throws -> EventLoopFuture<RESTResponse<BroadcastEvidenceResponse>> {
         let restRequest = RESTRequest<BroadcastEvidenceParameters>.broadcastEvidence(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

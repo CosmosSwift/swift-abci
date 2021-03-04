@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func genesis(id: Int) throws -> EventLoopFuture<RESTResponse<GenesisResponse>> {
+    public func genesis(id: Int) throws -> EventLoopFuture<RESTResponse<GenesisResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.genesis(id: id)
         return try self.sendRequest(payload: restRequest)
     }

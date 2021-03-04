@@ -7,7 +7,7 @@ extension RESTRequest where Parameters == BlockResultsParameters {
 }
 
 extension RESTClient {
-    func blockResults(id: Int, params: BlockResultsParameters) throws -> EventLoopFuture<RESTResponse<BlockResultsResponse>> {
+    public func blockResults(id: Int, params: BlockResultsParameters) throws -> EventLoopFuture<RESTResponse<BlockResultsResponse>> {
         let restRequest = RESTRequest<BlockResultsParameters>.blockResults(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

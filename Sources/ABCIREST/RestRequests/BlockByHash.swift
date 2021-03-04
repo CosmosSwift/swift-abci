@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func blockByHash(id: Int, params: BlockByHashParameters) throws -> EventLoopFuture<RESTResponse<BlockByHashResponse>> {
+    public func blockByHash(id: Int, params: BlockByHashParameters) throws -> EventLoopFuture<RESTResponse<BlockByHashResponse>> {
         let restRequest = RESTRequest<BlockByHashParameters>.blockByHash(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

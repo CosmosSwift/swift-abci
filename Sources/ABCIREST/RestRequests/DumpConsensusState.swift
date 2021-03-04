@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func dumpConsensusState(id: Int) throws -> EventLoopFuture<RESTResponse<DumpConsensusStateResponse>> {
+    public func dumpConsensusState(id: Int) throws -> EventLoopFuture<RESTResponse<DumpConsensusStateResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.dumpConsensusState(id: id)
         return try self.sendRequest(payload: restRequest)
     }

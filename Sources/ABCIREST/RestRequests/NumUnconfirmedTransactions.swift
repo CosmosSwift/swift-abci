@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func numUnconfirmedTransactions(id: Int) throws -> EventLoopFuture<RESTResponse<NumUnconfirmedTransactionsResponse>> {
+    public func numUnconfirmedTransactions(id: Int) throws -> EventLoopFuture<RESTResponse<NumUnconfirmedTransactionsResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.numUnconfirmedTransactions(id: id)
         return try self.sendRequest(payload: restRequest)
     }

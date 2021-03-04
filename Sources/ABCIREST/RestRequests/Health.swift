@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func health(id: Int) throws -> EventLoopFuture<RESTResponse<HealthResponse>> {
+    public func health(id: Int) throws -> EventLoopFuture<RESTResponse<HealthResponse>> {
         let restRequest = RESTRequest<EmptyParameters>.health(id: id)
         return try self.sendRequest(payload: restRequest)
     }

@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func broadcastTransactionSync(id: Int, params: BroadcastTransactionSyncParameters) throws -> EventLoopFuture<RESTResponse<BroadcastTransactionSyncResponse>> {
+    public func broadcastTransactionSync(id: Int, params: BroadcastTransactionSyncParameters) throws -> EventLoopFuture<RESTResponse<BroadcastTransactionSyncResponse>> {
         let restRequest = RESTRequest<BroadcastTransactionSyncParameters>.broadcastTransactionSync(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

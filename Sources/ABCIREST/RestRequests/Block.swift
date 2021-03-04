@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func block(id: Int, params: BlockParameters) throws -> EventLoopFuture<RESTResponse<BlockResponse>> {
+    public func block(id: Int, params: BlockParameters) throws -> EventLoopFuture<RESTResponse<BlockResponse>> {
         let restRequest = RESTRequest<BlockParameters>.block(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

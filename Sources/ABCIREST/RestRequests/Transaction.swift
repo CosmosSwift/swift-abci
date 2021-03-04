@@ -7,7 +7,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func transaction(id: Int, params: TransactionParameters) throws -> EventLoopFuture<RESTResponse<TransactionResponse>> {
+    public func transaction(id: Int, params: TransactionParameters) throws -> EventLoopFuture<RESTResponse<TransactionResponse>> {
         let restRequest = RESTRequest<TransactionParameters>.transaction(id: id, params: params)
         return try self.sendRequest(payload: restRequest)
     }

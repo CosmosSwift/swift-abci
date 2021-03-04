@@ -13,7 +13,7 @@ extension RESTRequest {
 }
 
 extension RESTClient {
-    func abciQuery<ParamsPayload: Codable, ResponsePayload: Codable>(
+    public func abciQuery<ParamsPayload: Codable, ResponsePayload: Codable>(
         id: Int,
         params: RequestQuery<ParamsPayload>
     ) throws -> EventLoopFuture<RESTResponse<ResponseQuery<ResponsePayload>>> {
