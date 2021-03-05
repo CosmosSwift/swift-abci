@@ -3,24 +3,7 @@ import Foundation
 
 import NIO
 
-extension RESTRequest {
-    static func abciQuery<ParamsPayload>(
-        id: Int,
-        params: RequestQuery<ParamsPayload>
-    ) -> RESTRequest<RequestQuery<ParamsPayload>> {
-        .init(id: id, method: .abciQuery, params: params)
-    }
-}
 
-extension RESTClient {
-    public func abciQuery<ParamsPayload: Codable, ResponsePayload: Codable>(
-        id: Int,
-        params: RequestQuery<ParamsPayload>
-    ) throws -> EventLoopFuture<RESTResponse<ResponseQuery<ResponsePayload>>> {
-        let restRequest = RESTRequest<RequestQuery<ParamsPayload>>.abciQuery(id: id, params: params)
-        return try self.sendRequest(payload: restRequest)
-    }
-}
 
 extension RequestQuery: Codable where Payload: Codable {
     enum CodingKeys: String, CodingKey {
