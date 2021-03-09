@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  ConsensusParams.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,18 +14,20 @@
 //
 // ===----------------------------------------------------------------------===
 
-@testable import ABCIServer
-import XCTest
+import Foundation
 
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+public struct ConsensusParams: Codable {
+    public let block: BlockParams
+    public let evidence: EvidenceParams
+    public let validator: ValidatorParams
+
+    public init(
+        block: BlockParams = BlockParams(),
+        evidence: EvidenceParams = EvidenceParams(),
+        validator: ValidatorParams = ValidatorParams()
+    ) {
+        self.block = block
+        self.evidence = evidence
+        self.validator = validator
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

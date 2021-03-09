@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  ResponseInfo.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -13,19 +13,14 @@
 //  SPDX-License-Identifier: Apache-2.0
 //
 // ===----------------------------------------------------------------------===
+import ABCIMessages
 
-@testable import ABCIServer
-import XCTest
-
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+extension Tendermint_Abci_ResponseInfo {
+    init(_ tendermintResponse: ResponseInfo) {
+        self.data = tendermintResponse.data
+        self.version = tendermintResponse.version
+        self.appVersion = tendermintResponse.appVersion
+        self.lastBlockHeight = tendermintResponse.lastBlockHeight
+        self.lastBlockAppHash = tendermintResponse.lastBlockAppHash
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

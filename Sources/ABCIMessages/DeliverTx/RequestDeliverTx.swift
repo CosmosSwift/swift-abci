@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  Query.swift last updated 02/06/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,18 +14,13 @@
 //
 // ===----------------------------------------------------------------------===
 
-@testable import ABCIServer
-import XCTest
+import Foundation
 
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+public struct RequestDeliverTx {
+    /// The request transaction bytes.
+    public let tx: Data
+    
+    public init(tx: Data) {
+        self.tx = tx
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

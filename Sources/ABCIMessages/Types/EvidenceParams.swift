@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  EvidenceParams.swift last updated 02/06/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,18 +14,17 @@
 //
 // ===----------------------------------------------------------------------===
 
-@testable import ABCIServer
-import XCTest
+import Foundation
 
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+public struct EvidenceParams: Codable {
+    public let maxAgeNumBlocks: Int64
+    public let maxAgeDuration: TimeInterval
+
+    public init(
+        maxAgeNumBlocks: Int64 = 100_000,
+        maxAgeDuration: TimeInterval = 172_800 // 48h
+    ) {
+        self.maxAgeNumBlocks = maxAgeNumBlocks
+        self.maxAgeDuration = maxAgeDuration
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }

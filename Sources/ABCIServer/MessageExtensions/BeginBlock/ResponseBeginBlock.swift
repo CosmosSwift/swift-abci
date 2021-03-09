@@ -2,7 +2,7 @@
 //
 //  This source file is part of the CosmosSwift open source project.
 //
-//  ABCITests.swift last updated 02/06/2020
+//  ResponseBeginBlock.swift last updated 16/07/2020
 //
 //  Copyright © 2020 Katalysis B.V. and the CosmosSwift project authors.
 //  Licensed under Apache License v2.0
@@ -14,18 +14,10 @@
 //
 // ===----------------------------------------------------------------------===
 
-@testable import ABCIServer
-import XCTest
+import ABCIMessages
 
-class ABCITests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual("Hello, World!", "Hello, World!")
+extension Tendermint_Abci_ResponseBeginBlock {
+    init(_ response: ResponseBeginBlock) {
+        self.events = response.events.map(Tendermint_Abci_Event.init)
     }
-
-    static var allTests = [
-        ("testExample", testExample),
-    ]
 }
