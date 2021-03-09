@@ -19,11 +19,9 @@ import Foundation
 public struct EventAttribute: Codable {
     public let key: Data
     public let value: Data
-    public let index: Bool
 
-    public init(key: Data, value: Data, index: Bool) {
+    public init(key: Data, value: Data) {
         self.key = key
         self.value = value
-        self.index = index
     }
 }
