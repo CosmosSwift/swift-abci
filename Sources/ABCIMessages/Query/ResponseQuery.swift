@@ -19,10 +19,18 @@ import Foundation
 /// Queries data from the application at current or past height.
 ///
 /// A Merkle proof may be returned with a self-describing `type` property to support many types of Merkle trees and encoding formats.
-public struct ResponseQuery<Payload> {
-    
-    public let payload: Payload?
-    
+public struct ResponseQuery<Payload: Codable>: Codable {
+    enum CodingKeys: String, CodingKey {
+        case code
+        case log
+        case info
+        case index
+        case key
+        case value
+        case proofOps = "proof_ops"
+        case height
+        case codespace
+    }
     
     /// Response code. Code `0` expresses success, anything else expresses failure.
     public var code: UInt32
@@ -34,6 +42,8 @@ public struct ResponseQuery<Payload> {
     public var index: Int64
     /// The key of the matching data.
     public var key: Data?
+    
+    public var value: Payload?
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
     public var proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
@@ -41,13 +51,7 @@ public struct ResponseQuery<Payload> {
     public var height: Int64
     /// Namespace for the `code`.
     public var codespace: String
-}
 
-extension ResponseQuery where Payload == Data {
-    public var value: Data? { self.payload}
-}
-
-extension ResponseQuery {
     /// Queries data from the application at current or past height.
     ///
     /// A Merkle proof may be returned with a self-describing `type` property to support many types of Merkle trees and encoding formats.
@@ -78,9 +82,23 @@ extension ResponseQuery {
         self.info = info
         self.index = index
         self.key = key
-        self.payload = value
+        self.value = value
         self.proofOps = proofOps
         self.height = height
         self.codespace = codespace
+    }
+    
+    public func mapPayload<T: Codable>(_ f: (Payload) throws -> T) rethrows -> ResponseQuery<T> {
+        ResponseQuery<T>(
+            code: code,
+            log: log,
+            info: info,
+            index: index,
+            key: key,
+            value: try value.map(f),
+            proofOps: proofOps,
+            height: height,
+            codespace: codespace
+        )
     }
 }

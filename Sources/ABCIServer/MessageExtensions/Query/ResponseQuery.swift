@@ -21,7 +21,7 @@ extension Tendermint_Abci_ResponseQuery {
     init(_ response: ResponseQuery<Data>) {
         self.code = response.code
         self.key = response.key ?? Data()
-        self.value = response.payload ?? Data()
+        self.value = response.value ?? Data()
         self.proofOps = Tendermint_Crypto_ProofOps(response.proofOps)
         self.index = response.index
         self.height = response.height

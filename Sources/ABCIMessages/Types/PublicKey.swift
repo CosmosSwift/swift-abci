@@ -16,6 +16,7 @@
 
 import Foundation
 
+#warning("needs codable or needs to be moved")
 public enum PublicKey {
     case ed25519(Data)
     case secp256K1(Data)

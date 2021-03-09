@@ -16,7 +16,13 @@
 
 import Foundation
 
+#warning("needs codable or moved?")
 public struct ValidatorUpdate {
+    enum CodingKeys: String, CodingKey {
+        case publicKey = "public_key"
+        case power
+    }
+    
     public var publicKey: PublicKey
     public var power: Int64
 

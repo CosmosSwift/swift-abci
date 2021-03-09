@@ -27,7 +27,15 @@ import Foundation
 /// - The returned `appVersion` will be included in the `Header` of every block.
 /// - Tendermint expects `lastBlockAppHash` and `lastBlockHeight` to be updated during `Commit`,
 /// ensuring that `Commit` is never called twice for the same block height.
-public struct ResponseInfo {
+public struct ResponseInfo: Codable {
+    enum CodingKeys: String, CodingKey {
+        case data
+        case version
+        case appVersion = "app_version"
+        case lastBlockHeight = "last_block_height"
+        case lastBlockAppHash = "last_block_app_hash"
+    }
+    
     public let data: String
     public let version: String
     public let appVersion: UInt64

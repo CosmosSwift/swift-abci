@@ -19,7 +19,18 @@ import Foundation
 /// Executes transactions in full.
 ///
 /// Transactions where `ResponseCheckTx.code` is not zero will be rejected.
-public struct ResponseDeliverTx {
+public struct ResponseDeliverTx: Codable {
+    enum CodingKeys: String, CodingKey {
+        case code
+        case data
+        case log
+        case info
+        case gasWanted = "gas_wanted"
+        case gasUsed = "gas_used"
+        case events
+        case codespace
+    }
+    
     /// Response code. Code `0` expresses success, anything else expresses failure.
     public let code: UInt32
     /// Result bytes, if any.
