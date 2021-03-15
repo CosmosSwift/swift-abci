@@ -23,7 +23,7 @@ import Foundation
 /// but not running code in a virtual machine.
 /// Transactions where `ResponseCheckTx.code` is not zero will be rejected.
 /// They will not be broadcasted to other nodes or included in a proposal block.
-public struct ResponseCheckTx {
+public struct ResponseCheckTx: Codable {
     /// Response code. Code `0` expresses success, anything else expresses failure.
     public let code: UInt32
     /// Result bytes, if any.
