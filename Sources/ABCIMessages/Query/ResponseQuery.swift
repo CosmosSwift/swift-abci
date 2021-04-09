@@ -41,9 +41,9 @@ public struct ResponseQuery<Payload: Codable>: Codable {
     /// The index of the key in the tree.
     public var index: Int64
     /// The key of the matching data.
-    public var key: Data?
+    public var key: Data
     
-    public var value: Payload?
+    public var value: Payload
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
     public var proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
@@ -71,8 +71,8 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         log: String = "",
         info: String = "",
         index: Int64 = 0,
-        key: Data? = Data(),
-        value: Payload? = nil,
+        key: Data = Data(),
+        value: Payload,
         proofOps: ProofOps = ProofOps(),
         height: Int64 = 0,
         codespace: String = ""
@@ -95,10 +95,34 @@ public struct ResponseQuery<Payload: Codable>: Codable {
             info: info,
             index: index,
             key: key,
-            value: try value.map(f),
+            value: try f(value),
             proofOps: proofOps,
             height: height,
             codespace: codespace
         )
+    }
+}
+
+extension ResponseQuery where Payload == Data {
+    public init(
+        code: UInt32 = 0,
+        log: String = "",
+        info: String = "",
+        index: Int64 = 0,
+        key: Data = Data(),
+        value: Data = Data(),
+        proofOps: ProofOps = ProofOps(),
+        height: Int64 = 0,
+        codespace: String = ""
+    ) {
+        self.code = code
+        self.log = log
+        self.info = info
+        self.index = index
+        self.key = key
+        self.value = value
+        self.proofOps = proofOps
+        self.height = height
+        self.codespace = codespace
     }
 }
