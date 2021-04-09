@@ -31,11 +31,13 @@ public struct RequestQuery<Payload> {
     public let height: Int64
     /// Return Merkle proof with response, if possible.
     public let prove: Bool
-
-    public init(data: Payload, path: String, height:Int64, prove: Bool) {
-        self.data = data
+    
+    public init(path: String, data: Payload, height: Int64? = nil, prove: Bool = false) {
         self.path = path
-        self.height = height
+        self.data = data
+        self.height = height ?? 0
         self.prove = prove
     }
 }
+
+extension RequestQuery: Codable where Payload: Codable { }

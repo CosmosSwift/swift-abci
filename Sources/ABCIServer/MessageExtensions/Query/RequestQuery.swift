@@ -19,9 +19,10 @@ import ABCIMessages
 
 extension RequestQuery where Payload == Data {
     init(_ request: Tendermint_Abci_RequestQuery) {
-        self.init(data: request.data,
-                  path:request.path,
-                  height: request.height,
-                  prove: request.prove)
+        self.init(
+            path:request.path, data:
+            request.data,
+            height: request.height,
+            prove: request.prove)
     }
 }

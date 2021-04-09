@@ -74,7 +74,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         key: Data = Data(),
         value: Payload,
         proofOps: ProofOps = ProofOps(),
-        height: Int64 = 0,
+        height: Int64? = nil,
         codespace: String = ""
     ) {
         self.code = code
@@ -84,7 +84,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         self.key = key
         self.value = value
         self.proofOps = proofOps
-        self.height = height
+        self.height = height ?? 0
         self.codespace = codespace
     }
     
