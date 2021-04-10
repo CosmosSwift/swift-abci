@@ -79,4 +79,18 @@ public struct ResponseDeliverTx: Codable {
         self.events = events
         self.codespace = codespace
     }
+    
+    public init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.code = try container.decode(UInt32.self, forKey: .code)
+        self.data = (try? container.decode(Data.self, forKey: .data)) ?? Data()
+        self.log = try container.decode(String.self, forKey: .log)
+        self.info = try container.decode(String.self, forKey: .info)
+        self.gasWanted = try container.decode(Int64.self, forKey: .gasWanted)
+        self.gasUsed = try container.decode(Int64.self, forKey: .gasUsed)
+        self.events = try container.decode([Event].self, forKey: .events)
+        self.codespace = try container.decode(String.self, forKey: .codespace)
+    }
+    
+    
 }
