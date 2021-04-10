@@ -28,14 +28,14 @@ public struct RequestQuery<Payload> {
     /// The block height for which you want the query, `0` should return data for the latest commited block.
     /// Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
-    public let height: Int64
+    public let height: Height
     /// Return Merkle proof with response, if possible.
     public let prove: Bool
     
-    public init(path: String, data: Payload, height: Int64? = nil, prove: Bool = false) {
+    public init(path: String, data: Payload, height: Height = Height(0), prove: Bool = false) {
         self.path = path
         self.data = data
-        self.height = height ?? 0
+        self.height = height
         self.prove = prove
     }
 }

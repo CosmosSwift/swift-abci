@@ -23,8 +23,8 @@ extension Tendermint_Abci_ResponseQuery {
         self.key = response.key ?? Data()
         self.value = response.value ?? Data()
         self.proofOps = Tendermint_Crypto_ProofOps(response.proofOps)
-        self.index = response.index
-        self.height = response.height
+        self.index = Int64(response.index)
+        self.height = Int64(response.height)
         self.codespace = response.codespace
         self.log = response.log
     }

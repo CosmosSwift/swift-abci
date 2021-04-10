@@ -39,7 +39,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
     /// Additional information. May be non-deterministic.
     public var info: String
     /// The index of the key in the tree.
-    public var index: Int64
+    public var index: StringRepresentedInt<Int64>
     /// The key of the matching data.
     public var key: Data
     
@@ -48,7 +48,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
     public var proofOps: ProofOps
     /// The block height from which data was derived. Note that this is the height of the block containing the application's Merkle root hash, which represents
     /// the state as it was after committing the block at `height - 1`.
-    public var height: Int64
+    public var height: Height
     /// Namespace for the `code`.
     public var codespace: String
 
@@ -74,17 +74,17 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         key: Data = Data(),
         value: Payload,
         proofOps: ProofOps = ProofOps(),
-        height: Int64? = nil,
+        height: Height = Height(0),
         codespace: String = ""
     ) {
         self.code = code
         self.log = log
         self.info = info
-        self.index = index
+        self.index = StringRepresentedInt<Int64>(index)
         self.key = key
         self.value = value
         self.proofOps = proofOps
-        self.height = height ?? 0
+        self.height = height
         self.codespace = codespace
     }
     
@@ -93,7 +93,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
             code: code,
             log: log,
             info: info,
-            index: index,
+            index: Int64(index),
             key: key,
             value: try f(value),
             proofOps: proofOps,
@@ -112,13 +112,13 @@ extension ResponseQuery where Payload == Data {
         key: Data = Data(),
         value: Data = Data(),
         proofOps: ProofOps = ProofOps(),
-        height: Int64 = 0,
+        height: Height = Height(0),
         codespace: String = ""
     ) {
         self.code = code
         self.log = log
         self.info = info
-        self.index = index
+        self.index = StringRepresentedInt<Int64>(index)
         self.key = key
         self.value = value
         self.proofOps = proofOps

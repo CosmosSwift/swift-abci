@@ -22,7 +22,7 @@ extension RequestQuery where Payload == Data {
         self.init(
             path:request.path, data:
             request.data,
-            height: request.height,
+            height: Height(request.height),
             prove: request.prove)
     }
 }
