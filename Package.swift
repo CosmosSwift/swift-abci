@@ -4,7 +4,7 @@
 import PackageDescription
 
 let package = Package(
-    name: "ABCI",
+    name: "swift-abci",
     products: [
         .executable(name: "key-value-store", targets: ["KeyValueStore"]),
         .library(name: "ABCIServer", targets: ["ABCIServer"]),
