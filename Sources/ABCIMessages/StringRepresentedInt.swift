@@ -57,6 +57,12 @@ extension StringRepresentedInt: Codable {
 
 }
 
+extension StringRepresentedInt: ExpressibleByIntegerLiteral where IntegerType: ExpressibleByIntegerLiteral {
+    public init(integerLiteral value: IntegerType.IntegerLiteralType) {
+        self.value = IntegerType(integerLiteral: value)
+    }
+}
+
 extension FixedWidthInteger {
     public init(_ stringRepresentedInt: StringRepresentedInt<Self>) {
         self = stringRepresentedInt.value
