@@ -27,13 +27,6 @@ extension StringRepresentedInt: CustomStringConvertible {
         "\(self.value)"
     }
 }
-//
-//extension StringRepresentedInt: ExpressibleByIntegerLiteral where IntegerType: ExpressibleByIntegerLiteral {
-//    public typealias IntegerLiteralType = IntegerType
-//    public init(integerLiteral value: IntegerType) {
-//        self.value = IntegerType(value)
-//    }
-//}
 
 struct ConversionError: Error {
     
