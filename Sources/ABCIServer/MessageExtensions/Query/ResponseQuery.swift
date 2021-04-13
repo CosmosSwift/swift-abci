@@ -20,8 +20,8 @@ import ABCIMessages
 extension Tendermint_Abci_ResponseQuery {
     init(_ response: ResponseQuery<Data>) {
         self.code = response.code
-        self.key = response.key ?? Data()
-        self.value = response.value ?? Data()
+        self.key = response.key
+        self.value = response.value
         self.proofOps = Tendermint_Crypto_ProofOps(response.proofOps)
         self.index = Int64(response.index)
         self.height = Int64(response.height)
