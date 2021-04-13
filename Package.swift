@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:5.4
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -19,7 +19,7 @@ let package = Package(
         .package(name: "CodableWrappers", url: "https://github.com/CosmosSwift/CodableWrappers.git", .branch( "fix-build-error")),
     ],
     targets: [
-        .target(name: "KeyValueStore", dependencies: ["ABCIServer", "ABCINIO"]),
+        .executableTarget(name: "KeyValueStore", dependencies: ["ABCIServer", "ABCINIO"]),
         .target(
             name: "ABCIServer",
             dependencies: [
