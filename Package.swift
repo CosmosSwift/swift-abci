@@ -13,10 +13,10 @@ let package = Package(
         .library(name: "DataConvertible", targets: ["DataConvertible"])
     ],
     dependencies: [
-        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.14.0"),
+        .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .upToNextMajor(from: "1.14.0")),
         .package(name: "swift-nio", url: "https://github.com/apple/swift-nio", .upToNextMajor(from: "2.26.0")),
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", .upToNextMajor(from: "1.0.0")),
-        .package(url: "https://github.com/CosmosSwift/CodableWrappers.git", .branch( "fix-build-error")),
+        .package(name: "CodableWrappers", url: "https://github.com/CosmosSwift/CodableWrappers.git", .branch( "fix-build-error")),
     ],
     targets: [
         .target(name: "KeyValueStore", dependencies: ["ABCIServer", "ABCINIO"]),
