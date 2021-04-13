@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "swift-abci",
+    platforms: [
+        .macOS(.v11),
+    ],
     products: [
         .executable(name: "key-value-store", targets: ["KeyValueStore"]),
         .library(name: "ABCIServer", targets: ["ABCIServer"]),
@@ -16,6 +19,7 @@ let package = Package(
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", from: "1.14.0"),
         .package(name: "swift-nio", url: "https://github.com/apple/swift-nio", .upToNextMajor(from: "2.26.0")),
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", .upToNextMajor(from: "1.0.0")),
+        .package(url: "https://github.com/CosmosSwift/CodableWrappers.git", .branch( "fix-build-error")),
     ],
     targets: [
         .target(name: "KeyValueStore", dependencies: ["ABCIServer", "ABCINIO"]),
@@ -41,7 +45,10 @@ let package = Package(
         ),
         .target(
             name: "ABCIMessages",
-            dependencies: ["DataConvertible"]
+            dependencies: [
+                "DataConvertible",
+                .product(name: "CodableWrappers", package: "CodableWrappers"),
+            ]
         ),
         //.testTarget(name: "ABCITests", dependencies: ["ABCIServer", "ABCIMessages"]),
     ]
