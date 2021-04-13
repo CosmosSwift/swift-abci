@@ -5,9 +5,6 @@ import PackageDescription
 
 let package = Package(
     name: "swift-abci",
-    platforms: [
-        .macOS(.v11),
-    ],
     products: [
         .executable(name: "key-value-store", targets: ["KeyValueStore"]),
         .library(name: "ABCIServer", targets: ["ABCIServer"]),
