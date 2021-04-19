@@ -27,7 +27,8 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         case index
         case key
         case value
-        case proofOps = "proof_ops"
+        #warning("For some reasons, the equivalent tendermint resonse query does not use proof_ops but proofOps")
+        case proofOps //= "proof_ops"
         case height
         case codespace
     }
@@ -41,7 +42,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
     /// The index of the key in the tree.
     @StringBackedInt public var index: Int64
     /// The key of the matching data.
-    public var key: Data
+    public var key: Data?
     
     public var value: Payload
     /// Serialized proof for the value data, if requested, to be verified against the `appHash` for the given `height`.
@@ -71,7 +72,7 @@ public struct ResponseQuery<Payload: Codable>: Codable {
         log: String = "",
         info: String = "",
         index: Int64 = 0,
-        key: Data = Data(),
+        key: Data? = nil,
         value: Payload,
         proofOps: ProofOps = ProofOps(),
         height: Int64? = nil,
@@ -109,7 +110,7 @@ extension ResponseQuery where Payload == Data {
         log: String = "",
         info: String = "",
         index: Int64 = 0,
-        key: Data = Data(),
+        key: Data? = nil,
         value: Data = Data(),
         proofOps: ProofOps = ProofOps(),
         height: Int64 = 0,

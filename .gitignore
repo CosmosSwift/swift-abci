@@ -6,3 +6,4 @@
 /*.xcodeproj
 xcuserdata/
 Package.resolved
+.swift-version
