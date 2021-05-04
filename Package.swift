@@ -16,7 +16,7 @@ let package = Package(
         .package(name: "SwiftProtobuf", url: "https://github.com/apple/swift-protobuf.git", .upToNextMajor(from: "1.14.0")),
         .package(name: "swift-nio", url: "https://github.com/apple/swift-nio", .upToNextMajor(from: "2.26.0")),
         .package(name: "swift-log", url: "https://github.com/apple/swift-log.git", .upToNextMajor(from: "1.0.0")),
-        .package(name: "CodableWrappers", url: "https://github.com/CosmosSwift/CodableWrappers.git", .branch( "fix-build-error")),
+        .package(name: "CodableWrappers", url: "https://github.com/GottaGetSwifty/CodableWrappers.git", .upToNextMajor(from: "2.0.3")),
     ],
     targets: [
         .executableTarget(name: "KeyValueStore", dependencies: ["ABCIServer", "ABCINIO"]),
